@@ -5,6 +5,6 @@
 
 (defn start-dev-system []
   (s/set-fn-validation! true)
-  (go))
+  (go))()
 
 (reloaded.repl/set-init! dev-system)

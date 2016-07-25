@@ -58,7 +58,7 @@
                  [prismatic/plumbing "0.5.0"]
                  [prismatic/schema "1.0.5"]
 
-                 [com.rpl/specter "0.8.0"]
+                 [com.rpl/specter "0.11.2"]
 
                  [joplin.jdbc "0.3.6"]
                  [joplin.core "0.3.6"]
