@@ -9,22 +9,26 @@
 
 (enable-console-print!)
 
-
 (def db-tree (atom nil))
 (def scroll-data (atom nil))
-(def search-data (atom {:selection nil :childs nil :parents nil}))
+(def search-data (atom {:selection nil :childs nil :parents nil :refresh false}))
 (def click-delay (atom 0))
 
 (add-watch search-data :update-tree
            (fn [key atom old-state new-state]
-             ;(println "ns: " (first (:parents new-state)))
-             (doseq [doc (first (:parents new-state))]
+             (if (= false (:refresh @search-data))
+               (doseq [doc (merge (first (:parents old-state)) (:selection old-state))]
+                 (.. js/d3
+                     (selectAll "textPath")
+                     (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
+                     (style "fill" "black"))))
+             (if (not-empty (first (:parents new-state)))
+             (doseq [doc (merge (first (:parents new-state)) (:selection new-state))]
                (.. js/d3
                    (selectAll "textPath")
-                   (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil) ))
-                   (style "font-weight" "bold")
-                   ))))
-
+                   (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
+                   (style "fill" "orange")
+                   )))))
 
 (def margin {:top 30, :right 20, :bottom 30, :left 30})
 (def width (- 800 (:left margin) (:right margin)))
@@ -35,16 +39,13 @@
 (def y-chars-ratio 5)
 
 (defn all-childs [parent]
-  ;(println parent)
   (GET "/jus/childs" {:params        {:parent parent}
-                      :handler       (fn [x]
-                                       (swap! search-data assoc-in [:childs] x))
+                      :handler       (fn [x] (swap! search-data assoc-in [:childs] x))
                       :error-handler #(js/alert (str "error: " %))}))
 
 (defn all-parents [child]
   (GET "/jus/parents" {:params        {:child child}
-                       :handler       (fn [x]
-                                        (swap! search-data assoc-in [:parents] x))
+                       :handler       (fn [x] (swap! search-data assoc-in [:parents] x))
                        :error-handler #(js/alert (str "error: " %))}))
 
 
@@ -93,8 +94,10 @@
   (GET "/jus/search-data" {:params        {:doc doc}
                            :handler       (fn [x]
                                             (swap! search-data assoc-in [:parents] (first x))
-                                            (swap! search-data assoc-in [:childs] (second x)))
+                                            (swap! search-data assoc-in [:childs] (second x))
+                                            (swap! search-data assoc-in [:selection] doc))
                            :error-handler #(js/alert (str "error: " %))}))
+
 
 (defonce svg
          (.. js/d3
@@ -117,14 +120,15 @@
 
 (def data-flare (clj->js []))
 
-(defn click-fn [d d3-tree node]
+(defn click-fn [d d3-tree ctrl]
   (if (.-children d) (do (set! (.-_children d) (.-children d)) (set! (.-children d) nil))
                      (do (if (.-_children d)
                            (do (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
                            (set! (.-children d) (clj->js (:children (first (filter #(= (:name %) (.-name d)) @db-tree)))))
                            )))
-  (sel-data (.-name d))
+
   (d3-tree d)
+  (if ctrl (do (sel-data (.-name d)) (swap! search-data assoc-in [:refresh] false)) (swap! search-data assoc-in [:refresh] true))
   )
 
 
@@ -173,8 +177,7 @@
         (attr "class" "node-dot")
         ;(style "stroke" "lightgray")
         (style "fill" (fn [d i]
-                        (case (.-type d) 1 "yellow" 2 "red" 3 "red" 0 (case (.-mandatory d) 2 "#ededed" 1 "#b0b0b0" 0 "#2e2e2e") "blue"))))
-
+                        (case (.-type d) 1 "blue" 2 "red" 3 "red" 0 (case (.-mandatory d) 2 "#cccccc" 1 "#666666" 0 "black") "yellow"))))
 
     (.. node-group
         (append "rect")
@@ -182,7 +185,7 @@
         (attr "height" 10)
         (attr "width" width)
         (attr "opacity" 1e-6)
-        (on "click" (fn [d] (reset! click-delay (.getTime (js/Date.))) (click-fn d d3-tree node)))
+        (on "click" (fn [d] (click-fn d d3-tree (.. js/d3 -event -ctrlKey))))
         (on "mouseenter" (fn [d] (when (> (- (.getTime (js/Date.)) (or @click-delay 0)) 300) (reset! scroll-data d) (scroll-title))))
         (on "mouseout" (fn [d] (reset! scroll-data false) (.. js/d3 (select (str "#" "text" (.-id d)))
                                                               (select "textPath")
@@ -198,7 +201,7 @@
         (attr "id" (fn [d i] (str "path" (.-name d))))
         (attr "stroke-width" 2)
         (attr "stroke" (fn [d i]
-                         (case (.-type d) 1 "black" 2 "white" 3 "white" 0 (case (.-mandatory d) 2 "gray" 1 "gray" 0 "white") "white")))
+                         (case (.-type d) 1 "yellow" 2 "white" 3 "white" 0 (case (.-mandatory d) 2 "gray" 1 "white" 0 "white") "blue")))
         (attr "d" (fn [d i]
                     (if (and (:children (first (filter #(= (:name %) (.-name d)) @db-tree))) (not (.-children d)))
                       "m-3 0 l6 0 m-3 -3 l0 6"
@@ -222,7 +225,7 @@
         (append "textPath")
         (attr "xlink:href" (fn [d] (str "#path" (.-id d))))
         (attr "startOffset" 0)
-        (style "font-weight" (fn [d] "normal"))
+        (style "font-weight" (fn [d] (if (= (.-shorttitle d) "") "bold" "normal")))
         (text (fn [d i]
                 (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))))
                   (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
@@ -292,6 +295,11 @@
     (.. tree-nodes (forEach (fn [d] (set! (.-x0 d) (.-x d)) (set! (.-y0 d) (.-y d)))))))
 
 
+(defn test-chars []
+
+  (GET "/jus/active-data" {:handler       (fn [x]
+                                     (reset! db-tree x))
+                    :error-handler #(js/alert (str "error: " %))}))
 
 (defn init-veza []
   (GET "/jus/tree" {:handler       (fn [x]

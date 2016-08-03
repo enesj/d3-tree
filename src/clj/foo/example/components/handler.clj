@@ -48,6 +48,9 @@
           ; Content-Type, Content-Length, and Last Modified headers for files in body
           (wrap-file-info)))
 
+
+
+
 (defrecord Handler [config locale]
            comp/Lifecycle
            (start [comp]
