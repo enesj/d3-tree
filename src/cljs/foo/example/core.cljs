@@ -1,18 +1,62 @@
 (ns foo.example.core
-  (:require-macros [reagent.ratom :refer [reaction]]
-                   [cljs.core.async.macros :as m :refer [go]])
-  (:require [reagent.core :as r :refer [atom]]
-            [ajax.core :refer [GET POST json-response-format json-request-format url-request-format ajax-request]]
-            [foo.example.flare :as flare]
-            [cljs.core.async :refer [chan close! timeout]]
-            [cljsjs.d3]))
+  (:require-macros
+    [reagent.ratom :refer [reaction]]
+    [cljs.core.async.macros :as m :refer [go]])
+
+  (:require
+    [reagent.core :as r :refer [atom]]
+    ;[re-com.core :as re-com :refer [h-box v-box box gap line row-button md-circle-icon-button label checkbox horizontal-bar-tabs vertical-bar-tabs title p
+    ;                                scroller single-dropdown button alert-box v-split h-split modal-panel]
+    ; :refer-macros [handler-fn]]
+    ;[re-com.popover :refer [popover-tooltip]]
+    [cljsjs.material-ui]
+    [cljs-react-material-ui.core :as ui]
+    [cljs-react-material-ui.reagent :as rui]
+    [cljs-react-material-ui.icons :as ic]
+    ;[rum.core :as rum]
+    [ajax.core :refer [GET POST json-response-format json-request-format url-request-format ajax-request]]
+    [cljs.core.async :refer [chan close! timeout]]
+    [cljsjs.d3]
+    cljsjs.react-autosuggest
+    [devtools.core :as devtools]
+    [devtools.toolbox :as toolbox]
+    [foo.example.autosuggest :as auto]
+    [foo.example.select :as select]))
+
+
+;[devtools.formatters.core :as format]
+;[devtools.formatters.templating :refer [make-template]]
+;[devtools.protocols :refer [IFormat]]
+;[dirac.runtime :as dirac]
+
 
 (enable-console-print!)
 
+(devtools/install!)
+
 (def db-tree (atom nil))
 (def scroll-data (atom nil))
-(def search-data (atom {:selection nil :childs nil :parents nil :refresh false}))
+(def search-data (atom {:selection nil :childs nil :parents nil :refresh true}))
 (def click-delay (atom 0))
+(def data-flare (clj->js []))
+
+(def margin {:top 30, :right 20, :bottom 30, :left 30})
+(def width (- 800 (:left margin) (:right margin)))
+(def barHeight 20)
+(def barWidth (* width .7))
+(def duration 400)
+(def title-lenght 140)
+(def y-chars-ratio 5)
+
+
+(defn sel-data [doc]
+  (GET "/jus/search-data" {:params        {:doc doc}
+                           :handler       (fn [x]
+                                            (swap! search-data assoc-in [:refresh] false)
+                                            (swap! search-data assoc-in [:parents] (first x))
+                                            (swap! search-data assoc-in [:childs] (second x))
+                                            (swap! search-data assoc-in [:selection] doc))
+                           :error-handler #(js/alert (str "error: " %))}))
 
 (add-watch search-data :update-tree
            (fn [key atom old-state new-state]
@@ -23,20 +67,12 @@
                      (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
                      (style "fill" "black"))))
              (if (not-empty (first (:parents new-state)))
-             (doseq [doc (merge (first (:parents new-state)) (:selection new-state))]
-               (.. js/d3
-                   (selectAll "textPath")
-                   (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
-                   (style "fill" "orange")
-                   )))))
+               (doseq [doc (merge (first (:parents new-state)) (:selection new-state))]
+                 (.. js/d3
+                     (selectAll "textPath")
+                     (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
+                     (style "fill" "orange"))))))
 
-(def margin {:top 30, :right 20, :bottom 30, :left 30})
-(def width (- 800 (:left margin) (:right margin)))
-(def barHeight 20)
-(def barWidth (* width .7))
-(def duration 400)
-(def title-lenght 140)
-(def y-chars-ratio 5)
 
 (defn all-childs [parent]
   (GET "/jus/childs" {:params        {:parent parent}
@@ -48,13 +84,6 @@
                        :handler       (fn [x] (swap! search-data assoc-in [:parents] x))
                        :error-handler #(js/alert (str "error: " %))}))
 
-
-
-
-(defn search-relations [doc]
-  (all-parents doc)
-  (all-childs doc)
-  (swap! search-data assoc-in [:selection] doc))
 
 
 (defn scroll-title []
@@ -90,25 +119,22 @@
       (nodeSize (clj->js [0, 20]))))
 
 
-(defn sel-data [doc]
-  (GET "/jus/search-data" {:params        {:doc doc}
-                           :handler       (fn [x]
-                                            (swap! search-data assoc-in [:parents] (first x))
-                                            (swap! search-data assoc-in [:childs] (second x))
-                                            (swap! search-data assoc-in [:selection] doc))
-                           :error-handler #(js/alert (str "error: " %))}))
+(defonce svg nil)
 
 
-(defonce svg
-         (.. js/d3
-             (select "#app")
-             (append "svg:svg")
-             (attr "width" (+ width (:left margin) (:right margin)))
-             (append "svg:g")
-             (attr "transform" (str "translate(" (:left margin) "," (:top margin) ")"))))
+(defn mount-svg []
+  (set! svg
+        (.. js/d3
+            (select "#app")
+            (append "svg:svg")
+            (attr "width" (+ width (:left margin) (:right margin)))
+            (attr "id" "svg-tree")
+            (append "svg:g")
+            (append "svg:g")
+            (attr "transform" (str "translate(" (:left margin) "," (:top margin) ")")))))
+
 
 (defn collapse [d]
-  ;(js/console.log d)
   (let [children (.-children d)]
     (if children (do (set! (.-_children d) (.-children d))
                      (set! (.-children d) nil)
@@ -118,55 +144,46 @@
   (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
 
 
-(def data-flare (clj->js []))
+
 
 (defn click-fn [d d3-tree ctrl]
   (if (.-children d) (do (set! (.-_children d) (.-children d)) (set! (.-children d) nil))
                      (do (if (.-_children d)
                            (do (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
-                           (set! (.-children d) (clj->js (:children (first (filter #(= (:name %) (.-name d)) @db-tree)))))
-                           )))
+                           (set! (.-children d) (clj->js (:children (first (filter #(= (:name %) (.-name d)) @db-tree))))))))
+
 
   (d3-tree d)
-  (if ctrl (do (sel-data (.-name d)) (swap! search-data assoc-in [:refresh] false)) (swap! search-data assoc-in [:refresh] true))
-  )
+  (if ctrl (do (sel-data (.-name d)) (js/console.log "ctrl"))
+           (swap! search-data assoc-in [:refresh] true)))
 
 
 (defn d3-tree [data-new]
   (let [tree-nodes (.. tree
                        (nodes data-flare))
-
         parents (first (:parents @search-data))
-
         height (+ (* (.-length tree-nodes) barHeight) (:top margin) (:bottom margin))
-
         node (.. svg
                  (selectAll "g.node")
                  (data tree-nodes (fn [d i]
-                                    (or (.-id d) (set! (.-id d) (str (clojure.string/replace (.-name d) "." "") (rand-int 1000)))))
-                       ))
-
+                                    (or (.-id d) (set! (.-id d)
+                                                       (str (clojure.string/replace (.-name d) "." "") (rand-int 1000)))))))
         link (.. svg
                  (selectAll "path.link")
                  (data (.. tree (links tree-nodes)) (fn [d] (.-id (.-target d)))))
-
-
         node-group (.. node
                        enter
                        (append "svg:g")
                        (attr "class" "node")
                        (attr "transform" (fn [d i] (str "translate(" (.-y0 data-new) "," (.-x0 data-new) ")")))
-                       (style "opacity" 1)
-                       )]
+                       (style "opacity" 1))]
 
-    (.. js/d3 (select "svg")
+    (.. js/d3 (select "#svg-tree")
         transition
         (duration duration)
         (attr "height" height))
 
     (.. tree-nodes (forEach (fn [d i] (set! (.-x d) (* i 17)))))
-
-
     (.. node-group
         (append "svg:rect")
         (attr "x" "-5")
@@ -176,9 +193,8 @@
         (style "stroke" "none")
         (attr "class" "node-dot")
         ;(style "stroke" "lightgray")
-        (style "fill" (fn [d i]
-                        (case (.-type d) 1 "blue" 2 "red" 3 "red" 0 (case (.-mandatory d) 2 "#cccccc" 1 "#666666" 0 "black") "yellow"))))
-
+        (style "fill" (fn [d i] (case (.-type d) 1 "blue" 2 "red" 3 "red" 0
+                                                 (case (.-mandatory d) 2 "#cccccc" 1 "#666666" 0 "black") "yellow"))))
     (.. node-group
         (append "rect")
         (attr "y" (- 5))
@@ -195,7 +211,6 @@
                                                               transition
                                                               (duration 1000)
                                                               (attr "startOffset" 0)))))
-
     (.. node-group
         (append "svg:path")
         (attr "id" (fn [d i] (str "path" (.-name d))))
@@ -206,14 +221,10 @@
                     (if (and (:children (first (filter #(= (:name %) (.-name d)) @db-tree))) (not (.-children d)))
                       "m-3 0 l6 0 m-3 -3 l0 6"
                       (if (.-children d) "m-3 0 l6 0")))))
-
     (.. node-group
         (append "svg:path")
         (attr "id" (fn [d i] (str "path" (.-id d))))
-        (attr "d" (fn [d] (if (= (.-shorttitle d) "") "m7 2 1000 0" "m100 5 1000 0")))
-        ;(attr "stroke" "black")
-        )
-
+        (attr "d" (fn [d] (if (= (.-shorttitle d) "") "m7 2 1000 0" "m100 5 1000 0"))))
     (.. node-group
         (append "svg:text")
         (attr "id" (fn [d i] (str "text" (.-id d))))
@@ -229,16 +240,17 @@
         (text (fn [d i]
                 (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))))
                   (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
-                  (.-title d))))
-        ;(each (fn [d i] (doseq [title (for [title-part (partition 2 1 (range 0 500 50) )]
-        ;                       (.substring (.-title d) (first title-part) (second title-part)) )]
-        ;          (.. js/d3
-        ;              (select (js* "this"))
-        ;              (append "tspan")
-        ;              (text title)
-        ;              (attr "x" 0)
-        ;              (attr "dy" 15)))))
-        )
+                  (.-title d)))))
+    ;(each (fn [d i] (doseq [title (for [title-part (partition 2 1 (range 0 500 50) )]
+    ;                       (.substring (.-title d) (first title-part) (second title-part)) )]
+    ;          (.. js/d3
+    ;              (select (js* "this"))
+    ;              (append "tspan")
+    ;              (text title)
+    ;              (attr "x" 0)
+    ;              (attr "dy" 15)))))
+
+
 
 
     (.. node-group
@@ -247,21 +259,18 @@
         (duration duration)
         (attr "transform" (fn [d i] (str "translate(" (.-y d) "," (.-x d) ")")))
         (style "opacity" 1))
-
     (.. node
         transition
         (duration duration)
         (attr "transform" (fn [d i]
                             (str "translate(" (.-y d) "," (.-x d) ")")))
         (style "opacity" 1))
-
     (.. node
         (select "path")
         (attr "d" (fn [d i]
                     (if (and (:children (first (filter #(= (:name %) (.-name d)) @db-tree))) (not (.-children d)))
                       "m-3 0 l6 0 m-3 -3 l0 6"
                       (if (.-children d) "m-3 0 l6 0")))))
-
     (.. node
         exit
         transition
@@ -269,7 +278,6 @@
         (attr "transform" (fn [d i] (str "translate(" (.-y data-new) "," (.-x data-new) ")")))
         (style "opacity" 1e-6)
         remove)
-
     (.. link
         enter
         (append "svg:path" "g")
@@ -279,38 +287,90 @@
         transition
         (duration duration)
         (attr "d" diagonal))
-
     (.. link
         transition
         (duration duration)
         (attr "d" diagonal))
-
+    (.. tree-nodes (forEach (fn [d] (set! (.-x0 d) (.-x d)) (set! (.-y0 d) (.-y d)))))
     (.. link
         exit
         transition
         (duration duration)
         (attr "d" (fn [d] (diagonal (clj->js {:source {:x (.-x0 data-new) :y (.-y0 data-new)} :target {:x (.-x0 data-new) :y (.-y0 data-new)}}))))
-        remove)
-
-    (.. tree-nodes (forEach (fn [d] (set! (.-x0 d) (.-x d)) (set! (.-y0 d) (.-y d)))))))
+        remove)))
 
 
-(defn test-chars []
 
-  (GET "/jus/active-data" {:handler       (fn [x]
-                                     (reset! db-tree x))
-                    :error-handler #(js/alert (str "error: " %))}))
+(defn home-page [source source-text]
+
+  [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (ui/color :blue500)}})}
+   [:div
+    [rui/app-bar {:title              "JUS standardi vezani sa EU direktivama usvojenim u BiH "
+                  :icon-element-right (ui/icon-button (ic/action-account-balance-wallet))
+                  :style              {:background-color (ui/color :blue900)}}]
+    [:div{:class-name "col-md-12"}
+     ;(ic/action-home {:style {:margin-bottom "-8px"}})
+     ;
+     ;[rui/raised-button {:label    "Pretraga po oznaci JUS-a"
+     ;
+     ;                    :on-click #(println "Click")
+     ;                    :icon     (ic/action-find-in-page {:color (ui/color :green300)})}]
+     ;[rui/raised-button {:label        "Pretraga teksta"
+     ;                    :icon         (ic/action-find-in-page {:color (ui/color :green300)})
+     ;                    :on-touch-tap #(println "clicked")}]
+
+     [rui/paper {:class-name "col-md-4" :style {:margin-top "20px" }} [:div  "Pretraga podataka"]
+      [:div {:class-name "col-md-11"}
+       [rui/auto-complete {:floating-label-text  "Po oznaci JUS standarda"
+                           :floating-label-fixed true
+                           :dataSource           source :maxSearchResults 20
+                           :filter               (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
+                           :on-new-request       (fn [chosen] (sel-data chosen))
+                           :hint-text            "Unesi oznaku JUS-a"
+                           :full-width           true
+                           :list-style           {:height "250px"}}]]
+      [:div {:class-name "col-md-1" :style {:margin-top "20px"}} (ic/content-clear)]
+      [:div {:class-name "col-md-11"}
+        [rui/auto-complete {:floating-label-text  "Tekst naslova standarda/naredbe"
+                            :floating-label-fixed true
+                            :dataSource           source-text :maxSearchResults 50
+                            :filter               (aget js/MaterialUI "AutoComplete" "fuzzyFilter")
+                            :full-width           true
+                            :on-new-request       (fn [chosen] ())
+                            :hint-text            "Unesi dio teksta iz naslova"
+                            :list-style           {:height "250px" :width "300%"}}]]
+      [:div {:class-name "col-md-1" :style {:margin-top "20px" }} (ic/content-clear)]]
+     ;[rui/divider {:style {:border "solid"}}]
+     [rui/paper {:class-name "col-md-7" :style {:margin-top "20px" :margin-left "20px"}} [:div "Grafički prikaz"]
+       [:div {:id "app" :class-name "col-md-8" :style {:display "inline-block"}}]]]]])
+
+;[rui/divider {:style {:margin-top "30px" :height "0px"}}]]])
+
+
+(declare d3-tree)
+
+
+(defn mount-root []
+  (r/render
+    ;[home-page (map #(select-keys % [:name]) @db-tree) sel-data]
+    [home-page (into [] (map :name @db-tree)) (into [] (map :title @db-tree))]
+    (.getElementById js/document "search-app")))
+
 
 (defn init-veza []
   (GET "/jus/tree" {:handler       (fn [x]
                                      (reset! db-tree x)
+                                     (mount-root)
                                      (set! data-flare (clj->js (first (filter #(= (:name %) "1000") @db-tree))))
-                                     (d3-tree data-flare)
-                                     ;(collapse data-flare)
-                                     ;(expand-first-level data-flare)
-                                     ;(d3-tree data-flare)
-                                     )
+                                     (mount-svg)
+                                     (d3-tree data-flare))
+
+                    ;(collapse data-flare)
+                    ;(expand-first-level data-flare)
+                    ;(d3-tree data-flare)
                     :error-handler #(js/alert (str "error: " %))}))
 
-(defn main []
-  (init-veza))
+(defn main [])
+;(mount-root)
+(init-veza)
+

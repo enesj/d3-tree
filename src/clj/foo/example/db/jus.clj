@@ -6,8 +6,8 @@
             [clojure.java.io :as io])
   (:use
     [com.rpl.specter :rename {select* sell subselect subsell}]
-    [com.rpl.specter.macros :rename {select sel}]
-    ))
+    [com.rpl.specter.macros :rename {select sel}]))
+
 ;(:import (java.util UUID))
 
 
@@ -51,6 +51,8 @@
 
 (defn get-veza []
   (select Veza))
+
+
 
 (defn add-veza [parent child]
   ;(println parent child)
@@ -121,8 +123,8 @@
     (let [parent (map :Parent (filter #(= id (:Child %)) veze))]
       (if (empty? parent)
         path
-        (recur (first parent) (conj path (first parent)))
-        ))))
+        (recur (first parent) (conj path (first parent)))))))
+
 
 (defn all-acitve-paths []
   (let [[data veze] (active-data)]
@@ -165,7 +167,8 @@
 (defn tree-data []
   (let [veze (get-veza)
         jus-data (first (active-data))
-        parents (mapv (fn [x] {:name (first x) :children (mapv #(hash-map :name (:Child %)) (second x))}) (group-by :Parent veze))
+        parents (mapv (fn [x] {:name (first x) :title (:JUSopis (first (filter (fn [y] (= (first x) (:JUSId y))) jus-data)))
+                               :children (mapv #(hash-map :name (:Child %)) (second x))}) (group-by :Parent veze))
         parents (conj parents {:name "1000" :title "BiH naredbe harmonizirane sa evropskim direktivama" :shorttitle ""
                                :children [{:name "1" :children nil} {:name "2" :children nil} {:name "3" :children nil} {:name "4" :children nil}
                                           {:name "5" :children nil} {:name "6" :children nil} {:name "7" :children nil}] :x0 0 :y0 0})
