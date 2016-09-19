@@ -15,4 +15,3 @@ pom.xml.asc
 /resources/public/js/compiled
 profiles.clj
 Procfile
-/db
