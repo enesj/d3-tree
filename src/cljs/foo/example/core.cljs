@@ -19,9 +19,9 @@
     [cljsjs.d3]
     cljsjs.react-autosuggest
     [devtools.core :as devtools]
-    [devtools.toolbox :as toolbox]
-    [foo.example.autosuggest :as auto]
-    [foo.example.select :as select]))
+    [devtools.toolbox :as toolbox]))
+    ;[foo.example.autosuggest :as auto]
+    ;[foo.example.select :as select]))
 
 
 ;[devtools.formatters.core :as format]
@@ -48,6 +48,19 @@
 (def title-lenght 140)
 (def y-chars-ratio 5)
 
+(defonce svg nil)
+
+
+(defn mount-svg []
+  (set! svg
+        (.. js/d3
+            (select "#app")
+            (append "svg:svg")
+            (attr "width" (+ width (:left margin) (:right margin)))
+            (attr "id" "svg-tree")
+            (append "svg:g")
+            (append "svg:g")
+            (attr "transform" (str "translate(" (:left margin) "," (:top margin) ")")))))
 
 (defn sel-data [doc]
   (GET "/jus/search-data" {:params        {:doc doc}
@@ -84,6 +97,9 @@
                        :handler       (fn [x] (swap! search-data assoc-in [:parents] x))
                        :error-handler #(js/alert (str "error: " %))}))
 
+(defn expand-first-level [d]
+  (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
+
 
 
 (defn scroll-title []
@@ -119,29 +135,13 @@
       (nodeSize (clj->js [0, 20]))))
 
 
-(defonce svg nil)
-
-
-(defn mount-svg []
-  (set! svg
-        (.. js/d3
-            (select "#app")
-            (append "svg:svg")
-            (attr "width" (+ width (:left margin) (:right margin)))
-            (attr "id" "svg-tree")
-            (append "svg:g")
-            (append "svg:g")
-            (attr "transform" (str "translate(" (:left margin) "," (:top margin) ")")))))
-
-
 (defn collapse [d]
   (let [children (.-children d)]
     (if children (do (set! (.-_children d) (.-children d))
                      (set! (.-children d) nil)
                      (mapv #(collapse %) (.-_children d))))))
 
-(defn expand-first-level [d]
-  (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
+
 
 
 
@@ -250,9 +250,6 @@
     ;              (attr "x" 0)
     ;              (attr "dy" 15)))))
 
-
-
-
     (.. node-group
         ;(style "font-weight" (fn [d] (js/console.log (str (.-name d) parents))  (if (or parents #{}) (.-name d) ) "bold" "normal" ))
         transition
@@ -299,56 +296,61 @@
         (attr "d" (fn [d] (diagonal (clj->js {:source {:x (.-x0 data-new) :y (.-y0 data-new)} :target {:x (.-x0 data-new) :y (.-y0 data-new)}}))))
         remove)))
 
+(def show-ac (atom {:ac "oznaka" :refresh true}))
+
+(defn ac1 [source]
+  [rui/auto-complete {:id "oznaka"
+                      :floating-label-text  "Po oznaci JUS standarda"
+                      :floating-label-fixed true
+                      :dataSource           source
+                      :maxSearchResults 20
+                      :filter               (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
+                      :on-new-request       (fn [chosen] (sel-data chosen))
+                      :hint-text            "Unesi oznaku JUS-a"
+                      :full-width           true
+                      :list-style           {:height "250px"}}])
+
+(defn ac2 [source]
+  [rui/auto-complete {:id "text"
+                      :floating-label-text  "Tekst naslova standarda/naredbe"
+                      :floating-label-fixed true
+                      :dataSource           source
+                      :maxSearchResults 50
+                      :filter               (aget js/MaterialUI "AutoComplete" "fuzzyFilter")
+                      :full-width           true
+                      :on-new-request       (fn [chosen] ())
+                      :hint-text            "Unesi dio teksta iz naslova"
+                      :list-style           {:height "250px" :width "300%"}}])
+
 
 
 (defn home-page [source source-text]
 
-  [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (ui/color :blue500)}})}
-   [:div
-    [rui/app-bar {:title              "JUS standardi vezani sa EU direktivama usvojenim u BiH "
-                  :icon-element-right (ui/icon-button (ic/action-account-balance-wallet))
-                  :style              {:background-color (ui/color :blue900)}}]
-    [:div{:class-name "col-md-12"}
-     ;(ic/action-home {:style {:margin-bottom "-8px"}})
-     ;
-     ;[rui/raised-button {:label    "Pretraga po oznaci JUS-a"
-     ;
-     ;                    :on-click #(println "Click")
-     ;                    :icon     (ic/action-find-in-page {:color (ui/color :green300)})}]
-     ;[rui/raised-button {:label        "Pretraga teksta"
-     ;                    :icon         (ic/action-find-in-page {:color (ui/color :green300)})
-     ;                    :on-touch-tap #(println "clicked")}]
+   [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (ui/color :blue500)}})}
+     [:div
+      [rui/app-bar {:title              "JUS standardi vezani sa EU direktivama usvojenim u BiH "
+                    :icon-element-right (ui/icon-button (ic/action-account-balance-wallet))
+                    :style              {:background-color (ui/color :blue900)}}]
 
-     [rui/paper {:class-name "col-md-4" :style {:margin-top "20px" }} [:div  "Pretraga podataka"]
-      [:div {:class-name "col-md-11"}
-       [rui/auto-complete {:floating-label-text  "Po oznaci JUS standarda"
-                           :floating-label-fixed true
-                           :dataSource           source :maxSearchResults 20
-                           :filter               (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
-                           :on-new-request       (fn [chosen] (sel-data chosen))
-                           :hint-text            "Unesi oznaku JUS-a"
-                           :full-width           true
-                           :list-style           {:height "250px"}}]]
-      [:div {:class-name "col-md-1" :style {:margin-top "20px"}} (ic/content-clear)]
-      [:div {:class-name "col-md-11"}
-        [rui/auto-complete {:floating-label-text  "Tekst naslova standarda/naredbe"
-                            :floating-label-fixed true
-                            :dataSource           source-text :maxSearchResults 50
-                            :filter               (aget js/MaterialUI "AutoComplete" "fuzzyFilter")
-                            :full-width           true
-                            :on-new-request       (fn [chosen] ())
-                            :hint-text            "Unesi dio teksta iz naslova"
-                            :list-style           {:height "250px" :width "300%"}}]]
-      [:div {:class-name "col-md-1" :style {:margin-top "20px" }} (ic/content-clear)]]
-     ;[rui/divider {:style {:border "solid"}}]
-     [rui/paper {:class-name "col-md-7" :style {:margin-top "20px" :margin-left "20px"}} [:div "Grafički prikaz"]
-       [:div {:id "app" :class-name "col-md-8" :style {:display "inline-block"}}]]]]])
+      [:div {:class-name "col-md-5" :style {:margin-top "20px"}}
+       [rui/paper {:z-depth 2 :class-name "col-md-12"}
+         [:div {:style {:font-size "20px" :display "inline-block" :width "90%"}} "Pretraga"]
+         [rui/icon-button {:tooltip "Brisi pretragu" :on-click #(swap! show-ac update-in [:refresh] not ) :style {:vertical-align "middle"}
+                           :icon-style {:width "36px" :height "36px"} :tooltip-position  "bottom-left"}  (ic/content-clear)]
+         [:div
+            [rui/radio-button-group  {:name "pretraga" :default-selected (:ac @show-ac) :on-change (fn [_ value]  (swap! show-ac assoc-in [:ac] value) (swap! show-ac update-in [:refresh] not ))     :style {:font-size "12px"  :display "inline-block" :width "70%"}}
+             [rui/radio-button {:value "oznaka" :label "oznaka JUS-a" :style {:display "inline-block" :width "40%" :vertical-align "top"}}]
+             [rui/radio-button {:value "text" :label "tekst naslova" :style {:display "inline-block" :width "60%" :vertical-align "top"}}]]]
 
-;[rui/divider {:style {:margin-top "30px" :height "0px"}}]]])
+         (if (= (:ac @show-ac) "oznaka") [:div {} (if (:refresh @show-ac)  [:div {}(ac1 source)] (ac1 source))]
+                                         [:div {} (if (:refresh @show-ac)  [:div {}(ac2 source-text)] (ac2 source-text))])]]
+      [:div {:class-name "col-md-7" :style {:margin-top "20px"}}
+       [rui/paper {:class-name "col-md-12" :z-depth 4} [:div {:style {:font-size "20px"}} "Grafički prikaz"]
+        [:div {:id "app"}]]]]])
 
-
-(declare d3-tree)
-
+(def home-page-t
+  (with-meta home-page
+             {:component-did-update (fn [] (if-not @show-ac (reset! show-ac true)))}))
 
 (defn mount-root []
   (r/render
@@ -364,7 +366,6 @@
                                      (set! data-flare (clj->js (first (filter #(= (:name %) "1000") @db-tree))))
                                      (mount-svg)
                                      (d3-tree data-flare))
-
                     ;(collapse data-flare)
                     ;(expand-first-level data-flare)
                     ;(d3-tree data-flare)
