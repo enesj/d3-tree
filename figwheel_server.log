@@ -18174,3 +18174,1422 @@ notifying browser that file changed:  out\foo\example\core.js
 [32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.302 seconds.[0m
 notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
 notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.934 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.484 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.765 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.866 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.686 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.742 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.514 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.664 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.079 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.177 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.858 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.734 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.672 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.704 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.72 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.735 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.89 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.563 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.998 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.565 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.563 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.594 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.915 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.58 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.716 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.594 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.662 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.005 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.53 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.902 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.625 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.653 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.545 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.662 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.593 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.609 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:44  column:13  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/-+[0m
+
+  [36m40[0m  [36m(def click-delay (atom 0))[0m
+  [36m41[0m  [36m(def data-flare (clj->js []))[0m
+  [36m42[0m  [36m[0m
+  [36m43[0m  [36m(def margin {:top 30, :right 20, :bottom 30, :left 30})[0m
+  [33m44[0m  [1m(def width (-+ 800 (:left margin) (:right margin)))[0m
+  [0m  [0m  [33m            ^--- Use of undeclared Var foo.example.core/-+[0m
+  [36m45[0m  [36m(def barHeight 20)[0m
+  [36m46[0m  [36m(def barWidth (* width .7))[0m
+  [36m47[0m  [36m(def duration 400)[0m
+  [36m48[0m  [36m(def title-lenght 140)[0m
+  [36m49[0m  [36m(def y-chars-ratio 5)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.668 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.508 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.565 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.569 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.539 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.549 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.603 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.599 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.636 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.544 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.509 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.639 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.749 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.664 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.578 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.528 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.514 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.552 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.509 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.484 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.929 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.711 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.539 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.557 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.891 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.557 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.557 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.327 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.508 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.578 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.5 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.584 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.659 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[31mFailed to compile "resources/public/js/compiled/app.js" in 0.296 seconds.[0m
+[36m----  Could not Read  src/cljs/foo/example/core.cljs   line:348  column:127  ----[0m
+
+  [1mMap literal must contain an even number of forms[0m
+
+  [36m346[0m  [36m                                         [:div {} (if (:refresh @show-ac)  [:div {}(ac2 source-text)] (ac2 source-text))])]][0m
+  [36m347[0m  [36m      [:div {:class-name "col-md-7" :style {:margin-top "20px"}}[0m
+  [33m348[0m  [1m       [rui/paper {:class-name "col-md-12" :z-depth 4 [:div {:style {:font-size "20px" :margin-top "8px"}} "Grafički prikaz"]}[0m
+  [0m   [0m  [33m                                                                                                                              ^--- Map literal must contain an even number of forms[0m
+  [36m349[0m  [36m                  [:div {:id "app" :style {:max-height "500px" :overflow "auto"}}]]]]])[0m
+  [36m350[0m  [36m[0m
+  [36m351[0m  [36m(def home-page-t[0m
+
+[36m----  Reader Error : Please see src/cljs/foo/example/core.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.506 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.297 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.61 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.517 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.469 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.493 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.593 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[31mFailed to compile "resources/public/js/compiled/app.js" in 0.296 seconds.[0m
+[36m----  Could not Analyze  src/cljs/foo/example/core.cljs   line:326  column:1  ----[0m
+
+  [1mWrong number of args (1) passed to: analyzer/eval31614/fn--31615/pfn--31616[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [33m326[0m  [1m(def)[0m
+  [0m   [0m  [33m^--- Wrong number of args (1) passed to: analyzer/eval31614/fn--31615/pfn--31616[0m
+  [36m327[0m  [36m[0m
+  [36m328[0m  [36m[0m
+  [36m329[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Analysis Error : Please see src/cljs/foo/example/core.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.641 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.717 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:328  column:37  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [33m328[0m  [1m         [:rect {:id               (table-data :id)[0m
+  [0m   [0m  [33m                                    ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m329[0m  [36m                 :x                x[0m
+  [36m330[0m  [36m                 :y                y[0m
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:329  column:36  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/x[0m
+
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [36m328[0m  [36m         [:rect {:id               (table-data :id)[0m
+  [33m329[0m  [1m                 :x                x[0m
+  [0m   [0m  [33m                                   ^--- Use of undeclared Var foo.example.core/x[0m
+  [36m330[0m  [36m                 :y                y[0m
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:330  column:36  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/y[0m
+
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [36m328[0m  [36m         [:rect {:id               (table-data :id)[0m
+  [36m329[0m  [36m                 :x                x[0m
+  [33m330[0m  [1m                 :y                y[0m
+  [0m   [0m  [33m                                   ^--- Use of undeclared Var foo.example.core/y[0m
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [36m335[0m  [36m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:332  column:36  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/height[0m
+
+  [36m328[0m  [36m[:rect {:id               (table-data :id)[0m
+  [36m329[0m  [36m        :x                x[0m
+  [36m330[0m  [36m        :y                y[0m
+  [36m331[0m  [36m        :width            width[0m
+  [33m332[0m  [1m        :height           height[0m
+  [0m   [0m  [33m                          ^--- Use of undeclared Var foo.example.core/height[0m
+  [36m333[0m  [36m        :rx               (* width 0.2)[0m
+  [36m334[0m  [36m        :ry               (* height 0.2)[0m
+  [36m335[0m  [36m        :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:334  column:39  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/height[0m
+
+  [36m330[0m  [36m:y                y[0m
+  [36m331[0m  [36m:width            width[0m
+  [36m332[0m  [36m:height           height[0m
+  [36m333[0m  [36m:rx               (* width 0.2)[0m
+  [33m334[0m  [1m:ry               (* height 0.2)[0m
+  [0m   [0m  [33m                     ^--- Use of undeclared Var foo.example.core/height[0m
+  [36m335[0m  [36m:stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:31  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                              ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:52  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                   ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mNo such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- No such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mUse of undeclared Var td/table-defaults[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- Use of undeclared Var td/table-defaults[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.049 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:328  column:37  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [33m328[0m  [1m         [:rect {:id               (table-data :id)[0m
+  [0m   [0m  [33m                                    ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m329[0m  [36m                 :x                10[0m
+  [36m330[0m  [36m                 :y                y[0m
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:330  column:36  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/y[0m
+
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [36m328[0m  [36m         [:rect {:id               (table-data :id)[0m
+  [36m329[0m  [36m                 :x                10[0m
+  [33m330[0m  [1m                 :y                y[0m
+  [0m   [0m  [33m                                   ^--- Use of undeclared Var foo.example.core/y[0m
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [36m335[0m  [36m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:332  column:36  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/height[0m
+
+  [36m328[0m  [36m[:rect {:id               (table-data :id)[0m
+  [36m329[0m  [36m        :x                10[0m
+  [36m330[0m  [36m        :y                y[0m
+  [36m331[0m  [36m        :width            width[0m
+  [33m332[0m  [1m        :height           height[0m
+  [0m   [0m  [33m                          ^--- Use of undeclared Var foo.example.core/height[0m
+  [36m333[0m  [36m        :rx               (* width 0.2)[0m
+  [36m334[0m  [36m        :ry               (* height 0.2)[0m
+  [36m335[0m  [36m        :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:334  column:39  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/height[0m
+
+  [36m330[0m  [36m:y                y[0m
+  [36m331[0m  [36m:width            width[0m
+  [36m332[0m  [36m:height           height[0m
+  [36m333[0m  [36m:rx               (* width 0.2)[0m
+  [33m334[0m  [1m:ry               (* height 0.2)[0m
+  [0m   [0m  [33m                     ^--- Use of undeclared Var foo.example.core/height[0m
+  [36m335[0m  [36m:stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:31  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                              ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:52  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                   ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mNo such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- No such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mUse of undeclared Var td/table-defaults[0m
+
+  [36m331[0m  [36m                 :width            width[0m
+  [36m332[0m  [36m                 :height           height[0m
+  [36m333[0m  [36m                 :rx               (* width 0.2)[0m
+  [36m334[0m  [36m                 :ry               (* height 0.2)[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- Use of undeclared Var td/table-defaults[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.934 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:328  column:37  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [33m328[0m  [1m         [:rect {:id               (table-data :id)[0m
+  [0m   [0m  [33m                                    ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m329[0m  [36m                 :x                0[0m
+  [36m330[0m  [36m                 :y                0[0m
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:31  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+  [36m334[0m  [36m                 :ry               2[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                              ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:52  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+  [36m334[0m  [36m                 :ry               2[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                   ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mNo such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+  [36m334[0m  [36m                 :ry               2[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- No such namespace: td, could not locate td.cljs, td.cljc, or Closure namespace ""[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:335  column:73  ----[0m
+
+  [1mUse of undeclared Var td/table-defaults[0m
+
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+  [36m334[0m  [36m                 :ry               2[0m
+  [33m335[0m  [1m                 :stroke (if (table-data :stroke) (table-data :stroke) (td/table-defaults :stroke))}]]])[0m
+  [0m   [0m  [33m                                                                        ^--- Use of undeclared Var td/table-defaults[0m
+  [36m336[0m  [36m[0m
+  [36m337[0m  [36m[0m
+  [36m338[0m  [36m[0m
+  [36m339[0m  [36m[0m
+  [36m340[0m  [36m(defn home-page [source source-text][0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.855 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.53 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:328  column:37  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [33m328[0m  [1m         [:rect {:id               (table-data :id)[0m
+  [0m   [0m  [33m                                    ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m329[0m  [36m                 :x                0[0m
+  [36m330[0m  [36m                 :y                0[0m
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.562 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.613 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:328  column:37  ----[0m
+
+  [1mUse of undeclared Var foo.example.core/table-data[0m
+
+  [36m324[0m  [36m                      :list-style           {:height "250px" :width "300%"}}])[0m
+  [36m325[0m  [36m[0m
+  [36m326[0m  [36m(defn legend [][0m
+  [36m327[0m  [36m  [:svg [:g[0m
+  [33m328[0m  [1m         [:rect {:id               (table-data :id)[0m
+  [0m   [0m  [33m                                    ^--- Use of undeclared Var foo.example.core/table-data[0m
+  [36m329[0m  [36m                 :x                0[0m
+  [36m330[0m  [36m                 :y                0[0m
+  [36m331[0m  [36m                 :width            10[0m
+  [36m332[0m  [36m                 :height           10[0m
+  [36m333[0m  [36m                 :rx               2[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.532 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.578 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.391 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.641 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.698 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.468 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.794 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.653 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.518 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.529 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.592 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.634 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.617 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.612 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.616 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.535 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.563 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.514 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.516 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.519 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.497 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.49 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.531 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.552 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.678 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.562 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.812 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.487 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.811 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.563 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.562 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.598 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.627 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.551 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.345 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.671 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.519 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.498 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.555 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.717 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.718 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.547 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.622 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.641 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.687 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.69 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.55 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.67 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.551 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.626 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.532 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.578 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.561 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.499 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.666 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.631 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.555 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.614 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.361 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.487 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.61 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.344 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.522 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.509 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.52 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:202  column:72  ----[0m
+
+  [1mWrong number of args (0) passed to :red500colors[0m
+
+  [36m198[0m  [36m    (attr "width" 10)[0m
+  [36m199[0m  [36m    (style "stroke" "none")[0m
+  [36m200[0m  [36m    (attr "class" "node-dot")[0m
+  [36m201[0m  [36m    ;(style "stroke" "lightgray")[0m
+  [33m202[0m  [1m    (style "fill" (fn [d i] (case (.-type d) 1 (:blue500 colors) 2 (:red500colors) 3 (:red500colors) 0[0m
+  [0m   [0m  [33m                                                                   ^--- Wrong number of args (0) passed to :red500colors[0m
+  [36m203[0m  [36m                                             (case (.-mandatory d) 2 "#cccccc" 1 "#666666" 0 "black") "yellow"))))[0m
+  [36m204[0m  [36m(.. node-group[0m
+  [36m205[0m  [36m    (append "rect")[0m
+  [36m206[0m  [36m    (attr "y" (- 5))[0m
+  [36m207[0m  [36m    (attr "height" 10)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs/foo/example/core.cljs   line:202  column:90  ----[0m
+
+  [1mWrong number of args (0) passed to :red500colors[0m
+
+  [36m198[0m  [36m    (attr "width" 10)[0m
+  [36m199[0m  [36m    (style "stroke" "none")[0m
+  [36m200[0m  [36m    (attr "class" "node-dot")[0m
+  [36m201[0m  [36m    ;(style "stroke" "lightgray")[0m
+  [33m202[0m  [1m    (style "fill" (fn [d i] (case (.-type d) 1 (:blue500 colors) 2 (:red500colors) 3 (:red500colors) 0[0m
+  [0m   [0m  [33m                                                                                     ^--- Wrong number of args (0) passed to :red500colors[0m
+  [36m203[0m  [36m                                             (case (.-mandatory d) 2 "#cccccc" 1 "#666666" 0 "black") "yellow"))))[0m
+  [36m204[0m  [36m(.. node-group[0m
+  [36m205[0m  [36m    (append "rect")[0m
+  [36m206[0m  [36m    (attr "y" (- 5))[0m
+  [36m207[0m  [36m    (attr "height" 10)[0m
+
+[36m----  Compiler Warning : Please see src/cljs/foo/example/core.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.785 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.499 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.313 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.539 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.548 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.546 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.73 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.555 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.606 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.531 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.535 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.596 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.57 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.688 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.302 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.592 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.53 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.546 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.529 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.684 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.631 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.538 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.601 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.67 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.571 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.539 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.571 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.375 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.556 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.607 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.501 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.536 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.556 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.573 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.538 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.592 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.574 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.621 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.507 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.577 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.56 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.522 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.545 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.424 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.571 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.561 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.519 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.615 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.787 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.735 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.518 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.577 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.541 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.687 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[31mFailed to compile "resources/public/js/compiled/app.js" in 0.328 seconds.[0m
+[36m----  Could not Read  src/cljs/foo/example/core.cljs   line:384  column:72  ----[0m
+
+  [1mInvalid token: :[0m
+
+  [36m382[0m  [36m        [:div {:style {:font-size "20px" :margin-top "4px"}} "Grafički prikaz veza između harmoniziranih naredbi i JUS standarda"][0m
+  [36m383[0m  [36m        [:div (legend)][0m
+  [33m384[0m  [1m        [:div {:id "app" :style {:max-height "500px" :overflow "auto" :}}]]]]])[0m
+  [0m   [0m  [33m                                                                       ^--- Invalid token: :[0m
+  [36m385[0m  [36m[0m
+  [36m386[0m  [36m(def home-page-t[0m
+  [36m387[0m  [36m  (with-meta home-page[0m
+
+[36m----  Reader Error : Please see src/cljs/foo/example/core.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.859 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.521 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.59 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.677 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.599 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.569 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.548 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.685 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.749 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.588 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.634 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.515 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.541 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.626 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.556 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.54 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.525 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.656 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.484 seconds.[0m
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.327 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.615 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.627 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.484 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 1.063 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.485 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.627 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.611 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.638 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.626 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.686 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.645 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.64 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.56 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.752 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.665 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.508 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.565 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.672 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.594 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.61 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.61 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.53 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.628 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.675 seconds.[0m
+notifying browser that file changed:  out\foo\example\core.js
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs" "src/cljc" "env/dev/cljs"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.691 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  out\foo\example\core.js

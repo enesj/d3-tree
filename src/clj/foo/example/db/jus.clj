@@ -167,14 +167,16 @@
 (defn tree-data []
   (let [veze (get-veza)
         jus-data (first (active-data))
-        parents (mapv (fn [x] {:name (first x) :title (:JUSopis (first (filter (fn [y] (= (first x) (:JUSId y))) jus-data)))
-                               :children (mapv #(hash-map :name (:Child %)) (second x))}) (group-by :Parent veze))
+        parents (mapv (fn [x] (merge (clojure.set/rename-keys (first (filter (fn [y] (= (first x) (:JUSId y))) jus-data)) {:JUSId :name :JUSopis :title})
+                                     {:children (mapv #(hash-map :name (:Child %)) (second x))}))
+                      (group-by :Parent veze))
         parents (conj parents {:name "1000" :title "BiH naredbe harmonizirane sa evropskim direktivama" :shorttitle ""
                                :children [{:name "1" :children nil} {:name "2" :children nil} {:name "3" :children nil} {:name "4" :children nil}
                                           {:name "5" :children nil} {:name "6" :children nil} {:name "7" :children nil}] :x0 0 :y0 0})
         all-childs (into #{} (map #(hash-map :name (:Child %) :children nil) veze))
         all-parents (into #{} (map #(hash-map :name (:Parent %) :children nil) veze))
-        no-childs (clojure.set/difference all-childs all-parents)]
+        no-childs (mapv (fn [x] (clojure.set/rename-keys (first (filter (fn [y] (= (:name x) (:JUSId y))) jus-data)) {:JUSId :name :JUSopis :title}))
+                        (clojure.set/difference all-childs all-parents))]
     (transform [ALL :children ALL] #(let [JUS (first (filter (fn [x] (= (:JUSId x) (:name %))) jus-data))]
                                      (merge % {:type       (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
                                                :shorttitle (if (= (:Naredba JUS) 0) (str (:JUSId JUS) ":" (:JUSgodina JUS)) "")}))

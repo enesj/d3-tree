@@ -15,3 +15,4 @@ pom.xml.asc
 /resources/public/js/compiled
 profiles.clj
 Procfile
+figwheel_server.log
