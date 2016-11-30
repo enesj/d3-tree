@@ -15,9 +15,9 @@ _admin@localhost.de_ and password: _admin_ to a new database)
 
 
 1. lein repl
-2. (use 'figwheel-sidecar.repl-api)
-3. (start-figwheel!)
-4. (cljs-repl)
+(use 'figwheel-sidecar.repl-api)
+(start-figwheel!)
+(cljs-repl)
 
 SHIFT-INSERT ---> PASTE !!!!!
 

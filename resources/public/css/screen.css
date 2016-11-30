@@ -56,3 +56,17 @@ body {
 #footer-menu-wrapper li.active a {
     color: rgb(0, 34, 44);
 }
+
+.foo-enter {
+  opacity: 0;
+  transition: height 3s ease-out;
+  }
+
+  .foo-leave {
+  opacity: 0;
+  transition: height 3s ease-out;
+  }
+
+  .foo-enter-active {
+  opacity: 1;
+  }

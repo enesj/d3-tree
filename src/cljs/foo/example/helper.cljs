@@ -6,9 +6,7 @@
             [goog.dom :as gdom]
             [goog.dom.forms :as gforms]
             [goog.net.XhrIo :as xhr])
-            ;[ajax.core :as ajax]
-
-  (:require-macros [cljs.core.async.macros :refer [go]]))
+ (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (defn timeout [ms]
       (let [c (chan)]
