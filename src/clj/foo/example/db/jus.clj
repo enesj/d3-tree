@@ -178,7 +178,7 @@
         no-childs (mapv (fn [x] (clojure.set/rename-keys (first (filter (fn [y] (= (:name x) (:JUSId y))) jus-data)) {:JUSId :name :JUSopis :title}))
                         (clojure.set/difference all-childs all-parents))]
     (transform [ALL :children ALL] #(let [JUS (first (filter (fn [x] (= (:JUSId x) (:name %))) jus-data))]
-                                     (merge % {:type       (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
+                                     (merge % {:type (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
                                                :shorttitle (if (= (:Naredba JUS) 0) (str (:JUSId JUS) ":" (:JUSgodina JUS)) "")}))
                (into [] (concat parents no-childs)))))
 
