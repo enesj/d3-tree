@@ -83,25 +83,6 @@ body {
 
 
 
-.foo1.example1-enter {
-  opacity: 0.01;
-}
-
-.foo1.example1-enter.example1-enter-active {
-  opacity: 1;
-  transition: all 8ms, ease-out;
-}
-
-.foo1.example1-content {
-  transform: translate3d(0, 0, 0);
-  opacity: 0.5;
-}
-
-.foo1.example1-leave.example1-content-active {
-  opacity: 0.01;
-  transition: all 5ms,  ease-out;
-}
-
 
 
 

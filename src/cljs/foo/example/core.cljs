@@ -21,7 +21,7 @@
 (defonce db-tree (atom nil))
 (def data-flare (clj->js []))
 (def scroll-data (atom nil))
-(def search-data (atom {:selection nil :childs nil :parents nil :refresh true :search-type 0 :graphics false :history []}))
+(def search-data (atom {:selection nil :veza {:sel nil :childs nil :parents nil } :childs nil :parents nil :refresh true :search-type 0 :graphics false :history []}))
 (def show-ac (atom {:ac "text" :change true}))
 
 
@@ -251,7 +251,7 @@
 (defn select-type-change [chosen]
   (swap! search-data assoc-in [:search-type] chosen))
 
-(defn clear-criteria [refresh] (reset! search-data {:selection   nil :childs nil :parents nil :refresh false
+(defn clear-criteria [refresh] (reset! search-data {:selection   nil :veza nil :childs nil :parents nil :refresh false
                                                     :search-type (:search-type @search-data) :graphics (:graphics @search-data) :history (:history @search-data)})
   (if refresh (swap! show-ac update-in [:change] not)))
 
@@ -261,11 +261,19 @@
 (defn remove-from-history [id]
   (swap! search-data assoc-in [:history] (remove #{id} (:history @search-data))))
 
+;(defn veza [id]
+;  (swap! search-data assoc-in [:veza] id))
+
 (defn sel-data [doc]
   (GET "/jus/search-data" {:params        {:doc doc}
                            :handler       (fn [x]
-                                            (reset! search-data {:refresh     false :parents (first x) :childs (second x) :selection doc
+                                            (reset! search-data {:refresh false :parents (first x) :childs (second x) :selection doc :veza nil
                                                                  :search-type (:search-type @search-data) :graphics (:graphics @search-data) :history (update-history doc)}))
+                           :error-handler #(js/alert (str "error: " %))}))
+
+(defn veza-data [doc]
+  (GET "/jus/search-data" {:params        {:doc doc}
+                           :handler       (fn [x] (swap! search-data assoc-in [:veza] {:sel doc :parents (first x) :childs (second x)}))
                            :error-handler #(js/alert (str "error: " %))}))
 
 (defn select-doc-type [hide]
@@ -318,7 +326,6 @@
                          :on-new-request      (fn [chosen index] (sel-data (:value (source-new index))))
                          :hint-text           "Unesi dio teksta iz naslova"
                          :list-style          {:height "250px" :width "300%"}}]]))
-;(select-doc-type)]))
 
 (def legend-data
   {:default {:width  10
@@ -348,30 +355,26 @@
                           (if (= (:type item) :text) (:text item))])]])
 
 (defn label-text [label text width]
-  [:div {:style (merge {:width width :display "inline-block"}
+  [:div {:style (merge {:width (str width "%") :display "inline-block"}
                        (if (= "" label) {:font-weight "bold" :text-align "center"}))}
    [:span {:style {:font-weight "bold" :color (:cyan500 colors)}} label]
    text])
 
 (defn label-text-wide [label data]
-  [rui/css-transition-group {:transition-name          "example1"
-                             :transition-enter-timeout 600
-                             :transition-leave-timeout 500}
-   [:div {:class "foo1"
-          :style {:text-align   "center" :font-weight "bold" :margin-bottom "15px" :border-bottom-style "ridge"
+   [:div {:style {:text-align   "center" :font-weight "bold" :margin-bottom "15px" :border-bottom-style "ridge"
                   :border-color (:cyan500 colors)
                   :color        (case (:Naredba data) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
-                                                      (case (:Mandatory data) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow")}} (:title data)]])
+                                                      (case (:Mandatory data) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow")}} (:title data)])
 
 (defn yu-naredba-view [data]
-  (let [width "50%"]
+  (let [width "50"]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      (label-text-wide "Naziv: " data)
      (label-text "Vrsta: " "YU naredba/pravilnik" width)
      (label-text "Službeni glasnik: " (:Glasnik data) width)]))
 
 (defn bh-naredba-view [data]
-  (let [width "25%"]
+  (let [width "25"]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      ;[:div {:style {:font-weight "bold" :margin-bottom "8px" :margin-top "8px" }} (:title data)]
      (label-text-wide "Naziv: " data)
@@ -381,63 +384,98 @@
      [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan500 colors)}} "Prikaži dokument"]]))
 
 (defn jus-view [data]
-  (let [width "15%"]
+  (let [width "14" wide "20"]
+
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      (label-text-wide "Naziv: " data)
      (label-text "" (str (:name data) ":" (:JUSgodina data)) width)
      (label-text "Vrsta: " "JUS standard" width)
      (label-text "Godina: " (:JUSgodina data) width)
-     (label-text "Primjena: " (case (:Mandatory data) 0 "Obavezna" 1 "Djelimično obavezna" 2 "Za upotrebu") width)
+     (label-text "Primjena: " (case (:Mandatory data) 0 "Obavezna" 1 "Djelimično obavezna" 2 "Za upotrebu") wide)
      (label-text "Broj strana: " (:Strana data) width)
      (label-text "ICS: " (:ICS data) width)]))
 
-(defn connected-docs [docs header]
-  (let [docs (sort-by #(case (:Naredba %) 1 1 2 2 3 3 0 4) < docs)
+(defn check-veza [id]
+  (if (some #{id} (merge (first (:childs @search-data)) (first (:parents @search-data)))) true false))
+
+(defn connected-docs [docs header label]
+  (let [history (if (:JUSId (first docs))  false true)
+        docs (if history docs  (sort-by #(case (:Naredba %) 1 1 2 2 3 3 0 4) < docs))
         color (fn [doc] (case (:Naredba doc) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
                                              (case (:Mandatory doc) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow"))]
-   [rui/table {:selectable false :height (str (- (if (< (count docs) 5) (* (count docs) 50) 250) 10) "px") :on-cell-click (fn [row coll] (if (= coll 1)(sel-data (or (:JUSId (nth docs row)) (:name (nth docs row))))))}
-    [rui/table-header {:display-select-all false}
-     [rui/table-row
-      [rui/table-header-column {:col-span 2 :style {:font-weight "bold" :font-size "16px" :text-align "center" :margin-bottom "5px" :color (:cyan500 colors)}}  header]]]
-    [rui/table-body {:display-row-checkbox false :pre-scan-rows false}
-        (for [doc docs]
-          [rui/table-row {:key (or (:JUSId doc) (:name doc))  :style {:font-weight "normal" :cursor "link" :color (color doc)}}
-           [rui/table-row-column {:style {:width "90%"}}
-            [:span {:style {:font-weight "bold"}}
-             (if (= 0 (:Naredba doc)) (str (or (:JUSId doc) (:name doc)) ":" (:JUSgodina doc) "  "))]
-            (or (:JUSopis doc) (:title doc))]
-           [rui/table-row-column {:style {:width "10%"}}
-            (if (:name doc) [rui/icon-button {:tooltip    "Brisi iz istorije"
-                                              :tooltip-position "top-left"
-                                              :tooltip-styles {:margin-top "30px" :width "80px" :right "20px"}
-                                              :on-click   #(remove-from-history (:name doc))
-                                              :style      {:width "24px" :height "24px" :float "right"}
-                                              :icon-style {:width "20px" :height "20px" :color (:cyan500 colors)}} (ic/content-clear)])]])]]))
+   [rui/table {:selectable false :height (str (- (if (< (count docs) 5) (* (count docs) 48) 240) 0) "px")
+               :on-cell-click (fn [row coll] (if (= coll 1)(sel-data (or (:JUSId (nth docs row)) (:name (nth docs row))))))}
+    (if-not (= header "")
+      [rui/table-header {:display-select-all false}
+       [rui/table-row
+        (if-not (= label "")
+          [rui/table-header-column {:style {:width "7%" :font-weight "bold" :font-size "16px" :text-align "left" :color (:cyan500 colors)}}  label])
+        [rui/table-header-column {:style {:max-width "0" :white-space "nowrap" :overflow "hidden" :text-overflow "ellipsis"
+                                          :width (if (= label "") "85%" "92%") :font-weight "bold" :font-size "16px" :text-align "center" :color (:blue500 colors)}}  header]
+        (if-not history
+          [rui/table-header-column {:style {:width "7%"}}
+           [rui/icon-button {:tooltip    "Brisi vezu" :on-click #(swap! search-data assoc-in [:veza] {})
+                             :tooltip-styles   {:margin-top "-35px" :width "80px" :right "40px"}
+                             :style      {:vertical-align "top" :float "right" :margin-top "0px"}
+                             :icon-style {:width "24px" :height "24px" :color (:cyan500 colors)} :tooltip-position "bottom-left"} (ic/content-clear)]])]])
+    [rui/table-body {:display-row-checkbox false :pre-scan-rows false :show-row-hover true}
+     (doall (for [doc docs]
+             (let [check-veza (if-not history true (check-veza (or (:JUSId doc) (:name doc))))]
+              ;(println check-veza)
+              [rui/table-row {:key (or (:JUSId doc) (:name doc))  :style {:font-weight "normal" :color (color doc)}}
+               [rui/table-row-column {:style {:width "85%"}}
+                [:span {:style {:font-weight "bold"}}
+                 (if (= 0 (:Naredba doc)) (str (or (:JUSId doc) (:name doc)) ":" (:JUSgodina doc) "  "))]
+                (or (:JUSopis doc) (:title doc))]
+               (if  check-veza
+                 [rui/table-row-column {:style {:width "7%"}}
+                  [rui/icon-button {:tooltip          "Prikaži vezu"
+                                    :tooltip-position "top-left"
+                                    :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
+                                    :on-click         #(veza-data (or (:JUSId doc) (:name doc)))
+                                    :style            {:width "24px" :height "24px" :float "right"}
+                                    :icon-style       {:width "20px" :height "20px" :color (:cyan500 colors)}} (ic/social-share)]]
+                 [rui/table-row-column {:style {:width "7%"}}])
+               (if history
+                 [rui/table-row-column {:style {:width "7%"}}
+                  [rui/icon-button {:tooltip          "Brisi iz istorije"
+                                    :tooltip-position "top-left"
+                                    :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
+                                    :on-click         #(remove-from-history (:name doc))
+                                    :style            {:width "24px" :height "24px" :float "right"}
+                                    :icon-style       {:width "20px" :height "20px" :color (:cyan500 colors)}} (ic/content-clear)]])])))]]))
+
+(defn history [header]
+  (let [list (take 10 (:history @search-data))
+        history-data (fn [x] (first (filter #(= x (:name %)) @db-tree)))]
+    (connected-docs (map #(history-data %) list) header "")))
 
 (defn search-result []
   (let [search @search-data
         result (first (filter #(= (:selection search) (:name %)) @db-tree))
+        result-veza (first (filter #(= (:sel (:veza search)) (:name %)) @db-tree))
         childs (second (:childs search))
         parents (second (:parents search))
+        veza-childs (second (:childs (:veza search)))
+        veza-parents (second (:parents (:veza search)))
         type (:Naredba result)]
-    [:div {:style {:font-size "16px" :margin-bottom "20px"} :key "sr"}
+    [:div {:class "foo" :style {:font-size "16px" :margin-bottom "20px"} :key "sr"}
      [rui/icon-button {:tooltip    "Brisi pretragu" :on-click #(clear-criteria true)
                        :style      {:vertical-align "top" :float "right" :margin-top "-40px"}
                        :icon-style {:width "24px" :height "24px" :color (:cyan500 colors)} :tooltip-position "bottom-left"} (ic/content-clear)]
      (case type 0 (jus-view result) 1 (bh-naredba-view result) (yu-naredba-view result))
-     [:hr]
-     ;[:div {:style {:font-weight "bold" :margin-bottom "5px" :color (:cyan500 colors)}} "Vezani dokumenti:"]
-     ;[:div {:style {:margin-top "10px" :max-height "250px" :overflow-y "scroll"}}
-     (connected-docs childs "Vezani dokumenti:")
-     [:hr]
-     ;[:div {:style {:font-weight "bold" :margin-bottom "5px" :color (:cyan500 colors)}} "Vezan za dokumente:"]
-     ;[:div {:style {:margin-top "10px" :max-height "250px" :overflow-y "scroll" :class "foo"}}
-     (connected-docs parents "Vezan za dokumente:")]))
+     ;[:hr]
+     (if-not (:sel (:veza search))
+       [rui/tabs {:style {:margin-top "40px"}}
+        [rui/tab {:label "Vezan za dokumente:"}
+         (connected-docs parents "" "")]
+        [rui/tab {:label "Vezani dokumenti:"}
+         (connected-docs childs "" "")]
+        [rui/tab {:label "Istorija pretraživanja"}
+         (history "")]]
+       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "40px" :margin-bottom "20px"}}
+        (connected-docs veza-parents (if (= (:Naredba result-veza) 0)(str (str (:name result-veza) ":" (:JUSgodina result-veza)) " - "(:title result-veza)) (:title result-veza)) "Veza sa:")])]))
 
-(defn history []
-  (let [list (take 10 (:history @search-data))
-        history-data (fn [x] (first (filter #(= x (:name %)) @db-tree)))]
-    (connected-docs (map #(history-data %) list) "Istorija pretraživanja")))
 
 (defn home-page [source source-text]
   (let [search-d @search-data
@@ -473,9 +511,7 @@
              [:div (if (:change show) [:div {} (ac1 source)] (ac1 source))]
              [:div (if (:change show) [:div {} (ac2 source-text)] (ac2 source-text))])
            [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "20px" :margin-bottom "20px"}}
-            ;[:div {:style {:font-weight "bold" :font-size "16px" :margin-bottom "20px" :color (:cyan500 colors)}} "Istorija pretraživanja:"]
-            ;[:hr {:style {:margin-top "0px" :margin-bottom "20px"}}]
-            [:div (history)]]]
+            [:div (history "Istorija pretraživanja")]]]
           (search-result))]]
       [rui/paper {:class-name "col-md-12" :z-depth 4 :style {:margin-top "20px" :position "absolute" :top "580px" :max-width "98%" :display (if-not (:graphics search-d) "none")}} ;}}
        [rui/icon-button {:tooltip          "Zatvori"
