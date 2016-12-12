@@ -364,11 +364,12 @@
     (:title data)])
 
 (defn yu-naredba-view [data]
-  (let [width "50"]
+  (let [width "33"]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      (label-text-wide "Naziv: " data)
      (label-text "Vrsta: " "YU naredba/pravilnik" width (:red500 colors))
-     (label-text "Službeni glasnik: " (:Glasnik data) width)]))
+     (label-text "Službeni glasnik: " (:Glasnik data) width)
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan500 colors)}} "Prikaži dokument"]]))
 
 (defn bh-naredba-view [data]
   (let [width "25"]
