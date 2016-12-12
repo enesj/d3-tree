@@ -404,12 +404,12 @@
                :on-cell-click (fn [row coll] (if (= coll 1) (sel-data (or (:JUSId (nth docs row)) (:name (nth docs row))))))
                :header-style  (if (= header "") {:margin-top "0px"} {:margin-top "40px"})}
     (if-not (= header "")
-      [rui/table-header {:display-select-all false :style {:background-color (:cyan500 colors)}}
-       [rui/table-row
+      [rui/table-header {:display-select-all false :enable-select-all false}
+       [rui/table-row {:style {:background-color (:cyan500 colors)}}
         (if-not (= label "")
-          [rui/table-header-column {:style {:width "7%"  :font-size "14px" :text-align "left" :color "black" :font-family "Roboto, sans-serif"}}  label])
-        [rui/table-header-column {:style {:max-width "0" :white-space "nowrap" :overflow "hidden" :text-overflow "ellipsis" :font-family "Roboto, sans-serif"
-                                          :width     (if (= label "") "85%" "92%") :font-size "14px" :text-align "center" :color "white" :text-transform "uppercase"}}  header]
+          [rui/table-header-column {:style { :width "7%"  :font-size "14px" :text-align "left" :color "black" :font-family "Roboto, sans-serif"}}  label])
+        [rui/table-header-column {:style { :max-width "0" :white-space "nowrap" :overflow "hidden" :text-overflow "ellipsis" :font-family "Roboto, sans-serif"
+                                          :width     (if (= label "") "92%" "100%") :font-size "14px" :text-align "center" :color "white" :text-transform "uppercase"}}  header]
         (if-not history
           [rui/table-header-column {:style {:width "7%"}}
            [rui/icon-button {:tooltip    "Brisi vezu" :on-click #(swap! search-data assoc-in [:veza] {})
