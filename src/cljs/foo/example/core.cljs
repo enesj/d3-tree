@@ -35,15 +35,27 @@
 (def y-chars-ratio 5)
 
 (def colors
-  {:blue900   (ui/color :blue900)
-   :blue500   (ui/color :blue500)
-   :red500    (ui/color :red500)
-   :lightgrey (ui/color :grey400)
+  {:darkblue  (ui/color :blue900)
+   :blue      (ui/color :blue500)
+   :red       (ui/color :red500)
+   :lightgrey (ui/color :grey300)
    :grey      (ui/color :grey600)
-   :darkgrey  (ui/color :grey800)
-   :cyan500   (ui/color :cyan500)})
+   :darkgrey  (ui/color :grey900)
+   :cyan      (ui/color :cyan500)
+   :bh        (ui/color :blue500)
+   :yu        (ui/color :red500)
+   :jus1      (ui/color :grey900)
+   :jus2      (ui/color :grey600)
+   :jus3      (ui/color :grey300)
+   :all      (ui/color :yellow500)})
+
+(defn doc-colors [type mandatory]
+  (case type 1 (:bh colors) 2 (:yu colors) 3 (:yu colors) 0
+                     (case mandatory 2 (:jus3 colors) 1 (:jus2 colors) 0 (:jus1 colors)) (:all colors)))
+
 
 (defonce svg nil)
+
 (defn mount-svg []
   (set! svg
         (.. js/d3
@@ -68,7 +80,7 @@
                  (.. js/d3
                      (selectAll "textPath")
                      (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
-                     (style "fill" (:cyan500 colors)))))))
+                     (style "fill" (:cyan colors)))))))
 
 (defn scroll-title []
   (let [s-data @scroll-data
@@ -156,8 +168,7 @@
         (style "stroke" "none")
         (attr "class" "node-dot")
         (style "fill-opacity" 1)
-        (style "fill" (fn [d i] (case (.-type d) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
-                                                 (case (.-mandatory d) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow"))))
+        (style "fill" (fn [d i] (doc-colors (.-type d) (.-mandatory d)))))
     (.. node-group
         (append "rect")
         (attr "y" (- 5))
@@ -278,7 +289,10 @@
                            :error-handler #(js/alert (str "error: " %))}))
 (defn check-veza [id]
   (let [seaarch-d @search-data]
-    (if (some #{id} (clojure.set/union (first (:childs seaarch-d)) (first (:parents seaarch-d)))) true false)))
+    (cond
+      (some #{id} (first (:childs seaarch-d))) 0
+      (some #{id} (first (:parents seaarch-d))) 1
+      :else false)))
 
 
 (def legend-data
@@ -286,9 +300,9 @@
              :height 10
              :rx     2
              :ry     2}
-   :items   [{:id "bih" :type :rect :x 0 :y 50 :fill (:blue500 colors)}
+   :items   [{:id "bih" :type :rect :x 0 :y 50 :fill (:blue colors)}
              {:id "bih-t" :type :text :x 20 :y 60 :text "BiH naredbe"}
-             {:id "yu" :type :rect :x 120 :y 50 :fill (:red500 colors)}
+             {:id "yu" :type :rect :x 120 :y 50 :fill (:red colors)}
              {:id "yu-t" :type :text :x 140 :y 60 :text "YU naredbe"}
              {:id "jus1" :type :rect :x 0 :y 80 :fill (:darkgrey colors)}
              {:id "jus1-t" :type :text :x 20 :y 90 :text "JUS sa obaveznom primjenom"}
@@ -297,52 +311,52 @@
              {:id "jus3" :type :rect :x 0 :y 120 :fill (:lightgrey colors)}
              {:id "jus3-t" :type :text :x 20 :y 130 :text "JUS za upotrebu"}
              ;{:id "sel" :type :rect :x 0  :y 120 :fill "white" :stroke "black"}
-             {:id "sel-t" :type :text :x 0 :y 160 :font-weight "bold" :text "Naredbe\\standardi koji sadrže rezultat pretrage" :fill (:cyan500 colors)}]})
+             {:id "sel-t" :type :text :x 0 :y 160 :font-weight "bold" :text "Naredbe\\standardi koji sadrže rezultat pretrage" :fill (:cyan colors)}]})
 
 (defn legend []
-  [:svg {:style    {:width "100%" :max-height "200px" :font-size "14px" :padding-left "15px" :padding-top "5px" :margin-top "12px" :border-style "ridge" :border-radius "10px" :border-color (:cyan500 colors)}
+  [:svg {:style    {:width "100%" :max-height "200px" :font-size "14px" :padding-left "15px" :padding-top "5px" :margin-top "12px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}
          :view-box [0 0 330 180]}
    [:g
-    [:text {:x 0 :y 20 :font-size "20px" :fill (:blue500 colors)} "Legenda"]
+    [:text {:x 0 :y 20 :font-size "20px" :fill (:blue colors)} "Legenda"]
     (for [item (:items legend-data)]
       ^{:key (:id item)} [(:type item) (merge (:default legend-data) (dissoc item :text :type))
                           (if (= (:type item) :text) (:text item))])]])
 
 (defn label-text
   ([label text width]
-   (label-text label text width (:blue500 colors)))
+   (label-text label text width (:blue colors)))
   ([label text width color]
    [:div {:style (merge {:width (str width "%") :display "inline-block" :font-family "Roboto, sans-serif" :font-size "15px" :color color}
                         (if (= "" label) {:font-weight "bold" :text-align "center"}))}
-    [:span {:style {:font-weight "bold" :color (:cyan500 colors)}} label]
+    [:span {:style {:font-weight "bold" :color (:cyan colors)}} label]
     text]))
 
 (defn label-text-wide [label data]
   [:div {:style {:text-align   "center" :font-weight "bold" :margin-bottom "15px" :border-bottom-style "ridge"
-                 :border-color (:cyan500 colors) :font-family "Roboto, sans-serif"}}
+                 :border-color (:cyan colors) :font-family "Roboto, sans-serif"}}
    (:title data)])
 
 (defn yu-naredba-view [data]
   (let [width "33"]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      (label-text-wide "Naziv: " data)
-     (label-text "Vrsta: " "YU naredba/pravilnik" width (:red500 colors))
+     (label-text "Vrsta: " "YU naredba/pravilnik" width (:red colors))
      (label-text "Službeni glasnik: " (:Glasnik data) width)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan500 colors)}} "Prikaži dokument"]]))
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan colors)}} "Prikaži dokument"]]))
 
 (defn bh-naredba-view [data]
   (let [width "25"]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      ;[:div {:style {:font-weight "bold" :margin-bottom "8px" :margin-top "8px" }} (:title data)]
      (label-text-wide "Naziv: " data)
-     (label-text "Vrsta: " "BiH naredba" width (:blue500 colors))
+     (label-text "Vrsta: " "BiH naredba" width (:blue colors))
      (label-text "Službeni glasnik: " (:Glasnik data) width)
      (label-text "Evropska direktiva: " [:a {:href (:Link-d data) :target "_blank"} (:Direktiva data)] width)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan500 colors)}} "Prikaži dokument"]]))
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-weight "bold" :color (:cyan colors)}} "Prikaži dokument"]]))
 
 (defn jus-view [data]
   (let [width "14" wide "20"
-        color (case (:Mandatory data) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors))]
+        color (doc-colors (:Naredba data) (:Mandatory data))]
     [:div {:style {:padding-left "2px" :margin-top "40px"}}
      (label-text-wide "Naziv: " data)
      (label-text "" (str (:name data) ":" (:JUSgodina data)) width)
@@ -400,8 +414,7 @@
 (defn docs-table [docs header label]
   (let [history (if (:JUSId (first docs)) false true)
         docs (if history docs (sort-by (juxt #(case (:Naredba %) 1 1 2 2 3 3 0 4) :JUSId) < docs))
-        color (fn [doc] (case (:Naredba doc) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
-                                             (case (:Mandatory doc) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow"))]
+        color (fn [doc] (doc-colors (:Naredba doc) (:Mandatory doc)))]
     [rui/table {:selectable    false :height (str (- (if (< (count docs) 5) (* (count docs) 48) 240) 0) "px")
                 :on-cell-click (fn [row coll] (let [red (nth docs row)
                                                     id (or (:JUSId red) (:name red))
@@ -411,7 +424,7 @@
                 :header-style  (if (= header "") {:margin-top "0px"} {:margin-top "40px"})}
      (if-not (= header "")
        [rui/table-header {:display-select-all false :enable-select-all false}
-        [rui/table-row {:style {:background-color (:cyan500 colors) :font-family "Roboto, sans-serif" :font-size "14px"}}
+        [rui/table-row {:style {:background-color (:cyan colors) :font-family "Roboto, sans-serif" :font-size "14px"}}
          (if-not (= label "")
            [rui/table-header-column {:style {:width "7%" :text-align "left" :color "black"}} label])
          [rui/table-header-column {:style {:overflow   "hidden" :text-overflow "ellipsis" :color "white"
@@ -438,7 +451,9 @@
                                            :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
                                            :on-click         (fn [x] (veza-data id))
                                            :style            {:width "24px" :height "24px" :float "right"}
-                                           :icon-style       {:width "20px" :height "20px" :color (:cyan500 colors)}} (ic/social-share)]]
+                                           :icon-style       {:width "20px" :height "20px" :color (:cyan colors)
+                                                              :transform  (if (= 1 (check-veza id))  "rotate(0deg)" "rotate(180deg)")}}
+                                          (ic/social-share)]]
                         [rui/table-row-column {:style {:width "7%"}}])
                       (if history
                         [rui/table-row-column {:style {:width "7%"}}
@@ -447,7 +462,7 @@
                                            :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
                                            :on-click         (fn [x] (remove-from-history name))
                                            :style            {:width "24px" :height "24px" :float "right"}
-                                           :icon-style       {:width "20px" :height "20px" :color (:cyan500 colors)}} (ic/content-clear)]])])
+                                           :icon-style       {:width "20px" :height "20px" :color (:cyan colors)}} (ic/content-clear)]])])
                   docs))]]))
 
 (defn history [history-list header]
@@ -455,8 +470,7 @@
     (docs-table (map #(history-data %) history-list) header "")))
 
 (defn ac-source [db]
-  (let [color (fn [x] (case (:Naredba x) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
-                                         (case (:Mandatory x) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow"))]
+  (let [color (fn [x] (doc-colors (:Naredba x) (:Mandatory x)))]
     (mapv #(let [jusid (:JUSId %)
                  name (:name %)
                  id (or jusid name)
@@ -477,12 +491,12 @@
         history-list (take 10 (:history search-d))]
     [:div {:class "foo" :key "rbg" :style {:margin-top (if-not (:selection search-d) "20px" "60px")}}
      [:div {:style {:font-size        "14px" :height "48px" :padding-top "5px" :display "flex" :align-items "center" :justify-content "center"
-                    :background-color (:cyan500 colors) :color "white"}}
+                    :background-color (:cyan colors) :color "white"}}
       title]
      ;(if-not (:selection search-d)
      ;  "Pretraga podataka o naredbama/pravilnicima/standardima"
      ;  "Pretraga vezanih dokmenata")]
-     [:div {:style {:padding "3px 0px 0px 0px" :margin-top "10px" :margin-bottom "10px" :border-style "ridge" :border-radius "10px" :border-color (:cyan500 colors)}}
+     [:div {:style {:padding "3px 0px 0px 0px" :margin-top "10px" :margin-bottom "10px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}}
       [:div [ac-search db]]]
      (if-not (or (= (count history-list) 0) (:selection search-d)) [:div (history history-list "Zapamćeni dokumenti")])]))
 
@@ -503,7 +517,7 @@
          [rui/icon-button {:tooltip    "Brisi pretragu"
                            :on-click   #(clear-criteria)
                            :style      {:vertical-align "top" :float "right" :margin-top "-40px"}
-                           :icon-style {:width "24px" :height "24px" :color (:cyan500 colors)} :tooltip-position "bottom-left"} (ic/content-clear)]
+                           :icon-style {:width "24px" :height "24px" :color (:cyan colors)} :tooltip-position "bottom-left"} (ic/content-clear)]
          (case type 0 (jus-view result) 1 (bh-naredba-view result) (yu-naredba-view result))
          (if-not (:sel (:veza search))
            [:div
@@ -535,7 +549,7 @@
 
 (defn home-page [db]
   (let [search-d @search-data]
-    [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue500 colors)}})}
+    [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
      [:div
       [rui/app-bar {:title              "Veze JUS standarda i harmoniziranih BiH naredbi"
                     :title-style        {:text-align "center"}
@@ -548,7 +562,7 @@
                                            :tooltip  "Grafički prikaz"
                                            :children (ic/editor-insert-chart)
                                            :disabled (:graphics search-d)})
-                    :style              {:background-color (:blue900 colors)}}]
+                    :style              {:background-color (:darkblue colors)}}]
       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
        [rui/css-transition-group {:transition-name          "example"
                                   :transition-enter-timeout 600
@@ -561,7 +575,7 @@
                          :tooltip-position "bottom-left"
                          :on-click         #(swap! search-data assoc-in [:graphics] false)
                          :style            {:vertical-align "top" :float "right"}
-                         :icon-style       {:color (:cyan500 colors)}} (ic/content-clear)]
+                         :icon-style       {:color (:cyan colors)}} (ic/content-clear)]
        [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} "Grafički prikaz veza između harmoniziranih naredbi i JUS standarda"
         [:div {:id "app" :style {:max-height "500px" :overflow "auto"}}]]
        [:div {:class-name "col-md-3" :style {:font-size "20px" :display "inline-block"}} (legend)]]]]))
@@ -571,9 +585,7 @@
 
 
 (defn mount-root []
-  (let [db @db-tree
-        color (fn [x] (case (:Naredba x) 1 (:blue500 colors) 2 (:red500 colors) 3 (:red500 colors) 0
-                                         (case (:Mandatory x) 2 (:lightgrey colors) 1 (:grey colors) 0 (:darkgrey colors)) "yellow"))]
+  (let [db @db-tree]
     (r/render
       [home-page (ac-source db)]
       (.getElementById js/document "search-app"))))
@@ -589,8 +601,6 @@
                     ;(expand-first-level data-flare)
                     ;(d3-tree data-flare)
                     :error-handler #(js/alert (str "error: " %))}))
-
-;(init-veza)
 
 (defn main []
   (init-veza))
