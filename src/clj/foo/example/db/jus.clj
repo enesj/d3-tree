@@ -144,24 +144,24 @@
                    (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
                          (get-path (first child) veze))])))))
 
-(defn all-childs [parent]
+(defn all-childs [parent verbose]
   (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) (group-by :Parent (get-veza))))]
     (loop [all-childs #{} childs #{parent}]
       (let [new-childs (apply clojure.set/union (map (fn [x] (get groups x)) childs))]
         (if (empty? new-childs)
-          [all-childs (filter #(all-childs (:JUSId %)) (first (active-data)))]
+          [all-childs (if (= verbose "1") (filter #(all-childs (:JUSId %)) (first (active-data))) [])]
           (recur (clojure.set/union new-childs all-childs) new-childs))))))
 
-(defn all-parents [child]
+(defn all-parents [child verbose]
   (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Parent (second x)))}) (group-by :Child (get-veza))))]
     (loop [all-parents #{} parents #{child}]
       (let [new-parents (apply clojure.set/union (map (fn [x] (get groups x)) parents))]
         (if (empty? new-parents)
-          [all-parents (filter #(all-parents (:JUSId %)) (first (active-data)))]
+          [all-parents (if (= verbose "1") (filter #(all-parents (:JUSId %)) (first (active-data))) [])]
           (recur (clojure.set/union new-parents all-parents) new-parents))))))
 
-(defn search-data [doc]
-  [(all-parents doc) (all-childs doc)])
+(defn search-data [doc verbose]
+  [(all-parents doc verbose) (all-childs doc verbose)])
 
 
 (defn tree-data []

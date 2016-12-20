@@ -22,14 +22,14 @@
 (defn jus-tree []
   (response (jus-db/tree-data)))
 
-(defn jus-childs [parent]
-  (response (jus-db/all-childs parent)))
+;(defn jus-childs [parent verbose]
+;  (response (jus-db/all-childs parent verbose)))
+;
+;(defn jus-parents [child]
+;  (response (jus-db/all-parents child verbose)))
 
-(defn jus-parents [child]
-  (response (jus-db/all-parents child)))
-
-(defn search-data [doc]
-  (response (jus-db/search-data  doc)))
+(defn search-data [doc verbose]
+  (response (jus-db/search-data  doc verbose)))
 
 (defn add-jus-veza [parent child]
   (response (jus-db/add-veza parent child)))
@@ -61,9 +61,9 @@
            (GET "/jus/only-jus" [] (jus-only-jus))
            (GET "/jus/veza" [] (jus-veza))
            (GET "/jus/tree" [] (jus-tree))
-           (GET "/jus/childs" [parent] (jus-childs parent))
-           (GET "/jus/parents" [child] (jus-parents child))
-           (GET "/jus/search-data" [doc] (search-data doc))
+           ;(GET "/jus/childs" [parent] (jus-childs parent))
+           ;(GET "/jus/parents" [child] (jus-parents child))
+           (GET "/jus/search-data" [doc verbose] (search-data doc verbose))
            (GET "/jus/add-veza" [parent child] (add-jus-veza parent child))
            (GET "/jus/del-veza" [parent child] (del-jus-veza parent child))
            (GET "/jus/update" [filter field-data like] (jus-update filter field-data like))
