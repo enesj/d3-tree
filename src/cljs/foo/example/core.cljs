@@ -62,19 +62,19 @@
                     :else false)]
     veza-type))
 
-(defn count-veze-history [id veza-type index]
-  (js/console.log "dd")
+(defn count-veze-history [search-d id veza-type index]
   (if veza-type
     (GET "/jus/search-data" {:params        {:doc id :verbose "0"}
-                             :handler       (fn [x] (swap! search-data assoc-in [:history index :veze] (count (if (= veza-type 0) (clojure.set/intersection (ffirst x) (first (:childs @search-data)))
-                                                                                                                                  (clojure.set/intersection (first (second x)) (first (:parents @search-data)))))))
+                             :handler       (fn [x] (swap! search-data assoc-in [:history index :veze] (count (if (= veza-type 0) (clojure.set/intersection (ffirst x) (first (:childs search-d)))
+                                                                                                                                  (clojure.set/intersection (first (second x)) (first (:parents search-d)))))))
                              :error-handler #(js/alert (str "error: " %))})))
 
 (defn veze-history []
-  (let [indexed (keep-indexed #(vector %1 %2 )(take 10 (:history @search-data)))]
-    (js/console.log indexed)
-    (for [item indexed]
-      (count-veze-history (:id (second item)) (check-veza (:id (second item))) (first item)))))
+  (swap!  search-data update-in [:history]  (fn [x] (mapv #(assoc-in % [:veze] 0) x)))
+  (let [search-d @search-data
+        indexed (map-indexed #(hash-map :index %1 :id (:id %2))  (take 10 (:history search-d)))]
+    (doseq [item indexed]
+           (count-veze-history search-d (:id  item) (check-veza (:id  item)) (:index item)))))
 
 (defn sel-data [doc]
   (let [current-data @search-data]
@@ -492,7 +492,7 @@
        (select-doc-type)
        (if (:id ref-criteria) [:div
                                [rui/flat-button {:label "Otvori" :primary true :on-click (fn [e] (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}) (sel-data (:id ref-criteria)))}]
-                               [rui/flat-button {:label "Zapamti" :secondary true :on-click (fn [e] (do (swap! search-data assoc-in [:history] (update-history (:id ref-criteria))) (veze-history)))}]
+                               [rui/flat-button {:label "Zapamti" :secondary true :on-click (fn [e] (do (swap! search-data assoc-in [:history] (update-history (:id ref-criteria)))))}]
                                (if (:selection search-d)
                                  [rui/flat-button {:label "Veze"  :secondary true :on-click (fn [e] (reset! candidate {:id nil :veze 0}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))}
                                   [rui/badge {:badge-content (:veze ref-criteria)  :secondary true :style {:margin-left "40px" :position "absolute" } :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
@@ -541,14 +541,18 @@
                        (or (:JUSopis %) (:title %))]
                       (if (or veza (and history check-veza (:selection s-data)))
                         [rui/table-row-column {:style {:width "7%"}}
-                         [rui/icon-button {:tooltip          "Prikaži vezu"
-                                           :tooltip-position "top-left"
-                                           :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
-                                           :on-click         (fn [x] (veza-data id check-veza))
-                                           :style            {:width "24px" :height "24px" :float "right"}
-                                           :icon-style       {:width     "20px" :height "20px" :color (:cyan colors)
-                                                              :transform (if (= 1 check-veza) "rotate(0deg)" "rotate(180deg)")}}
-                          (ic/social-share)]]
+                         [:div
+                          [rui/badge {:badge-content (:veze (first (filter (fn [x] (= id (:id x)) ) (:history s-data))))
+                                      :secondary true
+                                      :style {:margin-left "90px" :position "absolute" } :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]
+                          [rui/icon-button {:tooltip          "Prikaži vezu"
+                                            :tooltip-position "top-left"
+                                            :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
+                                            :on-click         (fn [x] (veza-data id check-veza))
+                                            :style            {:width "24px" :height "24px" :float "right"}
+                                            :icon-style       {:width     "20px" :height "20px" :color (:cyan colors)
+                                                               :transform (if (= 1 check-veza) "rotate(0deg)" "rotate(180deg)")}}
+                           (ic/social-share)]]]
                         [rui/table-row-column {:style {:width "7%"}}])
                       (if history
                         [rui/table-row-column {:style {:width "8%"}}
@@ -635,7 +639,6 @@
             childs (second (:childs search))
             parents (second (:parents search))
             count-p (count (first (:parents search)))
-            veza-childs (second (:childs (:veza search)))
             count-c (count (first (:childs search)))
             veza-path  (mapv #(get-doc-data % db) (:path (:veza search)))
             type (:Naredba result)
@@ -651,7 +654,7 @@
          (if-not (:sel (:veza search))
            [:div
             [rui/tabs {:style {:margin-top "20px"} :on-change (fn [_ _ x]
-                                                                (if (=  2 (.-index (.-props x))) (do (veze-history)))
+                                                                (if (=  2 (.-index (.-props x))) (veze-history))
                                                                 (swap! search-data assoc-in [:search-text] "")
                                                                 (reset! candidate {:id nil :veze 0})
                                                                 (reset! tab-index (.-index (.-props x))))}
