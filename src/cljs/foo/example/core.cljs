@@ -463,7 +463,7 @@
 (defn select-doc-type []
   [rui/select-field {:id        "type"
                      ;:autoWidth true
-                     :style     {:padding-left "10px" :width "200px" :height "50px"}
+                     :style     {:padding-left "10px" :width "220px" :height "50px"}
                      :value     (:search-type @search-data)
                      :on-change (fn [event index value]
                                   (swap! search-data assoc-in [:search-text] "")
@@ -539,7 +539,8 @@
                                                    :on-mouse-over #(reset! hover :4)
                                                    :on-mouse-leave #(reset! hover "")}]
                                  [:div {:style {:position "absolute" :margin-top "8px" :padding-left "3px" :padding-right "3px" :margin-left (first (message @hover))
-                                                :background-color (:darkgrey colors) :color (:lightgrey colors) :border-radius "6px"}}
+                                                :background-color (:darkgrey colors) :color (:lightgrey colors) :border-radius "6px"
+                                                :font-size "12px"}}
                                        (second (message @hover))]])]))))
 
 
@@ -724,7 +725,7 @@
               (case @tab-index
                 0 (if (> count-p 0) (pretraga (ac-source parents) "Pretraga dokumenata koji vezuju"))
                 1 (if (> count-c 0) (pretraga (ac-source childs) "Pretraga vezanih dokumenata"))
-                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
+                ;2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
                 [:div ""]))]
            [:div
             (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza)) "Veza sa:" false)
