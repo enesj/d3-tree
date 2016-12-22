@@ -33,6 +33,7 @@
 (def duration 400)
 (def title-lenght 140)
 (def y-chars-ratio 5)
+(def history-size 20)
 
 (def colors
   {:darkblue  (ui/color :blue900)
@@ -72,7 +73,7 @@
 (defn veze-history []
   (swap!  search-data update-in [:history]  (fn [x] (mapv #(assoc-in % [:veze] 0) x)))
   (let [search-d @search-data
-        indexed (map-indexed #(hash-map :index %1 :id (:id %2))  (take 10 (:history search-d)))]
+        indexed (map-indexed #(hash-map :index %1 :id (:id %2))  (take history-size (:history search-d)))]
     (doseq [item indexed]
            (count-veze-history search-d (:id  item) (check-veza (:id  item)) (:index item)))))
 
@@ -361,12 +362,12 @@
                {:id "jus2" :type :rect :x 46 :y 1 :fill (:jus2 colors)}
                {:id "jus3" :type :rect :x 58 :y 1 :fill (:jus3 colors)}
                {:id "doc-type" :type :text :x 80 :y 10 :text ""}]
-     :badges  [{:id "badges-line" :type :line :x1 5 :y1 (+ bdg-y 15) :x2 430 :y2 (+ bdg-y 15) :stroke (:lightgrey colors)}
+     :badges  [{:id "badges-line" :type :line :x1 5 :y1 (+ bdg-y 15) :x2 445 :y2 (+ bdg-y 15) :stroke (:grey colors)}
                {:id "badge-text" :type :text :x 80 :y (+ bdg-y 30) :fill (:bh colors)  :text "Broj dokumenata u grupi"}
-               {:id "badge-red" :type :circle :cx 40 :cy (+ bdg-y 26) :r 8 :fill "rgb(255, 64, 129)"}
-               {:id "badge-red-label" :type :text :x 38 :y (+ bdg-y 30) :text "3" :fill "white" :font-size "10px"}
-               {:id "badge-blue" :type :circle :cx 20 :cy (+ bdg-y 26) :r 8 :fill "rgb(0, 188, 212)"}
-               {:id "badge-blue-label" :type :text :x 14 :y (+ bdg-y 30) :text "25" :fill "white" :font-size "10px"}]
+               {:id "badge-red" :type :circle :cx 38 :cy (+ bdg-y 26) :r 8 :fill "rgb(255, 64, 129)"}
+               {:id "badge-red-label" :type :text :x 36 :y (+ bdg-y 30) :text "3" :fill "white" :font-size "10px"}
+               {:id "badge-blue" :type :circle :cx 18 :cy (+ bdg-y 26) :r 8 :fill "rgb(0, 188, 212)"}
+               {:id "badge-blue-label" :type :text :x 12 :y (+ bdg-y 30) :text "25" :fill "white" :font-size "10px"}]
      :buttons [{:id "buttons-line" :type :line :x1 5 :y1 15 :x2 430 :y2 15 :stroke (:lightgrey colors)}
                {:id "otvori" :type :text :x 9 :y 30  :fill "rgb(0, 188, 212)" :text "Otvori"}
                {:id "zapamti" :type :text :x 110 :y 30 :fill "rgb(255, 64, 129)" :text "Zapamti"}
@@ -378,13 +379,12 @@
   (let [legend-type (atom nil)
         change-type (fn [x] (do (js/console.log x) (reset! legend-type x)))]
     (fn []
-     (let [search-d (:selection @search-data)
-           candidate (:id @candidate)
-           bdg-y (if candidate 40 0)
-           legend-data-h (legend-data-h bdg-y)
-           legend-data (remove nil? (flatten (into (:colors legend-data-h) [(if (:selection @search-data) (:badges legend-data-h)) (if  candidate (:buttons legend-data-h))])))
-           svg-heght (str (+ 14 (if (:selection @search-data) 28 0) (if  candidate 44 0)) "px")]
-      [:svg {:style {:width "450px" :height svg-heght :float "right" :font-size "12px" :background-color "white"  :padding-top "2px" :margin-right "2%"
+     (let [search-d  @search-data
+           show-badges (or (:selection search-d) (> (count (:history search-d) ) 0))
+           legend-data-h (legend-data-h 2)
+           legend-data (remove nil? (flatten (into (:colors legend-data-h) [(if show-badges (:badges legend-data-h))])))
+           svg-heght (str (+ 16 (if show-badges 26 0) ) "px")]
+      [:svg {:style {:width "450px" :height svg-heght :float "right" :font-size "12px" :background-color "white"  :padding-top "2px"  :margin-top "-15px"
                      :box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}};}};}}
        [:g
         ;[:text {:x 0 :y 10 :fill (:darkblue colors) :font-weight "bold" } "Legenda:  "]
@@ -409,12 +409,10 @@
                                                                      "jus3" "JUS za upotrebu"
                                                                      "sel-t" "Naredbe\\standardi koji sadrže rezultat pretrage"
                                                                      "Za objašnjenje pređi mišem preko odgovarajuće boje")
-                                                                   (if (= (:id item) "button-type") (case @legend-type
-                                                                                                      "otvori" "Prikaži podatke o dokumentu"
-                                                                                                      "zapamti" "Zapamti dokument"
-                                                                                                      "veze" "Prikaži dokumente iz veze"
-                                                                                                      "nova" "Obriši kriterij za pretragu"
-                                                                                                      "Za objašnjenje pređi mišem preko odgovarajućeg teksta")
+                                                                   (if (= (:id item) "badge-text") (case @legend-type
+                                                                                                     "badge-blue-label" "Primjer 1: u grupi se nalazi 25 dokumenata"
+                                                                                                     "badge-red-label" "Primjer 2: u grupi se nalazi 3 dokumenta"
+                                                                                                     "Broj dokumenata u grupi")
                                                                                                  (:text item)))]))]]))))
 
 
@@ -464,8 +462,8 @@
 
 (defn select-doc-type []
   [rui/select-field {:id        "type"
-                     :autoWidth true
-                     ;:style     {:a "Asdfsdfsdfsdfasdfasdfasdfasdffasdfasdfasd"}
+                     ;:autoWidth true
+                     :style     {:padding-left "10px" :width "200px" :height "50px"}
                      :value     (:search-type @search-data)
                      :on-change (fn [event index value]
                                   (swap! search-data assoc-in [:search-text] "")
@@ -490,39 +488,61 @@
 
 
 (defn ac-search [source]
-  (fn [source]
-    (let [search-d @search-data
-          ref-criteria @candidate
-          text (:search-text search-d)
-          source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)))
-          source-new (if source-filter (filterv source-filter source) source)]
-      [:div
-       [rui/auto-complete {:id                  "text"
-                           :floating-label-text "Naziv"
-                           :openOnFocus         true
-                           :anchor-origin       (if (:selection search-d) {:vertical "top", :horizontal "left"} {:vertical "bottom", :horizontal "left"})
-                           :target-origin       (if (:selection search-d) {:vertical "bottom", :horizontal "left"} {:vertical "top", :horizontal "left"})
-                           :input-style         {:white-space "nowrap" :overflow "hidden" :text-overflow "ellipsis"}
-                           :style               {:display "inline-block" :width "75%" :margin-right "5%" :padding-left "10px"}
-                           :dataSource          source-new
-                           :maxSearchResults    50
-                           :search-text         (:search-text search-d)
-                           :filter              (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
-                           :full-width          true
-                           :on-new-request      (fn [chosen index]
-                                                  (reset! candidate {:id (:id (source-new index)) :veze 0})
-                                                  (count-veze (:id (source-new index)) (check-veza (:id (source-new index))))
-                                                  (swap! search-data assoc-in [:search-text] (.-text chosen)))
-                           :hint-text           "Unesi dio teksta iz naslova"
-                           :list-style          {:max-height "250px" :width "300%"}}]
-       (select-doc-type)
-       (if (:id ref-criteria) [:div
-                               [rui/flat-button {:label "Otvori" :primary true :on-click (fn [e] (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}) (sel-data (:id ref-criteria)))}]
-                               [rui/flat-button {:label "Zapamti" :secondary true :on-click (fn [e] (do (swap! search-data assoc-in [:history] (update-history (:id ref-criteria)))))}]
-                               (if (:selection search-d)
-                                 [rui/flat-button {:label "Veze"  :secondary true :on-click (fn [e] (reset! candidate {:id nil :veze 0}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))}
-                                  [rui/badge {:badge-content (:veze ref-criteria)  :primary true :style {:margin-left "40px" :position "absolute" } :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
-                               [rui/flat-button {:label "Nova pretraga" :on-click (fn [e] (reset! candidate {:id nil :veze 0}) (swap! search-data assoc-in [:search-text] ""))}]])])))
+  (let [hover (atom "")
+        message {:1 ["12px" "Prikazi podatke o dokumentu"]
+                 :2 ["98px" "Zapamti ovaj dokument"]
+                 :3 ["206px"  "Prikazi dokumente koji vezuju ovaj dokument sa izabranim dokumentom"]
+                 :4 [(if (:selection @search-data)  "283px" "193px") "Obrisi kriterij za pretragu"]}]
+    (fn [source]
+      (let [search-d @search-data
+            ref-criteria @candidate
+            text (:search-text search-d)
+            source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)))
+            source-new (if source-filter (filterv source-filter source) source)]
+        [:div
+         [rui/auto-complete {:id                  "text"
+                             :floating-label-text "Naziv"
+                             :openOnFocus         true
+                             :anchor-origin       (if (:selection search-d) {:vertical "top", :horizontal "left"} {:vertical "bottom", :horizontal "left"})
+                             :target-origin       (if (:selection search-d) {:vertical "bottom", :horizontal "left"} {:vertical "top", :horizontal "left"})
+                             :input-style         {:white-space "nowrap" :overflow "hidden" :text-overflow "ellipsis"}
+                             :style               {:display "inline-block" :width "75%" :padding-left "10px"}
+                             :dataSource          source-new
+                             :maxSearchResults    50
+                             :search-text         (:search-text search-d)
+                             :filter              (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
+                             :full-width          true
+                             :on-new-request      (fn [chosen index]
+                                                    (reset! candidate {:id (:id (source-new index)) :veze 0})
+                                                    (count-veze (:id (source-new index)) (check-veza (:id (source-new index))))
+                                                    (swap! search-data assoc-in [:search-text] (.-text chosen)))
+                             :hint-text           "Unesi dio teksta iz naslova"
+                             :list-style          {:max-height "250px" :width "300%"}}]
+         (select-doc-type)
+         (if (:id ref-criteria) [:div
+                                 [rui/flat-button {:label "Otvori" :primary true
+                                                   :on-click (fn [e] (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}) (sel-data (:id ref-criteria)))
+                                                   :on-mouse-over #(reset! hover :1)
+                                                   :on-mouse-leave #(reset! hover "")}]
+                                 [rui/flat-button {:label "Zapamti" :secondary true
+                                                   :on-click (fn [e] (do (swap! search-data assoc-in [:history] (update-history (:id ref-criteria)))))
+                                                   :on-mouse-over #(reset! hover :2)
+                                                   :on-mouse-leave #(reset! hover "")}]
+                                 (if (:selection search-d)
+                                   [rui/flat-button {:label "Veze"  :secondary true
+                                                     :on-click (fn [e] (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
+                                                     :on-mouse-over #(reset! hover :3)
+                                                     :on-mouse-leave #(reset! hover "")}
+                                    [rui/badge {:badge-content (:veze ref-criteria)  :primary true :style {:margin-left "40px" :position "absolute" } :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
+                                 [rui/flat-button {:label "Nova pretraga"
+                                                   :on-click (fn [e] (reset! candidate {:id nil :veze 0}) (swap! search-data assoc-in [:search-text] "") (reset! hover ""))
+                                                   :on-mouse-over #(reset! hover :4)
+                                                   :on-mouse-leave #(reset! hover "")}]
+                                 [:div {:style {:position "absolute" :margin-top "8px" :padding-left "3px" :padding-right "3px" :margin-left (first (message @hover))
+                                                :background-color (:darkgrey colors) :color (:lightgrey colors) :border-radius "6px"}}
+                                       (second (message @hover))]])]))))
+
+
                         ;[:div {:style {:height "5px"}}])])))
 
 (defn docs-table [docs header label history]
@@ -545,10 +565,12 @@
        [rui/table-header {:display-select-all false :enable-select-all false :adjust-for-checkbox false}
         [rui/table-row {:style {:background-color (:cyan colors) :font-family "Roboto, sans-serif" :font-size "14px"} :selectable false}
          (if-not (= label "")
-          [rui/table-header-column {:style {:width "7%"  :color "black" :font-weight "bold"}} label])
+          [rui/table-header-column {:style {:width "68px"  :color "black" :font-weight "bold" :padding-left "1%" :padding-right "1%"}} label])
          [rui/table-header-column {:style {:overflow   "hidden" :text-overflow "ellipsis" :color "white"
-                                           :text-align "center" :text-transform "uppercase"}} header
-          [rui/badge {:badge-content (count docs) :secondary true :style {:margin-left "0%" :position "absolute" :margin-top "-15px"} :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]]
+                                           :text-align "center" :text-transform "uppercase" :padding-left "1%" :padding-right "1%"}}
+          [rui/badge {:badge-content (count docs) :secondary true :style { :position "absolute" :margin-top "-15px" :margin-left "-15px" :padding-left "0%" :padding-right "0%"}
+                      :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]
+          header]
          (if veza
            [rui/table-header-column {:style {:width "7%"}}
             [rui/icon-button {:tooltip        "Brisi vezu"
@@ -566,13 +588,9 @@
                        (if (= 0 (:Naredba %))
                          [:span {:style {:font-weight "bold"}} (str id ":" (:JUSgodina %) " ")])
                        (or (:JUSopis %) (:title %))]
-                      (if (or veza (and history check-veza (:selection s-data)))
+                      (if (and history check-veza (:selection s-data))
                         [rui/table-row-column {:style {:width "7%"}}
                          [:div
-                          (if history
-                            [rui/badge {:badge-content (:veze (first (filter (fn [x] (= id (:id x)) ) (:history s-data))))
-                                        :primary true
-                                        :style {:margin-left "60px" :position "absolute" } :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}])
                           [rui/icon-button {:tooltip          "Prikaži vezu"
                                             :tooltip-position "top-left"
                                             :tooltip-styles   {:margin-top "30px" :width "70px" :right "10px"}
@@ -580,10 +598,15 @@
                                             :style            {:width "24px" :height "24px" :float "right"}
                                             :icon-style       {:width     "20px" :height "20px" :color (:cyan colors)
                                                                :transform (if (= 1 check-veza) "rotate(0deg)" "rotate(180deg)")}}
-                           (ic/social-share)]]]
+                           (ic/social-share)]
+                          (if history
+                            [rui/badge {:badge-content (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data))))
+                                        :primary       true
+                                        :style         {:margin-left "10%" :margin-top "-6px" :position "relative" :overflow "visible"}
+                                        :badge-style   {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}])]]
                         [rui/table-row-column {:style {:width "7%"}}])
                       (if history
-                        [rui/table-row-column {:style {:width "8%"}}
+                        [rui/table-row-column {:style {:width "4%"}}
                          [rui/icon-button {:tooltip          "Brisi iz zapamćenih"
                                            :tooltip-position "top-left"
                                            :tooltip-styles   {:margin-top "30px" :width "100px" :right "10px"}
@@ -615,7 +638,7 @@
 
 (defn pretraga [db title]
   (let [search-d @search-data
-        history-list (take 10 (:history search-d))]
+        history-list (take history-size (:history search-d))]
     [:div {:class "foo" :key "rbg" :style {:padding-bottom "20px" :padding-top "20px" :margin-top (if-not (:selection search-d) "0px" "20px")}}
      [:div {:style {:font-size        "14px" :height "48px" :padding-top "5px" :display "flex" :align-items "center" :justify-content "center"
                     :background-color (:cyan colors) :color "white"}}
@@ -672,7 +695,7 @@
             count-c (count (first (:childs search)))
             veza-path  (mapv #(get-doc-data % db) (:path (:veza search)))
             type (:Naredba result)
-            history-list (take 10 (:history search))
+            history-list (take history-size (:history search))
             count-h (count history-list)
             badges [badges count-p count-c count-h]]
         [:div {:class "foo" :style {:padding-bottom "0px" :padding-top "0px" :font-size "16px" :font-family "Roboto, sans-serif"} :key "sr"}
@@ -681,7 +704,7 @@
                            :style      {:vertical-align "top" :float "right" :margin-top "-20px" :height "24px"}
                            :icon-style {:width "24px" :height "24px" :color (:cyan colors)} :tooltip-position "bottom-left"} (ic/content-clear)]
          (case type 0 (jus-view result) 1 (bh-naredba-view result) (yu-naredba-view result))
-         (if-not (:sel (:veza search))
+         (if (= (count veza-path ) 0)
            [:div
             [rui/tabs {:style {:margin-top "20px"} :on-change (fn [_ _ x]
                                                                 (if (=  2 (.-index (.-props x))) (veze-history))
@@ -699,12 +722,13 @@
               (history history-list "")]]
             (if-not (:graphics search)
               (case @tab-index
-                0 (pretraga (ac-source parents) "Pretraga podataka o dokumentima koji ga vezu")
-                1 (pretraga (ac-source childs) "Pretraga podataka o vezanim dokumetnima")
+                0 (if (> count-p 0) (pretraga (ac-source parents) "Pretraga dokumenata koji vezuju"))
+                1 (if (> count-c 0) (pretraga (ac-source childs) "Pretraga vezanih dokumenata"))
+                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
                 [:div ""]))]
-           (docs-table veza-path (if (= (:Naredba result-veza) 0)
-                                     (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza))
-                       "Veza sa:" false))]))))
+           [:div
+            (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza)) "Veza sa:" false)
+            (pretraga (ac-source veza-path) "Pretraga zapamćenih dokumenta")])]))))
 
 
 (def logo (r/as-element [rui/svg-icon {:color "white" :view-box "0 0 100 50" :style {:width "100px" :height "50px"}}
@@ -729,7 +753,7 @@
                                            :tooltip  "Grafički prikaz"
                                            :children (ic/editor-insert-chart)
                                            :disabled (:graphics search-d)})
-                    :style              {:background-color (:darkblue colors) :margin-bottom "30px"}}
+                    :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}
        [:div {:class-name "col-md-12" :style {:width "98%" :position "absolute" :top "70px" :left 0}}
         [legend-h]]]
       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
