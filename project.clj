@@ -58,7 +58,7 @@
                  [org.clojure/core.typed "0.3.11"]
                  [prismatic/plumbing "0.5.0"]
                  [prismatic/schema "1.0.5"]
-                 [com.rpl/specter "0.11.2"]
+                 [com.rpl/specter "0.12.0"]
                  [joplin.jdbc "0.3.6"]
                  [joplin.core "0.3.6"]
                  [de.sveri/closp-crud "0.3.0"]]
@@ -89,7 +89,8 @@
                                    ; leaving this commented because of: https://github.com/cursiveclojure/cursive/issues/369
                                    ;:jar           true
                                    :optimizations :advanced
-                                   :pretty-print  false}}}}
+                                   :pretty-print  true
+                                   :pseudo-names true}}}}
   :figwheel {:css-dirs   ["resources/public/css"]} ;; watch and update CSS
 
   :profiles {:dev     {:repl-options {:init-ns          foo.example.user

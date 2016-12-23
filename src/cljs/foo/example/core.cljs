@@ -760,7 +760,7 @@
       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
        [rui/css-transition-group {:transition-name          "example"
                                   :transition-enter-timeout 600
-                                  :transition-leave-timeout 500}
+                                    :transition-leave-timeout 500}
         (if-not (:selection search-d)
           (pretraga db "Pretraga podataka o naredbama/pravilnicima/standardima")
           [search-result])]]
@@ -785,6 +785,6 @@
                     ;(d3-tree data-flare)
                     :error-handler #(js/alert (str "error: " %))}))
 
-(defn main []
+(defn ^:export main []
   (init-veza))
 

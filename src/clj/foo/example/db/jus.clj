@@ -10,12 +10,8 @@
 
 ;(:import (java.util UUID))
 
-
-
 (defentity JUS)
 (defentity Veza)
-
-
 
 (defn update-jus [filter field-data like]
   (let [criteria (if (= like "true") (transform [ALL LAST] #(into [] `(~'like ~(str "%" % "%"))) filter) filter)
