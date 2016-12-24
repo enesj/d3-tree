@@ -88,6 +88,7 @@
                     :compiler     {:output-to     "resources/public/js/compiled/app.js"
                                    ; leaving this commented because of: https://github.com/cursiveclojure/cursive/issues/369
                                    ;:jar           true
+                                   :externs ["externs/d3_externs_min.js"]
                                    :optimizations :advanced
                                    :pretty-print  true
                                    :pseudo-names true}}}}
