@@ -88,10 +88,10 @@
                     :compiler     {:output-to     "resources/public/js/compiled/app.js"
                                    ; leaving this commented because of: https://github.com/cursiveclojure/cursive/issues/369
                                    ;:jar           true
-                                   :externs ["externs/d3_externs_min.js"]
+                                   :externs ["externs/d3_externs.js"]
                                    :optimizations :advanced
-                                   :pretty-print  true
-                                   :pseudo-names true}}}}
+                                   :pretty-print  false}}}}
+                                   ;:pseudo-names true}}}}
   :figwheel {:css-dirs   ["resources/public/css"]} ;; watch and update CSS
 
   :profiles {:dev     {:repl-options {:init-ns          foo.example.user

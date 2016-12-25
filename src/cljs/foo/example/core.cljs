@@ -162,8 +162,6 @@
                      (do (if (.-_children d)
                            (do (set! (.-children d) (.-_children d)) (set! (.-_children d) nil))
                            (set! (.-children d) (clj->js (:children (get-doc-data (.-name d) @db-tree)))))))
-
-
   (d3-tree d)
   (if ctrl
     (do (sel-data (.-name d)) (js/console.log "ctrl"))
@@ -214,11 +212,11 @@
         (attr "width" width)
         (attr "opacity" 1e-6)
         (on "click" (fn [d] (click-fn d d3-tree (.. js/d3 -event -ctrlKey))))
-        (on "mouseenter" (fn [d] (reset! scroll-data d) (scroll-title)))
+        (on "mouseenter" (fn [d] (swap! search-data assoc-in [:graph-selection] [nil (.-title d) (.-type d) (.-mandatory d)])))
         (on "mouseout" (fn [d] (reset! scroll-data false) (.. js/d3 (select (str "#" "text" (.-id d)))
                                                               (select "textPath")
-                                                              (text (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))))
-                                                                      (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
+                                                              (text (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))))
+                                                                      (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
                                                                       (.-title d)))
                                                               transition
                                                               (duration 1000)
@@ -236,23 +234,26 @@
     (.. node-group
         (append "svg:path")
         (attr "id" (fn [d i] (str "path" (.-id d))))
-        (attr "d" (fn [d] (if (= (.-shorttitle d) "") "m7 2 1000 0" "m100 5 1000 0"))))
+        (attr "d" (fn [d] (if (= (aget  d "shorttitle") "") "m7 2 1000 0" "m100 5 1000 0"))))
+
     (.. node-group
         (append "svg:text")
         (attr "id" (fn [d i] (str "text" (.-id d))))
         ;(attr "text-anchor" "start")
         (attr "dx" 7)
-        (attr "dy" (fn [d] (if (= (.-shorttitle d) "") 2 5)))
+        (attr "dy" (fn [d] (if (= (aget  d "shorttitle") "") 2 5)))
         (style "font-weight" "bold")
-        (text (fn [d] (.-shorttitle d)))
+        (text (fn [d] (aget  d "shorttitle")))
         (append "textPath")
         (attr "xlink:href" (fn [d] (str "#path" (.-id d))))
         (attr "startOffset" 0)
-        (style "font-weight" (fn [d] (if (= (.-shorttitle d) "") "bold" "normal")))
+        (style "font-weight" (fn [d] (if (= (aget  d "shorttitle") "") "bold" "normal")))
         (text (fn [d i]
-                (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))))
-                  (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (.-shorttitle d) "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
+                (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))))
+                  (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
                   (.-title d)))))
+        ;(text  (fn [d i] (.-title d))))
+
     (.. node-group
         transition
         (duration duration)
@@ -324,33 +325,6 @@
                              :error-handler #(js/alert (str "error: " %))})))
 
 
-(def legend-data
-  {:default {:width  10
-             :height 10
-             :rx     2
-             :ry     2}
-   :items   [{:id "bih" :type :rect :x 0 :y 50 :fill (:bh colors)}
-             {:id "bih-t" :type :text :x 20 :y 60 :text "BiH naredbe"}
-             {:id "yu" :type :rect :x 120 :y 50 :fill (:yu colors)}
-             {:id "yu-t" :type :text :x 140 :y 60 :text "YU naredbe"}
-             {:id "jus1" :type :rect :x 0 :y 80 :fill (:jus1 colors)}
-             {:id "jus1-t" :type :text :x 20 :y 90 :text "JUS sa obaveznom primjenom"}
-             {:id "jus2" :type :rect :x 0 :y 100 :fill (:jus2 colors)}
-             {:id "jus2-t" :type :text :x 20 :y 110 :text "JUS sa djelimično obaveznom primjenom"}
-             {:id "jus3" :type :rect :x 0 :y 120 :fill (:jus3 colors)}
-             {:id "jus3-t" :type :text :x 20 :y 130 :text "JUS za upotrebu"}
-             ;{:id "sel" :type :rect :x 0  :y 120 :fill "white" :stroke "black"}
-             {:id "sel-t" :type :text :x 0 :y 160 :text "Naredbe\\standardi koji sadrže rezultat pretrage" :text-decoration "underline"}]})
-
-(defn legend []
-  [:svg {:style    {:width "100%" :max-height "200px" :font-size "14px" :padding-left "15px" :padding-top "5px" :margin-top "12px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}
-         :view-box [0 0 330 180]}
-   [:g
-    [:text {:x 0 :y 20 :font-size "20px" :fill (:blue colors)} "Legenda"]
-    (for [item (:items legend-data)]
-      ^{:key (:id item)} [(:type item) (merge (:default legend-data) (dissoc item :text :type))
-                          (if (= (:type item) :text) (:text item))])]])
-
 (defn  legend-data-h [bdg-y]
     {:default {:width  10
                :height 10
@@ -376,8 +350,8 @@
                {:id "button-type" :type :text :x 50 :y 50 :fill (:bh colors)}]})
 
 (defn legend-h []
-  (let [legend-type (atom nil)
-        change-type (fn [x] (do (js/console.log x) (reset! legend-type x)))]
+  (let [legend-type (atom "")
+        change-type (fn [x]  (reset! legend-type x))]
     (fn []
      (let [search-d  @search-data
            show-badges (or (:selection search-d) (> (count (:history search-d) ) 0))
@@ -738,6 +712,7 @@
 (def tree-icon (r/as-element [rui/svg-icon {:color "black" :view-box "0 0 36 36" :style {:width "36px" :height "36px"}}
                               [:path {:d "M30.5 24h-0.5v-6.5c0-1.93-1.57-3.5-3.5-3.5h-8.5v-4h0.5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h0.5v4h-8.5c-1.93 0-3.5 1.57-3.5 3.5v6.5h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5zM6 30h-4v-4h4v4zM18 30h-4v-4h4v4zM14 8v-4h4v4h-4zM30 30h-4v-4h4v4z"}]]))
 
+
 (defn home-page [db]
   (let [search-d @search-data]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
@@ -754,9 +729,9 @@
                                            :tooltip  "Grafički prikaz"
                                            :children (ic/editor-insert-chart)
                                            :disabled (:graphics search-d)})
-                    :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}
-       [:div {:class-name "col-md-12" :style {:width "98%" :position "absolute" :top "70px" :left 0}}
-        [legend-h]]]
+                    :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}]
+      [:div {:class-name "col-md-12" :style {:width "98%" :position "absolute" :top "150px" :left 0 :z-index 1100}}
+       [legend-h]]
       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
        [rui/css-transition-group {:transition-name          "example"
                                   :transition-enter-timeout 600
@@ -765,7 +740,6 @@
           (pretraga db "Pretraga podataka o naredbama/pravilnicima/standardima")
           [search-result])]]
       [graph]]]))
-
 
 (defn mount-root []
   (let [db @db-tree]

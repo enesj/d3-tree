@@ -727,7 +727,8 @@ d3.layout.tree.prototype = {
     "nodes": function () {},
     "links": function () {},
     "separation": function () {},
-    "size": function () {}
+    "size": function () {},
+    "nodeSize": function () {}
 };
 d3.layout.treemap.prototype = function () {};
 d3.layout.treemap.prototype = {
