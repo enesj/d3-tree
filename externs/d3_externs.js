@@ -410,6 +410,11 @@ d3.selection.prototype.each.prototype = function () {};
 d3.selection.prototype.call.prototype = function () {};
 d3.selection.prototype.empty.prototype = function () {};
 d3.selection.prototype.node.prototype = function () {};
+
+d3.selection.prototype.node.prototype = {
+    "getComputedTextLength": function () {}
+};
+
 d3.selection.prototype.transition.prototype = function () {};
 d3.select.prototype = function () {};
 d3.selectAll.prototype = function () {};

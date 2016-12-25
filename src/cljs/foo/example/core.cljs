@@ -195,6 +195,7 @@
         (attr "height" height))
 
     (.. tree-nodes (forEach (fn [d i] (set! (.-x d) (* i 17)))))
+
     (.. node-group
         (append "svg:rect")
         (attr "x" "-5")
@@ -205,6 +206,7 @@
         (attr "class" "node-dot")
         (style "fill-opacity" 1)
         (style "fill" (fn [d i] (doc-colors (.-type d) (.-mandatory d)))))
+
     (.. node-group
         (append "rect")
         (attr "y" (- 5))
@@ -212,7 +214,7 @@
         (attr "width" width)
         (attr "opacity" 1e-6)
         (on "click" (fn [d] (click-fn d d3-tree (.. js/d3 -event -ctrlKey))))
-        (on "mouseenter" (fn [d] (swap! search-data assoc-in [:graph-selection] [nil (.-title d) (.-type d) (.-mandatory d)])))
+        (on "mouseenter" (fn [d] (reset! scroll-data d) (scroll-title)))
         (on "mouseout" (fn [d] (reset! scroll-data false) (.. js/d3 (select (str "#" "text" (.-id d)))
                                                               (select "textPath")
                                                               (text (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))))
@@ -231,6 +233,7 @@
                     (if (and (:children (get-doc-data (.-name d) @db-tree)) (not (.-children d)))
                       "m-3 0 l6 0 m-3 -3 l0 6"
                       (if (.-children d) "m-3 0 l6 0")))))
+
     (.. node-group
         (append "svg:path")
         (attr "id" (fn [d i] (str "path" (.-id d))))
@@ -239,7 +242,7 @@
     (.. node-group
         (append "svg:text")
         (attr "id" (fn [d i] (str "text" (.-id d))))
-        ;(attr "text-anchor" "start")
+
         (attr "dx" 7)
         (attr "dy" (fn [d] (if (= (aget  d "shorttitle") "") 2 5)))
         (style "font-weight" "bold")
@@ -247,24 +250,36 @@
         (append "textPath")
         (attr "xlink:href" (fn [d] (str "#path" (.-id d))))
         (attr "startOffset" 0)
-        (style "font-weight" (fn [d] (if (= (aget  d "shorttitle") "") "bold" "normal")))
+        (style "font-weight" (fn [d]  (if (= (aget  d "shorttitle") "") "bold" "normal")))
         (text (fn [d i]
+
                 (if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))))
                   (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
                   (.-title d)))))
-        ;(text  (fn [d i] (.-title d))))
+
+        ;(getComputedTextLength))
+        ;(each (fn [d i] (doseq [title (for [title-part (partition 2 1 (range 0 500 50))])]
+        ;                       (.substring (.-title d) (first title-part) (second title-part)))
+        ;          (.. js/d3
+        ;              (select (js* "this"))
+        ;              (append "tspan")
+        ;              (text title)
+        ;              (attr "x" 0)
+        ;              (attr "dy" 15)))))
 
     (.. node-group
         transition
         (duration duration)
         (attr "transform" (fn [d i] (str "translate(" (.-y d) "," (.-x d) ")")))
         (style "opacity" 1))
+
     (.. node
         transition
         (duration duration)
         (attr "transform" (fn [d i]
                             (str "translate(" (.-y d) "," (.-x d) ")")))
         (style "opacity" 1))
+
     (.. node
         (select "path")
         (attr "d" (fn [d i]
@@ -278,6 +293,7 @@
         (attr "transform" (fn [d i] (str "translate(" (.-y data-new) "," (.-x data-new) ")")))
         (style "opacity" 1e-6)
         remove)
+
     (.. link
         enter
         (append "svg:path" "g")
@@ -287,11 +303,14 @@
         transition
         (duration duration)
         (attr "d" diagonal))
+
     (.. link
         transition
         (duration duration)
         (attr "d" diagonal))
+
     (.. tree-nodes (forEach (fn [d] (set! (.-x0 d) (.-x d)) (set! (.-y0 d) (.-y d)))))
+
     (.. link
         exit
         transition
