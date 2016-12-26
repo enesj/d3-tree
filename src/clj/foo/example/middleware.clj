@@ -31,8 +31,8 @@
 (def development-middleware
   [wrap-error-page
    wrap-exceptions
-   wrap-reload
-   #(wrap-miniprofiler % {:store in-memory-store-instance})])
+   wrap-reload])
+   ;#(wrap-miniprofiler % {:store in-memory-store-instance})])
 
 (defn production-middleware [config tconfig]
   [#(add-req-properties % config)

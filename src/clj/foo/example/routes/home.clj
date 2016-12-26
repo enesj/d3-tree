@@ -28,7 +28,7 @@
            (GET "/contact" [] (contact-page))
            (GET "/tos" [] (tos-page))
            (GET "/cookies" [] (cookies-page))
-           (GET "/" [] (home-page))
+           (GET "/" [] (example-page))
            (GET "/example" [] (example-page))
            (GET "/ajax/page" [] (ajax-page))
            (GET "/ajax/page/init" [] (ajax-initial-data)))

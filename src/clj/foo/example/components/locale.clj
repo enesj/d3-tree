@@ -27,11 +27,11 @@
                        :email_failed            "Something went wrong sending the email, please contact us."
                        :signup_title            "Signup"
                        :account_created_title   "Account Created"
-                       :account_activated_title "Account Activated"
-                       }
+                       :account_activated_title "Account Activated"}
+
                       :admin
-                      {:title "User Overview"
-                       }}}})
+                      {:title "User Overview"}}}})
+
 
 (defrecord Locale []
   component/Lifecycle
