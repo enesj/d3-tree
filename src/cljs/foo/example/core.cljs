@@ -364,12 +364,12 @@
                {:id "nova" :type :text :x 300 :y 30 :fill (:cyan colors) :text "Nova pretraga"}
                {:id "button-type" :type :text :x 50 :y 50 :fill (:bh colors)}]})
 
-(def legend (atom true))
+
 
 (defn legend-h []
   (let [legend-type (atom "")
         change-type (fn [x]  (reset! legend-type x))
-        legend (atom true)]
+        legend (atom false)]
     (fn []
      (let [search-d  @search-data
            show-badges (or (:selection search-d) (> (count (:history search-d) ) 0))
@@ -382,7 +382,7 @@
           [:g
            ;[:text {:x 0 :y 10 :fill (:darkblue colors) :font-weight "bold" } "Legenda:  "]
            [:rect {:x "420px" :y 0 :width "12px" :height "12px" :fill (:cyan colors) :on-click #(reset! legend false)}]
-           (ic/content-clear {:x "205px" :height "12px" :color "white" :on-click #(reset! legend false)})
+           (ic/content-clear {:x "206px" :height "12px" :color "white" :on-click #(reset! legend false)})
            (doall (for [item legend-data]
                     ^{:key (:id item)} [(:type item) (merge (:default legend-data-h) (dissoc item :text :type) {:on-mouse-over #(change-type (:id item))
                                                                                                                 :on-mouse-leave  #(change-type "")}
