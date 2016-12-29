@@ -13,6 +13,7 @@ pom.xml.asc
 /.repl
 .idea
 *.iml
+*.log
 **/out/*
 /resources/public/js/compiled
 profiles.clj
