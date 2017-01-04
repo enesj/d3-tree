@@ -483,8 +483,6 @@
                              :error-handler #(js/alert (str "error: " %))})))
 
 
-
-
 (defn ac-search [source]
   (let [hover (atom "")
         message {:1 ["12px" "Prikazi podatke o dokumentu"]
@@ -496,7 +494,8 @@
             ref-criteria @candidate
             text (:search-text search-d)
             source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)))
-            source-new (if source-filter (filterv source-filter source) source)]
+            source-new (if source-filter (filterv source-filter source) source)
+            source-new (vec (sort-by (juxt  #(case (:type %) 0 3, 1 1, 2 2, 3 3, 4 ) :text)  source-new))]
         [:div
          [rui/auto-complete {:id                  "text"
                              :floating-label-text "Naziv"
@@ -642,9 +641,6 @@
      [:div {:style {:font-size        "14px" :height "48px" :padding-top "5px" :display "flex" :align-items "center" :justify-content "center"
                     :background-color (:cyan colors) :color "white"}}
       title]
-     ;(if-not (:selection search-d)
-     ;  "Pretraga podataka o naredbama/pravilnicima/standardima"
-     ;  "Pretraga vezanih dokmenata")]
      [:div {:style {:padding "3px 0px 0px 0px" :margin-top "10px" :margin-bottom "10px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}}
       [:div [ac-search db]]]
      (if-not (or (= (count history-list) 0) (:selection search-d)) (history history-list "Zapamćeni dokumenti"))]))
@@ -709,8 +705,7 @@
                                                                 (if (=  2 (.-index (.-props x))) (veze-history))
                                                                 (swap! search-data assoc-in [:search-text] "")
                                                                 (reset! candidate {:id nil :veze 0})
-                                                                (reset! tab-index (.-index (.-props x))))
-                                                   :on-blur (fn [] (reset! tab-index 0))}
+                                                                (reset! tab-index (.-index (.-props x))))}
              [rui/tab {:label "Vezan za dokumente:"}
               badges
               (docs-table parents "" "" false)]
@@ -722,11 +717,12 @@
               (history history-list "")]]
             (if-not (:graphics search)
               (case @tab-index
-                0 (if (> count-p 0) (pretraga (ac-source parents) "Pretraga dokumenata koji vezuju"))
-                1 (if (> count-c 0) (pretraga (ac-source childs) "Pretraga vezanih dokumenata"))
+                0 (if (> count-p 0) [pretraga (ac-source parents) "Pretraga dokumenata koji vezuju"])
+                1 (if (> count-c 0) [pretraga (ac-source childs) "Pretraga vezanih dokumenata"])
                 ;2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
                 [:div ""]))]
            [:div
+            (reset! tab-index 0)
             (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza)) "Veza sa:" false)
             (pretraga (ac-source veza-path) "Pretraga zapamćenih dokumenta")])]))))
 
