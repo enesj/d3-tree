@@ -11,11 +11,11 @@
 
                  [org.clojure/core.cache "0.6.4"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-
                  [ring "1.4.0"]
                  [lib-noir "0.9.9"]
                  [ring/ring-anti-forgery "1.0.0"]
                  [compojure "1.4.0"]
+                 [rum "0.10.7" :exclusions [org.clojure/tools.reader cljsjs/react]]
                  [reagent "0.6.0" :exclusions [org.clojure/tools.reader cljsjs/react]]
                  [cljs-react-material-ui "0.2.30"]
                  [cljsjs/d3 "3.5.16-0"]

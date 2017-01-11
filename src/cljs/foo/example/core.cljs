@@ -3,9 +3,11 @@
     [reagent.ratom :refer [reaction]]
     [cljs.core.async.macros :as m :refer [go]])
   (:require
-    [reagent.core :as r :refer [atom]]
     [cljsjs.material-ui]
     [cljs-react-material-ui.core :as ui]
+    [rum.core :as rum]
+    [cljs-react-material-ui.rum :as rumi]
+    [reagent.core :as r :refer [atom]]
     [cljs-react-material-ui.reagent :as rui]
     [cljs-react-material-ui.icons :as ic]
     [ajax.core :refer [GET POST json-response-format json-request-format url-request-format ajax-request]]
@@ -16,7 +18,7 @@
 
 (enable-console-print!)
 
-(devtools/install!)
+;(devtools/install!)
 
 (defonce db-tree (atom nil))
 (def data-flare (clj->js []))
@@ -676,7 +678,6 @@
     [rui/badge {:badge-content count-h :secondary true :style {:margin-left "96%" :position "absolute" :margin-top "-50px"} :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
 
 
-
 (defn search-result []
   (let [tab-index (atom 0)]
     (fn []
@@ -721,10 +722,10 @@
                 1 (if (> count-c 0) [pretraga (ac-source childs) "Pretraga vezanih dokumenata"])
                 ;2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
                 [:div ""]))]
-           [:div
-            (reset! tab-index 0)
-            (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza)) "Veza sa:" false)
-            (pretraga (ac-source veza-path) "Pretraga zapamćenih dokumenta")])]))))
+           (do (reset! tab-index 0)
+             [:div
+              (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza)) (:title result-veza)) "Veza sa:" false)
+              (pretraga (ac-source veza-path) "Pretraga zapamćenih dokumenta")]))]))))
 
 
 (def logo (r/as-element [rui/svg-icon {:color "white" :view-box "0 0 100 50" :style {:width "100px" :height "50px"}}
@@ -734,11 +735,9 @@
                               [:path {:d "M30.5 24h-0.5v-6.5c0-1.93-1.57-3.5-3.5-3.5h-8.5v-4h0.5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h0.5v4h-8.5c-1.93 0-3.5 1.57-3.5 3.5v6.5h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5zM6 30h-4v-4h4v4zM18 30h-4v-4h4v4zM14 8v-4h4v4h-4zM30 30h-4v-4h4v4z"}]]))
 
 
-
 (defn home-page [db]
   (let [search-d @search-data]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
-
      [:div
       [rui/app-bar {:title              "Veze JUS standarda i harmoniziranih BiH naredbi"
                     :title-style        {:text-align "center"}
@@ -753,6 +752,7 @@
                                            :children (ic/editor-insert-chart)
                                            :disabled (:graphics search-d)})
                     :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}]
+
       [:div {:class-name "col-md-12" :style {:width "98%" :position "absolute" :top "90px" :left 0 :z-index 1100}}
        [legend-h]]
       [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
@@ -770,6 +770,19 @@
       [home-page (ac-source db)]
       (.getElementById js/document "search-app"))))
 
+(rum/defc loading []
+  [:div
+   (rumi/mui-theme-provider  {:mui-theme (ui/get-mui-theme)}
+    (rumi/refresh-indicator {:size 50 :left 20 :top 20 :status "loading"
+                              :style {:display "inline-block" :position "relative" :margin-left "45%" :margin-top "10%"}}))])
+
+(defn mount-loading []
+    (rum/mount
+      (loading)
+      (js/document.getElementById "search-app")))
+      ;(.getElementById js/document "search-app")))
+
+
 (defn init-veza []
   (GET "/jus/tree" {:handler       (fn [x]
                                      (reset! db-tree x)
@@ -777,11 +790,9 @@
                                      (set! data-flare (clj->js (get-doc-data "1000" @db-tree)))
                                      (mount-svg)
                                      (d3-tree data-flare))
-                    ;(collapse data-flare)
-                    ;(expand-first-level data-flare)
-                    ;(d3-tree data-flare)
                     :error-handler #(js/alert (str "error: " %))}))
 
 (defn ^:export main []
+  (mount-loading)
   (init-veza))
 
