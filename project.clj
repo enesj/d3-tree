@@ -43,7 +43,7 @@
                  [de.sveri/clojure-commons "0.2.0"]
                  [clojure-miniprofiler "0.4.0"]
                  [org.danielsz/system "0.1.8"]
-                 [datascript "0.13.3"]
+                 [datascript "0.16.1"]
                  [cljs-ajax "0.5.3"]
                  [ring-transit "0.1.4"]
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
@@ -55,6 +55,8 @@
                  [com.rpl/specter "0.12.0"]
                  [joplin.jdbc "0.3.6"]
                  [joplin.core "0.3.6"]
+                 [cljsjs/pdfmake "0.1.26-0"]
+                 [alandipert/intension "1.1.1"]
                  [de.sveri/closp-crud "0.3.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
