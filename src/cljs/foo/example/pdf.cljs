@@ -2,47 +2,87 @@
   (:require [cljsjs.pdfmake]
             [cljsjs.pdfmakefonts]))
 
-(def doc-text
-  (clj->js
-    {
-     :pageSize "A4"
 
-     :footer   (fn [currentPage pageCount] (clj->js {:text (str "Strana: " currentPage " od " pageCount) :style "footer"}))
+(defn doc-text [result-type dokument naslov formated-data]
+  (let [doc-types {:1 "BH naredbe"
+                   :2 "YU naredbe pravilnici"
+                   :3 "JUS sa obaveznom primjenom"
+                   :4 "JUS sa djelimično obaveznom primejnom"
+                   :5 "JUS za upotrebu"}
+        doc-list (for [group (sort-by first formated-data)]
+                   (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
+                         (mapv #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %)))
+                               (if (or (= (first group) :1) (= (first group) :2))
+                                 (sort-by :JUSopis  (second group))
+                                 (sort-by :JUSId  (second group))))))]
+    ;(println doc-list)
+    (clj->js
+      {
+       :pageSize "A4"
 
-     :content
+       :footer   (fn [currentPage pageCount] (clj->js {:text (str "Strana: " currentPage " od " pageCount) :style "footer"}))
 
-               [
-                {:text "Naslov" :style "header"}
-                {:text "text1 text1 text1 text1 text1 text1 " :style "text"}
-                {:text "text2 text2 text2 text2 text2 text2 " :style "text"}
-                {:text "text3 text3 text3 text3 text3 text3 " :style "text" :pageBreak "after"}
-                {:layout "lightHorizontalLines"
-                 :table {
-                         :header-rows 1
-                         :widths [ "*", :auto, 100, "*"]
-                         :body [
-                                [ "First", "Second", "Third", "The last one"]
-                                [ "Val 1", "Val 2", "Val 3", "Val 4"]
-                                [ { :text "Bold value 1", :bold true }, "Val 2", "Val 3", "Val 4"]
-                                [ { :text "Italics value 1", :italics true }, "Val 2", "Val 3", "Val 4"]]}}]
+       :content
 
-     :styles
-
-               {:header    {:font-size 22
-                            :alignment :center
-                            :margin [10 10 10 10]
-                            :bold      true}
-                :text      {:font-size 12
-                            :alignment :left}
-                :footer    {:font-size 9
-                            :italics true
-                            :margin [10 10 10 10]
-                            :alignment :right}}}))
+                 [
+                  (if result-type {:text result-type :style "header"})
+                  (if dokument {:text dokument :style "header-1"})
+                  {:text naslov :style "header-2"}
 
 
-(defn test-pdf []
+                  {:layout "lightHorizontalLines"
+                   :table  {
+                            :header-rows 1
+                            :widths      ["*"]
+                            :body        (map vector (flatten doc-list))}}]
+
+       :styles
+
+                 {:header   {:fontSize  12
+                             :alignment :left
+                             :italics   true}
+                  :header-1 {:fontSize  14
+                             :alignment :left
+                             :margin    [0 0 10 10]
+                             :bold      true}
+                  :header-2 {:fontSize  12
+                             :alignment :right
+                             :margin    [0 0 10 10]
+                             :italics   true}
+                  :text     {:fontSize  12
+                             :alignment :left}
+                  :footer   {:font-size 9
+                             :italics   true
+                             :margin    [10 10 10 10]
+                             :alignment :right}}})))
+
+
+(defn prepare-pdf [data data-type result]
+  (let [naslov
+        (case data-type
+          :childs "Prikaz vezanih dokumenata: "
+          :parents "Prikaz dokumenata za koje je vezan: "
+          :history "Prikaz zapamćenih dokumenata: ")
+        dokument
+        (case (:Naredba result)
+          (1 2 3) (str (:title result))
+          (str (:name result) ":" (:JUSgodina result) " " (:title result)))
+        doc-type
+        (case (:Naredba result)
+          1 "BH naredba"
+          (2 3) "YU naredba/pravilnik"
+          "JUS standard")
+        group-data-by-type (group-by #(key (first %)) data)
+        formated-data (mapv #(vector (first %) (mapv (fn [x] (val (first x))) (second %))) group-data-by-type)]
+
+    (if (= data-type :history)
+      (doc-text nil nil naslov formated-data)
+      (doc-text doc-type dokument naslov formated-data))))
+
+
+(defn export-pdf [data result-type result]
   (.. js/pdfMake
-      (createPdf doc-text)
+      (createPdf (prepare-pdf data result-type result))
       (open)))
 
 
