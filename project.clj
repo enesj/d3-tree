@@ -7,7 +7,7 @@
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
 
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.7.170"]
+                 [org.clojure/clojurescript "1.8.40"]
 
                  [org.clojure/core.cache "0.6.4"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
@@ -15,9 +15,9 @@
                  [lib-noir "0.9.9"]
                  [ring/ring-anti-forgery "1.0.0"]
                  [compojure "1.4.0"]
-                 [rum "0.10.7" :exclusions [org.clojure/tools.reader cljsjs/react]]
-                 [reagent "0.6.0" :exclusions [org.clojure/tools.reader cljsjs/react]]
-                 [cljs-react-material-ui "0.2.30"]
+                 [rum "0.10.7" :exclusions [org.clojure/tools.reader cljsjs/react cljsjs/react-dom]]
+                 [reagent "0.6.0" :exclusions [org.clojure/tools.reader cljsjs/react cljsjs/react-dom]]
+                 [cljs-react-material-ui "0.2.45"]
                  [cljsjs/d3 "3.5.16-0"]
                  [environ "1.0.0"]
                  [leiningen "2.7.0"]

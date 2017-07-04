@@ -25,9 +25,9 @@
 (defonce data-flare (clj->js []))
 (def scroll-data (atom nil))
 (def search-data (atom {:selection   nil :graph-selection nil :veza {:sel nil :childs nil :parents nil} :childs nil :parents nil :refresh true
-                        :search-type 0 :graphics false :history [] :search-text ""}))
+                        :search-type 0 :graphics false :history []}))
 
-(def candidate (atom {:id nil :veze 0}))
+(def candidate (atom {:id nil :veze 0 :search-text ""}))
 
 (def margin {:top 24, :right 20, :bottom 30, :left 30})
 (def width (- 800 (:left margin) (:right margin)))
@@ -86,7 +86,7 @@
   (let [current-data @search-data]
     (GET "/jus/search-data" {:params        {:doc doc :verbose "1"}
                              :handler       (fn [x]
-                                              (reset! search-data {:refresh     false :parents (first x) :childs (second x) :selection doc :veza nil :search-text (:search-text current-data)
+                                              (reset! search-data {:refresh     false :parents (first x) :childs (second x) :selection doc :veza nil
                                                                    :search-type (:search-type current-data) :graphics (:graphics current-data) :history (:history current-data)}))
 
                              :error-handler #(js/alert (str "error: " %))})))
@@ -323,9 +323,9 @@
 
 (defn clear-criteria []
   (let [current-data @search-data]
-    (reset! search-data {:selection   nil :veza nil :childs nil :parents nil :refresh false :search-text ""
+    (reset! search-data {:selection   nil :veza nil :childs nil :parents nil :refresh false
                          :search-type (:search-type current-data) :graphics (:graphics current-data) :history (:history current-data)})
-    (reset! candidate {:id nil :veze 0})))
+    (reset! candidate {:id nil :veze 0 :search-text ""})))
 
 (defn update-history [id]
   (vec (conj (remove #(= id (:id %)) (:history @search-data)) {:id id :veze 0})))
@@ -466,11 +466,13 @@
 (defn select-doc-type []
   [rui/select-field {:id        "type"
                      ;:autoWidth true
-                     :style     {:padding-left "10px" :width "220px" :height "50px"}
+                     :style     {:padding-left "10px" :width "220px" :float "right"}
+                     ;:listStyle {:margin-top "120px"}
+                     :menuStyle {:margin-top "25px"}
+                     :underlineStyle {:width "200px" :margin "0px 0px -25px"}
                      :value     (:search-type @search-data)
                      :on-change (fn [event index value]
-                                  (swap! search-data assoc-in [:search-text] "")
-                                  (reset! candidate {:id nil :veze 0})
+                                  (reset! candidate {:id nil :veze 0 :search-text ""})
                                   (select-type-change value))}
    [rui/menu-item {:value 0 :primary-text "Svi dokumenti" :style {:border-left "10px solid rgba(255,235,59,1)"}}]
    [rui/menu-item {:value 1 :primary-text "BiH naredbe" :style {:border-left "10px solid rgba(33,150,243,1)"}}]
@@ -497,7 +499,7 @@
     (fn [source]
       (let [search-d @search-data
             ref-criteria @candidate
-            text (:search-text search-d)
+            text (:search-text ref-criteria)
             source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)))
             source-new (if source-filter (filterv source-filter source) source)
             source-new (vec (sort-by (juxt #(case (:type %) 0 3, 1 1, 2 2, 3 3, 4) :text) source-new))]
@@ -511,21 +513,21 @@
                              :style               {:display "inline-block" :width "75%" :padding-left "10px"}
                              :dataSource          source-new
                              :maxSearchResults    50
-                             :search-text         (:search-text search-d)
+                             :search-text         (:search-text ref-criteria)
                              :filter              (aget js/MaterialUI "AutoComplete" "caseInsensitiveFilter")
                              :full-width          true
                              :on-new-request      (fn [chosen index]
-                                                    (reset! candidate {:id (:id (source-new index)) :veze 0})
+                                                    (reset! candidate {:id (:id (source-new index)) :veze 0 :search-text ""})
                                                     (count-veze (:id (source-new index)) (check-veza (:id (source-new index))))
-                                                    (swap! search-data assoc-in [:search-text] (.-text chosen)))
+                                                    (swap! candidate assoc-in [:search-text] (.-text chosen)))
                              :hint-text           "Unesi dio teksta iz naslova"
                              :list-style          {:max-height "250px" :width "300%"}}]
          (select-doc-type)
          (if (:id ref-criteria) [:div
                                  [rui/flat-button {:label          "Otvori" :primary true
                                                    :on-click       (fn [e]
-                                                                     (swap! search-data assoc-in [:search-text] "")
-                                                                     (reset! candidate {:id nil :veze 0})
+                                                                     (swap! candidate assoc-in [:search-text] "")
+                                                                     (reset! candidate {:id nil :veze 0 :search-text ""})
                                                                      (sel-data (:id ref-criteria)))
                                                    :on-mouse-over  #(reset! hover :1)
                                                    :on-mouse-leave #(reset! hover "")}]
@@ -535,12 +537,12 @@
                                                    :on-mouse-leave #(reset! hover "")}]
                                  (if (:selection search-d)
                                    [rui/flat-button {:label          "Veze" :secondary true
-                                                     :on-click       (fn [e] (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
+                                                     :on-click       (fn [e] (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
                                                      :on-mouse-over  #(reset! hover :3)
                                                      :on-mouse-leave #(reset! hover "")}
                                     [rui/badge {:badge-content (:veze ref-criteria) :primary true :style {:margin-left "40px" :position "absolute"} :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
                                  [rui/flat-button {:label          "Nova pretraga"
-                                                   :on-click       (fn [e] (reset! candidate {:id nil :veze 0}) (swap! search-data assoc-in [:search-text] "") (reset! hover ""))
+                                                   :on-click       (fn [e] (reset! candidate {:id nil :veze 0 :search-text ""})  (reset! hover ""))
                                                    :on-mouse-over  #(reset! hover :4)
                                                    :on-mouse-leave #(reset! hover "")}]
                                  [:div {:style {:position         "absolute" :margin-top "8px" :padding-left "3px" :padding-right "3px" :margin-left (first (message @hover))
@@ -557,13 +559,14 @@
         veza (:sel (:veza s-data))]
     [rui/table {:selectable    false
                 :height        (str (- (if (< (count docs) 5) (* (inc (count docs)) 48) 240) 0) "px")
-                :on-cell-click (fn [row coll] (let [red (nth docs row)
-                                                    id (or (:JUSId red) (:name red))
-                                                    title (or (:title red) (:JUSopis red))
-                                                    naziv (if (= (:Naredba red) 0) (str id " " title) title)]
-                                                (if (= coll 1) (do (reset! candidate {:id id :veze 0})
-                                                                   (count-veze id (check-veza id))
-                                                                   (if (or history (:graphics s-data)) (sel-data id) (swap! search-data assoc-in [:search-text] naziv))))))
+                :on-cell-click (fn [row coll]
+                                 (let [red (nth docs row)
+                                       id (or (:JUSId red) (:name red))
+                                       title (or (:title red) (:JUSopis red))
+                                       naziv (if (= (:Naredba red) 0) (str id " " title) title)]
+                                   (if (= coll 0) (do (reset! candidate {:id id :veze 0 :search-text ""})
+                                                      (count-veze id (check-veza id))
+                                                      (if (or history (:graphics s-data)) (sel-data id) (swap! candidate assoc-in [:search-text] naziv))))))
                 :header-style  (if (= header "") {:margin-top "0px"} {:margin-top "20px"})
                 :wrapper-style {:overflow "visible"}}
      (if-not (= header "")
@@ -579,11 +582,11 @@
          (if veza
            [rui/table-header-column {:style {:width "7%"}}
             [rui/icon-button {:tooltip        "Brisi vezu"
-                              :on-click       #(do (swap! search-data assoc-in [:veza] {}) (swap! search-data assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0}))
+                              :on-click       #(do (swap! search-data assoc-in [:veza] {}) (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}))
                               :tooltip-styles {:margin-top "-35px" :width "80px" :right "40px"}
                               :style          {:vertical-align "top" :float "right" :margin-top "0px"}
                               :icon-style     {:width "24px" :height "24px" :color "white"} :tooltip-position "bottom-left"} (ic/content-clear)]])]])
-     [rui/table-body {:display-row-checkbox false :pre-scan-rows false :show-row-hover false}
+     [rui/table-body {:display-row-checkbox false :pre-scan-rows false :show-row-hover true}
       (doall (map #(let [jusid (:JUSId %)
                          name (:name %)
                          id (or jusid name)
@@ -759,7 +762,6 @@
             history-list (take history-size (:history search))
             count-h (count history-list)
             badges [badges count-p count-c count-h]]
-        ;(println history-list)
         (when (and (= @tab-index 0) (= count-c 0)) (reset! tab-index 1))
         (when (and (= @tab-index 1) (= count-p 0)) (reset! tab-index 0))
         [:div {:class "foo" :style {:padding-bottom "0px" :padding-top "0px" :font-size "16px" :font-family "Roboto, sans-serif"} :key "sr"}
@@ -771,7 +773,8 @@
            0 (jus-view result)
            1 (bh-naredba-view result)
            2 (yu-naredba-view result)
-           3 (yu-naredba-view result))
+           3 (yu-naredba-view result)
+           nil)
          (if (= (count veza-path) 0)
            [:div
 
@@ -785,8 +788,7 @@
                        :value     @tab-index
                        :on-change (fn [_ _ x]
                                     (if (= 2 (.-index (.-props x))) (veze-history))
-                                    (swap! search-data assoc-in [:search-text] "")
-                                    (reset! candidate {:id nil :veze 0})
+                                    (reset! candidate {:id nil :veze 0 :search-text ""})
                                     (reset! tab-index (.-index (.-props x))))}
              [rui/tab {:label "Vezani dokumenti:" :value 0 :disabled (if (empty? childs) true false)}
               badges

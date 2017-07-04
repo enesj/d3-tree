@@ -13,56 +13,59 @@
                    (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
                          (mapv #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %)))
                                (if (or (= (first group) :1) (= (first group) :2))
-                                 (sort-by :JUSopis  (second group))
-                                 (sort-by :JUSId  (second group))))))]
-    ;(println doc-list)
+                                 (sort-by :JUSopis (second group))
+                                 (sort-by :JUSId (second group))))))
+        table {:layout "lightHorizontalLines"
+               :table  {:headerRows 1
+                        :widths     ["*"]
+                        :body       nil}}
+        tables (for [rows doc-list]
+                 (assoc-in table [:table :body] rows))
+        content (into [
+                       (if result-type {:text result-type :style "vrsta"})
+                       (if dokument {:text dokument :style "naslov"})
+                       {:text naslov :style "veza"}]
+                      tables)
+        immpresum "eJUS - Institut za standardizaciju BiH, Vojvode R. Putnika 34, 71123 Istočno Sarajevo, Bosna i Hercegovina, Tel. +387 (0)57 310 560\n"]
     (clj->js
       {
        :pageSize "A4"
-
-       :footer   (fn [currentPage pageCount] (clj->js {:text (str "Strana: " currentPage " od " pageCount) :style "footer"}))
-
-       :content
-
-                 [
-                  (if result-type {:text result-type :style "header"})
-                  (if dokument {:text dokument :style "header-1"})
-                  {:text naslov :style "header-2"}
-
-
-                  {:layout "lightHorizontalLines"
-                   :table  {
-                            :header-rows 1
-                            :widths      ["*"]
-                            :body        (map vector (flatten doc-list))}}]
-
+       :header   (fn [currentPage pageCount] (when (> currentPage 1) (clj->js {:text (str dokument ", " naslov) :style "header"})))
+       :footer   (fn [currentPage pageCount] (when (> currentPage 1) (clj->js {:text [{:text immpresum}
+                                                                                      {:text (str "Strana: " currentPage " od " pageCount)  :bold true}]
+                                                                               :style "footer"})))
+       :content  content
        :styles
 
-                 {:header   {:fontSize  12
-                             :alignment :left
-                             :italics   true}
-                  :header-1 {:fontSize  14
-                             :alignment :left
-                             :margin    [0 0 10 10]
-                             :bold      true}
-                  :header-2 {:fontSize  12
-                             :alignment :right
-                             :margin    [0 0 10 10]
-                             :italics   true}
-                  :text     {:fontSize  12
-                             :alignment :left}
-                  :footer   {:font-size 9
-                             :italics   true
-                             :margin    [10 10 10 10]
-                             :alignment :right}}})))
-
+                 {:vrsta  {:fontSize  12
+                           :alignment :left
+                           :margin    [0 0 10 2]}
+                  ;:italics   true}
+                  :naslov {:fontSize  14
+                           :alignment :justify
+                           :margin    [0 0 10 10]
+                           :bold      true}
+                  :veza   {:fontSize  12
+                           :alignment :right
+                           :margin    [0 0 0 10]
+                           :italics   true}
+                  :text   {:fontSize  12
+                           :alignment :left}
+                  :footer {:fontSize  9
+                           :italics   true
+                           :margin    [40 10 20 10]
+                           :alignment :left}
+                  :header {:fontSize  9
+                           :italics   true
+                           :margin    [20 10 20 2]
+                           :alignment :center}}})))
 
 (defn prepare-pdf [data data-type result]
   (let [naslov
         (case data-type
-          :childs "Prikaz vezanih dokumenata: "
-          :parents "Prikaz dokumenata za koje je vezan: "
-          :history "Prikaz zapamćenih dokumenata: ")
+          :childs (str "Prikaz vezanih dokumenata (" (count data)  ") : ")
+          :parents (str "Prikaz dokumenata za koje je vezan (" (count data)  ") : ")
+          :history (str "Prikaz zapamćenih dokumenata (" (count data)  ") : "))
         dokument
         (case (:Naredba result)
           (1 2 3) (str (:title result))
