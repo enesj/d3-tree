@@ -4,6 +4,7 @@
     [cljs.core.async.macros :as m :refer [go]])
   (:require
     [foo.example.pdf :as pdf]
+    [foo.example.translation :as translation :refer [tr]]
     [cljsjs.material-ui]
     [cljs-react-material-ui.core :as ui]
     [rum.core :as rum]
@@ -13,6 +14,7 @@
     [cljs-react-material-ui.icons :as ic]
     [ajax.core :refer [GET POST json-response-format json-request-format url-request-format ajax-request]]
     [cljs.core.async :refer [chan close! timeout]]
+    [taoensso.tempura :as tempura]
     [cljsjs.d3]
     [devtools.core :as devtools]
     [devtools.toolbox :as toolbox]))
@@ -21,13 +23,22 @@
 
 (devtools/install!)
 
+
+
+
 (defonce db-tree (atom nil))
 (defonce data-flare (clj->js []))
 (def scroll-data (atom nil))
-(def search-data (atom {:selection   nil :graph-selection nil :veza {:sel nil :childs nil :parents nil} :childs nil :parents nil :refresh true
-                        :search-type 0 :graphics false :history []}))
+(defonce search-data (atom {:selection   nil :graph-selection nil :veza {:sel nil :childs nil :parents nil} :childs nil :parents nil :refresh true}
+                        :search-type 0 :graphics false :history []))
 
 (def candidate (atom {:id nil :veze 0 :search-text ""}))
+;
+;(def opts {:dict translation/dictionary})
+;(defn tr [data] (tempura/tr opts [@lang] data))
+
+
+
 
 (def margin {:top 24, :right 20, :bottom 30, :left 30})
 (def width (- 800 (:left margin) (:right margin)))
@@ -361,13 +372,13 @@
              {:id "badge-red" :type :circle :cx 38 :cy (+ bdg-y 26) :r 8 :fill "rgb(255, 64, 129)"}
              {:id "badge-red-label" :type :text :x 36 :y (+ bdg-y 30) :text "3" :fill "white" :font-size "10px"}
              {:id "badge-blue" :type :circle :cx 18 :cy (+ bdg-y 26) :r 8 :fill "rgb(0, 188, 212)"}
-             {:id "badge-blue-label" :type :text :x 12 :y (+ bdg-y 30) :text "25" :fill "white" :font-size "10px"}]
-   :buttons [{:id "buttons-line" :type :line :x1 5 :y1 15 :x2 430 :y2 15 :stroke (:lightgrey colors)}
-             {:id "otvori" :type :text :x 9 :y 30 :fill "rgb(0, 188, 212)" :text "Otvori"}
-             {:id "zapamti" :type :text :x 110 :y 30 :fill "rgb(255, 64, 129)" :text "Zapamti"}
-             {:id "veze" :type :text :x 200 :y 30 :fill "rgb(255, 64, 129)" :text "Veze"}
-             {:id "nova" :type :text :x 300 :y 30 :fill (:cyan colors) :text "Nova pretraga"}
-             {:id "button-type" :type :text :x 50 :y 50 :fill (:bh colors)}]})
+             {:id "badge-blue-label" :type :text :x 12 :y (+ bdg-y 30) :text "25" :fill "white" :font-size "10px"}]})
+   ;:buttons [{:id "buttons-line" :type :line :x1 5 :y1 15 :x2 430 :y2 15 :stroke (:lightgrey colors)}
+   ;          {:id "otvori" :type :text :x 9 :y 30 :fill "rgb(0, 188, 212)" :text "Otvori"}
+   ;          {:id "zapamti" :type :text :x 110 :y 30 :fill "rgb(255, 64, 129)" :text "Zapamti"}
+   ;          {:id "veze" :type :text :x 200 :y 30 :fill "rgb(255, 64, 129)" :text "Veze"}
+   ;          {:id "nova" :type :text :x 300 :y 30 :fill (:cyan colors) :text "Nova pretraga"}
+   ;          {:id "button-type" :type :text :x 50 :y 50 :fill (:bh colors)}]})
 
 
 
@@ -402,21 +413,21 @@
                                                                   "sel-t" "black"
                                                                   (:bh colors))}))
                                          (if (= (:id item) "doc-type") (case @legend-type
-                                                                         "bih" "BiH Naredbe"
-                                                                         "yu" "YU Naredbe\\Pravilnici"
-                                                                         "jus1" "JUS sa obaveznom primjenom"
-                                                                         "jus2" "JUS sa djelimično obaveznom primjenom"
-                                                                         "jus3" "JUS za upotrebu"
+                                                                         "bih" (tr [:legend/bh])
+                                                                         "yu" (tr [:legend/yu])
+                                                                         "jus1" (tr [:legend/obavezna])
+                                                                         "jus2" (tr [:legend/djelilmicno])
+                                                                         "jus3" (tr [:legend/upotreba])
                                                                          "sel-t" "Naredbe\\standardi koji sadrže rezultat pretrage"
-                                                                         "Za objašnjenje pređi mišem preko odgovarajuće boje")
+                                                                         (tr [:legend/mouse]))
                                                                        (if (= (:id item) "badge-text") (case @legend-type
-                                                                                                         "badge-blue-label" "Primjer 1: u grupi se nalazi 25 dokumenata"
-                                                                                                         "badge-red-label" "Primjer 2: u grupi se nalazi 3 dokumenta"
-                                                                                                         "Broj dokumenata u grupi")
+                                                                                                         "badge-blue-label" (tr [:legend/primjer1])
+                                                                                                         "badge-red-label" (tr [:legend/primjer2])
+                                                                                                         (tr [:legend/broj]))
                                                                                                        (:text item)))]))]]
-          [:svg {:style {:width      "90px" :height "16px" :float "left" :font-size "12px" :background-color (:cyan colors) :padding-top "2px" :margin-top "0px"
+          [:svg {:style {:width      "110px" :height "16px" :float "left" :font-size "12px" :background-color (:cyan colors) :padding-top "2px" :margin-top "0px"
                          :box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}} ;}};}})))))
-           [:text {:x 1 :y 10 :fill "white" :font-weight "bold" :on-click #(reset! legend true)} "Prikaži legendu"]])))))
+           [:text {:x "50%" :y 10 :fill "white" :text-anchor "middle" :font-weight "bold" :on-click #(reset! legend true)} (tr [:legend/prikazi])]])))))
 
 
 (defn label-text
@@ -432,36 +443,40 @@
                  :color (:title colors) :font-family "Roboto, sans-serif"}}
    (:title data)])
 
+
+
 (defn yu-naredba-view [data]
   (let [width "33"]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color (:yu colors) :border-radius "10px"}}
-     (label-text-wide "Naziv: " data)
-     (label-text "Vrsta: " "YU naredba/pravilnik" width nil)
-     (label-text "Službeni glasnik: " (:Glasnik data) width nil)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} "Prikaži dokument"]]))
+     (label-text-wide (tr [:doc-view/naziv]) data)
+     (label-text (tr [:doc-view/vrsta]) (tr [:yu-view/yu-name]) width nil)
+     (label-text (tr [:yu-view/glasnik]) (:Glasnik data) width nil)
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (tr [:yu-view/prikazi])]]))
 
 (defn bh-naredba-view [data]
   (let [width "25"]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color (:bh colors) :border-radius "10px"}}
      ;[:div {:style {:font-weight "bold" :margin-bottom "8px" :margin-top "8px" }} (:title data)]
-     (label-text-wide "Naziv: " data)
-     (label-text "Vrsta: " "BiH naredba" width nil)
-     (label-text "Službeni glasnik: " (:Glasnik data) width nil)
-     (label-text "Evropska direktiva: " [:a {:href (:Link-d data) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}}
-                                         (:Direktiva data)] width nil)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} "Prikaži dokument"]]))
+     (label-text-wide (tr [:doc-view/naziv]) data)
+     (label-text (tr [:doc-view/vrsta]) (tr [:bh-view/bh-name]) width nil)
+     (label-text (tr [:bh-view/glasnik]) (:Glasnik data) width nil)
+     (label-text (tr [:bh-view/direktiva]) [:a {:href (:Link-d data) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}}
+                                            (:Direktiva data)]
+                                           width nil)
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (tr [:bh-view/prikazi])]]))
 
 (defn jus-view [data]
   (let [width "14" wide "20"
         color (doc-colors (:Naredba data) (:Mandatory data))]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color color :border-radius "10px"}}
-     (label-text-wide "Naziv: " data)
+     (label-text-wide (tr [:doc-view/naziv]) data)
      (label-text "" (str (:name data) ":" (:JUSgodina data)) width (:title colors))
-     (label-text "Vrsta: " "JUS standard" width nil)
-     (label-text "Godina: " (:JUSgodina data) width nil)
-     (label-text "Primjena: " (case (:Mandatory data) 0 "Obavezna" 1 "Djelimično obavezna" 2 "Za upotrebu") wide nil)
-     (label-text "Broj strana: " (:Strana data) width nil)
+     (label-text (tr [:doc-view/vrsta]) (tr [:jus-view/jus-name]) width nil)
+     (label-text (tr [:jus-view/godina]) (:JUSgodina data) width nil)
+     (label-text (tr [:jus-view/primjena]) (case (:Mandatory data) 0 (tr [:jus-view/obavezna]) 1 (tr [:jus-view/djelimicno]) 2 (tr [:jus-view/upotreba])) wide nil)
+     (label-text (tr [:jus-view/strana]) (:Strana data) width nil)
      (label-text "ICS: " (:ICS data) width nil)]))
+
 
 (defn select-doc-type []
   [rui/select-field {:id        "type"
@@ -474,10 +489,10 @@
                      :on-change (fn [event index value]
                                   (reset! candidate {:id nil :veze 0 :search-text ""})
                                   (select-type-change value))}
-   [rui/menu-item {:value 0 :primary-text "Svi dokumenti" :style {:border-left "10px solid rgba(255,235,59,1)"}}]
-   [rui/menu-item {:value 1 :primary-text "BiH naredbe" :style {:border-left "10px solid rgba(33,150,243,1)"}}]
-   [rui/menu-item {:value 2 :primary-text "YU naredbe/pravilnici" :style {:border-left "10px solid rgba(255,0,0,1)"}}]
-   [rui/menu-item {:value 3 :primary-text "JUS standardi" :style {:border-left "10px solid rgba(190,190,190,1)"}}]])
+   [rui/menu-item {:value 0 :primary-text (tr [:doc-type/svi]) :style {:border-left "10px solid rgba(255,235,59,1)"}}]
+   [rui/menu-item {:value 1 :primary-text (tr [:doc-type/bh]) :style {:border-left "10px solid rgba(33,150,243,1)"}}]
+   [rui/menu-item {:value 2 :primary-text (tr [:doc-type/yu]) :style {:border-left "10px solid rgba(255,0,0,1)"}}]
+   [rui/menu-item {:value 3 :primary-text (tr [:doc-type/jus]) :style {:border-left "10px solid rgba(190,190,190,1)"}}]])
 
 
 
@@ -492,20 +507,20 @@
 
 (defn ac-search [source]
   (let [hover (atom "")
-        message {:1 ["12px" "Prikazi podatke o dokumentu"]
-                 :2 ["98px" "Zapamti ovaj dokument"]
-                 :3 ["206px" "Prikazi dokumente koji vezuju ovaj dokument sa izabranim dokumentom"]
-                 :4 [(if (:selection @search-data) "283px" "193px") "Obrisi kriterij za pretragu"]}]
+        message {:1 ["12px" (tr [:ac-tip/prikazi])]
+                 :2 ["98px" (tr [:ac-tip/zapamti])]
+                 :3 ["206px" (tr [:ac-tip/veza])]
+                 :4 [(if (:selection @search-data) "283px" "193px") (tr [:ac-tip/obrisi])]}]
     (fn [source]
       (let [search-d @search-data
             ref-criteria @candidate
             text (:search-text ref-criteria)
-            source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)))
+            source-filter (case (:search-type search-d) 0 nil 1 #(= 1 (:type %)) 2 #(> (:type %) 1) 3 #(= 0 (:type %)) nil)
             source-new (if source-filter (filterv source-filter source) source)
             source-new (vec (sort-by (juxt #(case (:type %) 0 3, 1 1, 2 2, 3 3, 4) :text) source-new))]
         [:div
          [rui/auto-complete {:id                  "text"
-                             :floating-label-text "Naziv"
+                             :floating-label-text (tr [:ac-label])
                              :openOnFocus         true
                              :anchor-origin       (if (:selection search-d) {:vertical "top", :horizontal "left"} {:vertical "bottom", :horizontal "left"})
                              :target-origin       (if (:selection search-d) {:vertical "bottom", :horizontal "left"} {:vertical "top", :horizontal "left"})
@@ -520,28 +535,28 @@
                                                     (reset! candidate {:id (:id (source-new index)) :veze 0 :search-text ""})
                                                     (count-veze (:id (source-new index)) (check-veza (:id (source-new index))))
                                                     (swap! candidate assoc-in [:search-text] (.-text chosen)))
-                             :hint-text           "Unesi dio teksta iz naslova"
+                             :hint-text           (tr [:ac-hint])
                              :list-style          {:max-height "250px" :width "300%"}}]
          (select-doc-type)
          (if (:id ref-criteria) [:div
-                                 [rui/flat-button {:label          "Otvori" :primary true
+                                 [rui/flat-button {:label          (tr [:ac-button/otvori]) :primary true
                                                    :on-click       (fn [e]
                                                                      (swap! candidate assoc-in [:search-text] "")
                                                                      (reset! candidate {:id nil :veze 0 :search-text ""})
                                                                      (sel-data (:id ref-criteria)))
                                                    :on-mouse-over  #(reset! hover :1)
                                                    :on-mouse-leave #(reset! hover "")}]
-                                 [rui/flat-button {:label          "Zapamti" :secondary true
+                                 [rui/flat-button {:label          (tr [:ac-button/zapamti]) :secondary true
                                                    :on-click       (fn [e] (swap! search-data assoc-in [:history] (update-history (:id ref-criteria))))
                                                    :on-mouse-over  #(reset! hover :2)
                                                    :on-mouse-leave #(reset! hover "")}]
                                  (if (:selection search-d)
-                                   [rui/flat-button {:label          "Veze" :secondary true
+                                   [rui/flat-button {:label          (tr [:ac-button/veze]) :secondary true
                                                      :on-click       (fn [e] (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
                                                      :on-mouse-over  #(reset! hover :3)
                                                      :on-mouse-leave #(reset! hover "")}
                                     [rui/badge {:badge-content (:veze ref-criteria) :primary true :style {:margin-left "40px" :position "absolute"} :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
-                                 [rui/flat-button {:label          "Nova pretraga"
+                                 [rui/flat-button {:label          (tr [:ac-button/nova])
                                                    :on-click       (fn [e] (reset! candidate {:id nil :veze 0 :search-text ""})  (reset! hover ""))
                                                    :on-mouse-over  #(reset! hover :4)
                                                    :on-mouse-leave #(reset! hover "")}]
@@ -581,7 +596,7 @@
           header]
          (if veza
            [rui/table-header-column {:style {:width "7%"}}
-            [rui/icon-button {:tooltip        "Brisi vezu"
+            [rui/icon-button {:tooltip        (tr [:tooltip/brisi-vezu])
                               :on-click       #(do (swap! search-data assoc-in [:veza] {}) (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}))
                               :tooltip-styles {:margin-top "-35px" :width "80px" :right "40px"}
                               :style          {:vertical-align "top" :float "right" :margin-top "0px"}
@@ -599,9 +614,9 @@
                       (if (and history check-veza-var (:selection s-data))
                         [rui/table-row-column {:style {:width "3%" :overflow "visible"}}
                          [:div
-                          [rui/icon-button {:tooltip          (str "Prikaži veze (" (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data)))) ")")
-                                            :tooltip-position "top-right"
-                                            :tooltip-styles   {:margin-top "12px" :width "90px" :right "10px"}
+                          [rui/icon-button {:tooltip          (str (tr [:table/veze]) (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data)))) ")")
+                                            :tooltip-position "top-left"
+                                            :tooltip-styles   {:margin-top "12px" :width "100px" :right "10px"}
                                             :on-click         (fn [x] (veza-data id check-veza-var))
                                             :style            {:width "24px" :height "24px" :float "right" :padding 0}
                                             :icon-style       {:width     "20px" :height "20px" :color (:cyan colors)
@@ -614,7 +629,7 @@
                         [rui/table-row-column {:style {:width "3%"}}])
                       (if history
                         [rui/table-row-column {:style {:width "3%" :overflow "visible"}}
-                         [rui/icon-button {:tooltip          "Zaboravi"
+                         [rui/icon-button {:tooltip          (tr [:table/zaboravi])
                                            :tooltip-position "top-left"
                                            :tooltip-styles   {:margin-top "12px" :width "60px" :right "0px"}
                                            :on-click         (fn [x] (remove-from-history name))
@@ -622,7 +637,7 @@
                                            :icon-style       {:width "20px" :height "20px" :color (:cyan colors)}} (ic/content-clear)]]
                         [rui/table-row-column {:style {:width "3%"}}])])
                   docs))
-      [rui/table-row [rui/table-row-column (when (= 0 (count docs)) "Nema dokumenata za prikaz")]]]]))
+      [rui/table-row [rui/table-row-column (when (= 0 (count docs)) (tr [:table/empty]))]]]]))
 
 (defn history [history-list header]
   (let [history-data (fn [x] (get-doc-data x @db-tree))]
@@ -657,7 +672,7 @@
       title]
      [:div {:style {:padding "3px 0px 0px 0px" :margin-top "10px" :margin-bottom "10px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}}
       [:div [ac-search db]]]
-     (if-not (or (= (count history-list) 0) (:selection search-d)) (history history-list "Zapamćeni dokumenti"))]))
+     (if-not (or (= (count history-list) 0) (:selection search-d)) (history history-list (tr [:table/zapamceni])))]))
 
 (defn graph-right []
   (let [graph-selection @search-data
@@ -668,18 +683,18 @@
         naziv (if (= type 0) (str choice " " title) title)]
     [:div {:style {:margin-top "15%" :color (doc-colors type mandatory)}}
      [:div naziv]
-     [rui/flat-button {:label "Otvori" :primary true :disabled (if choice false true) :on-click (fn [e] (sel-data choice))}]
-     [rui/flat-button {:label "Zapamti" :secondary true :disabled (if choice false true) :on-click (fn [e] (swap! search-data assoc-in [:history] (update-history choice)))}]]))
+     [rui/flat-button {:label (tr [:graph/otvori]) :primary true :disabled (if choice false true) :on-click (fn [e] (sel-data choice))}]
+     [rui/flat-button {:label (tr [:graph/zapamti]) :secondary true :disabled (if choice false true) :on-click (fn [e] (swap! search-data assoc-in [:history] (update-history choice)))}]]))
 
 (defn graph []
   [rui/paper {:class-name "col-md-12" :z-depth 4 :style {:margin-top "20px" :display (if-not (:graphics @search-data) "none")}} ;}}
-   [rui/icon-button {:tooltip          "Zatvori"
+   [rui/icon-button {:tooltip          (tr [:graph/zatvori])
                      :tooltip-position "bottom-left"
                      :on-click         (fn [] (swap! search-data assoc-in [:graph-selection] nil) (swap! search-data assoc-in [:graphics] false))
                      :style            {:vertical-align "top" :float "right"}
                      :icon-style       {:color (:cyan colors)}}
                     (ic/content-clear)]
-   [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} "Grafički prikaz veza između harmoniziranih naredbi i JUS standarda"
+   [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} (tr [:graph/prikaz-long])
     [:div {:id "app" :style {:max-height "500px" :overflow "auto"}}]]
    [:div {:class-name "col-md-4" :style {:font-size "14px" :display "inline-block"}} (graph-right)]])
 
@@ -720,7 +735,7 @@
   [:div
    [:div {:style {:width "100%" :height "35px" :padding-left "24px" :padding-top "5px" :padding-bottom "5px" :background-color (:cyan colors)
                   :color (:pdf colors) :margin-top "10px"}} "Filtriraj: "
-    [rui/icon-button {:tooltip    "PDF listing"
+    [rui/icon-button {:tooltip    (tr [:tooltip/pdf-listing])
                       :on-click   export-pdf
                       :style      {:vertical-align "top" :float "right" :margin-top "-12px" :color "black"}
                       :icon-style {:width "24px" :height "24px" :color (:pdf colors) :tooltip-position "bottom-left"}}
@@ -728,19 +743,19 @@
    [:div {:style {:font-size       "14px" :font-family "Roboto, sans-serif" :font-weight "bold" :height "48px" :padding-left "24px" :padding-top "5px"
                   :display         "flex" :align-items "left"
                   :justify-content "left" :color "rgb(33, 150, 243)"}}
-    [:div [rui/checkbox {:label    "BiH naredbe" :label-style {:width "inherit" :color (:bh colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (tr [:filter/bh]) :label-style {:width "inherit" :color (:bh colors)} :style {:margin-left "24px"}
                          :checked  (:1 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:1] is-checked))}]]
-    [:div [rui/checkbox {:label    "YU naredbe" :label-style {:width "inherit" :color (:yu colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (tr [:filter/yu]) :label-style {:width "inherit" :color (:yu colors)} :style {:margin-left "24px"}
                          :checked  (:2 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:2] is-checked))}]]
-    [:div [rui/checkbox {:label    "JUS standardi - obavezna primjena" :label-style {:width "inherit" :color (:jus1 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (tr [:filter/obavezna]) :label-style {:width "inherit" :color (:jus1 colors)} :style {:margin-left "24px"}
                          :checked  (:3 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:3] is-checked))}]]
-    [:div [rui/checkbox {:label    "JUS standardi - djelimično obavezna primjena" :label-style {:width "inherit" :color (:jus2 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (tr [:filter/djelimicno]) :label-style {:width "inherit" :color (:jus2 colors)} :style {:margin-left "24px"}
                          :checked  (:4 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:4] is-checked))}]]
-    [:div [rui/checkbox {:label    "JUS standardi - za upotrebu" :label-style {:width "inherit" :color (:jus3 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (tr [:filter/upotreba]) :label-style {:width "inherit" :color (:jus3 colors)} :style {:margin-left "24px"}
                          :checked  (:5 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:5] is-checked))}]]]])
 
@@ -765,7 +780,7 @@
         (when (and (= @tab-index 0) (= count-c 0)) (reset! tab-index 1))
         (when (and (= @tab-index 1) (= count-p 0)) (reset! tab-index 0))
         [:div {:class "foo" :style {:padding-bottom "0px" :padding-top "0px" :font-size "16px" :font-family "Roboto, sans-serif"} :key "sr"}
-         [rui/icon-button {:tooltip    "Brisi pretragu"
+         [rui/icon-button {:tooltip    (tr [:search/brisi])
                            :on-click   #(clear-criteria)
                            :style      {:vertical-align "top" :float "right" :margin-top "-10px" :height "24px"}
                            :icon-style {:width "24px" :height "24px" :color "white"} :tooltip-position "bottom-left"} (ic/content-clear)]
@@ -780,9 +795,9 @@
 
             (when-not (:graphics search)
               (case @tab-index
-                0 (if (> count-c 0) [pretraga (ac-source childs) "Pretraga vezanih dokumenata"])
-                1 (if (> count-p 0) [pretraga (ac-source parents) "Pretraga dokumenata koji vezuju"])
-                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) "Pretraga zapamćenih dokumenta"))
+                0 (if (> count-c 0) [pretraga (ac-source childs) (tr [:search/vezani])])
+                1 (if (> count-p 0) [pretraga (ac-source parents) (tr [:search/vezuju])])
+                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) (tr [:search/zapamceni])))
                 [:div ""]))
             [rui/tabs {:style     {:margin-top "20px"} :initialSelectedIndex (if (empty? childs) 1 0)
                        :value     @tab-index
@@ -790,21 +805,21 @@
                                     (if (= 2 (.-index (.-props x))) (veze-history))
                                     (reset! candidate {:id nil :veze 0 :search-text ""})
                                     (reset! tab-index (.-index (.-props x))))}
-             [rui/tab {:label "Vezani dokumenti:" :value 0 :disabled (if (empty? childs) true false)}
+             [rui/tab {:label (tr [:tabs/vezani]) :value 0 :disabled (if (empty? childs) true false)}
               badges
               (docs-table childs "" "" false)
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter)) childs)
                                           :childs
                                           result))]
-             [rui/tab {:label "Vezan za dokumente:" :value 1 :disabled (if (empty? parents) true false)}
+             [rui/tab {:label (tr [:tabs/vezan-za]) :value 1 :disabled (if (empty? parents) true false)}
               badges
               (docs-table parents "" "" false)
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter)) parents)
                                           :parents
                                           result))]
-             [rui/tab {:label "Zapamćeni dokumenti" :value 2 :disabled (if (empty? history-list) true false)}
+             [rui/tab {:label (tr [:tabs/zapamceni]) :value 2 :disabled (if (empty? history-list) true false)}
               badges
               (history history-list "")
               (filter-menu view-filter #(pdf/export-pdf
@@ -815,16 +830,19 @@
            (do (reset! tab-index 0)
                [:div
                 (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza))
-                                                                       (:title result-veza)) "Veza sa:" false)
-                (pretraga (ac-source veza-path) "Pretraga zapamćenih dokumenta")]))]))))
+                                                                       (:title result-veza)) (tr [:veze/veza-sa]) false)
+                (pretraga (ac-source veza-path) (tr [:search/zapamceni]))]))]))))
 
 
 
 (def logo (r/as-element [rui/svg-icon {:color "white" :view-box "0 0 100 50" :style {:width "100px" :height "50px"}}
                          [:text {:x 10 :y 35 :font-size 35 :style {:fill "rgb(255, 64, 129)"}} "eJUS"]]))
 
-(def tree-icon (r/as-element [rui/svg-icon {:color "black" :view-box "0 0 36 36" :style {:width "36px" :height "36px"}}
-                              [:path {:d "M30.5 24h-0.5v-6.5c0-1.93-1.57-3.5-3.5-3.5h-8.5v-4h0.5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h0.5v4h-8.5c-1.93 0-3.5 1.57-3.5 3.5v6.5h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5zM6 30h-4v-4h4v4zM18 30h-4v-4h4v4zM14 8v-4h4v4h-4zM30 30h-4v-4h4v4z"}]]))
+(def tree-icon (r/as-element [rui/svg-icon
+                              {:color "white" :view-box "0 0 36 36"}
+                               ;:style {:width "36px" :height "36px" :transform "rotate(90deg)"}}
+                              [:path {:style {:transform "rotate(-90deg) translatex(-18px) translate(-18px)"}
+                                      :d "M30.5 24h-0.5v-6.5c0-1.93-1.57-3.5-3.5-3.5h-8.5v-4h0.5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h0.5v4h-8.5c-1.93 0-3.5 1.57-3.5 3.5v6.5h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5h-0.5v-6h8v6h-0.5c-0.825 0-1.5 0.675-1.5 1.5v5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-5c0-0.825-0.675-1.5-1.5-1.5zM6 30h-4v-4h4v4zM18 30h-4v-4h4v4zM14 8v-4h4v4h-4zM30 30h-4v-4h4v4z"}]]))
 
 (def loading-state (atom true))
 
@@ -835,24 +853,30 @@
                                                      :style {:display "inline-block" :position "relative" :margin-left "45%" :margin-top "10%"}}))])
 
 
+(def graph-select (r/as-element [rui/checkbox {:label "Graph" :on-check (fn [_ checked] (swap! search-data assoc-in [:graphics] checked))}]))
+
 (defn home-page [db loading-state]
   (let [search-d @search-data]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
 
      [:div
-      [rui/app-bar {:title              "Veze JUS standarda i harmoniziranih BiH naredbi"
+      [rui/app-bar {:title              (tr [:title])
                     :title-style        {:text-align "center"}
                     :icon-element-left  logo
                     :icon-style-left    {:width "100px"}
-                    :icon-style-right    {:transform "rotate(90deg)"}
+                    ;:icon-style-right    {:transform "rotate(-90deg)"}
                     :showMenuIconButton true
                     :zDepth             3
-                    :icon-element-right (ui/icon-button
-                                          {:on-click #(swap! search-data assoc-in [:graphics] true)
-                                           :tooltip  "Grafički prikaz"
-                                           :tooltip-position "top-left"
-                                           :children (ic/editor-insert-chart)
-                                           :disabled (:graphics search-d)})
+                    :icon-element-right graph-select
+                                        ;(ui/icon-button
+                                        ;  {:on-click #(swap! search-data assoc-in [:graphics] true)
+                                        ;   :tooltip  (tr [:graph/prikaz])
+                                        ;   :tooltip-position "top-left"
+                                        ;   :icon-style {:color "white" :icon-hover-olor "red"}
+                                        ;   :children tree-icon
+                                        ;   :disabled (:graphics search-d)})
+
+
                     :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}]
       (if @loading-state
         [loading]
@@ -864,7 +888,7 @@
                                      :transition-enter-timeout 600
                                      :transition-leave-timeout 500}
            (if-not (:selection search-d)
-             (pretraga (ac-source @db-tree) "Pretraga podataka o naredbama/pravilnicima/standardima")
+             (pretraga (ac-source @db-tree) (tr [:search/title]))
              [search-result])]]])
       [graph]]]))
 
