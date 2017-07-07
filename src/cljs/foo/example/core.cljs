@@ -4,7 +4,7 @@
     [cljs.core.async.macros :as m :refer [go]])
   (:require
     [foo.example.pdf :as pdf]
-    [foo.example.translation :as translation :refer [tr]]
+    [foo.example.translation :as translation :refer [tr lang]]
     [cljsjs.material-ui]
     [cljs-react-material-ui.core :as ui]
     [rum.core :as rum]
@@ -853,10 +853,10 @@
                                                      :style {:display "inline-block" :position "relative" :margin-left "45%" :margin-top "10%"}}))])
 
 
-(def graph-select (r/as-element [rui/checkbox {:label "Graph" :on-check (fn [_ checked] (swap! search-data assoc-in [:graphics] checked))}]))
 
 (defn home-page [db loading-state]
-  (let [search-d @search-data]
+  (let [search-d @search-data
+        current-lang @lang]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
 
      [:div
@@ -867,23 +867,42 @@
                     ;:icon-style-right    {:transform "rotate(-90deg)"}
                     :showMenuIconButton true
                     :zDepth             3
-                    :icon-element-right graph-select
-                                        ;(ui/icon-button
-                                        ;  {:on-click #(swap! search-data assoc-in [:graphics] true)
-                                        ;   :tooltip  (tr [:graph/prikaz])
-                                        ;   :tooltip-position "top-left"
-                                        ;   :icon-style {:color "white" :icon-hover-olor "red"}
-                                        ;   :children tree-icon
-                                        ;   :disabled (:graphics search-d)})
+                    :icon-element-right
+                                        (r/as-element
+                                          [rui/drop-down-menu
+                                           {
+                                            :value current-lang
+                                            :on-change (fn [_ _ choice] (reset! lang choice))
+                                            :labelStyle {:color "white"}}
+                                           [rui/menu-item {:value :bs :primary-text "Bosanski"}]
+                                           [rui/menu-item {:value :sr :primary-text "Српски"}]
+                                           [rui/menu-item {:value :hr :primary-text "Hrvatski"}]
+                                           [rui/menu-item {:value :en :primary-text "English"}]])
+
+
+                    ;(ui/icon-button
+                    ;  {:on-click #(swap! search-data assoc-in [:graphics] true)
+                    ;   :tooltip  (tr [:graph/prikaz])
+                    ;   :tooltip-position "top-left"
+                    ;   :icon-style {:color "white" :icon-hover-olor "red"}
+                    ;   :children tree-icon
+                    ;   :disabled (:graphics search-d)})
 
 
                     :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}]
       (if @loading-state
         [loading]
         [:div
-         [:div {:class-name "col-md-12" :style {:width "98%" :position "absolute" :top "90px" :left "45%" :z-index 1100}}
+         [:div {:class-name "col-md-12" :style {:width "10%" :position "absolute" :top "95px" :left "45%" :z-index 1100}}
           [legend-h]]
-         [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "10px"}}
+         [rui/toggle
+          {:label     (tr [:graph/prikaz])
+           :toggled (if (:graphics search-d) (:graphics search-d) false)
+           :on-toggle (fn [_ checked] (swap! search-data assoc-in [:graphics] checked))
+           :label-position :right
+           :label-style {:font-size "14px" :color (:cyan colors) :width "calc(100% - 24px)"}
+           :style {:position :absolute :top "100px" :left "30px" :width "200px"}}]
+         [rui/paper {:z-depth 2 :class-name "col-md-12" :style {:margin-top "25px"}}
           [rui/css-transition-group {:transition-name          "example"
                                      :transition-enter-timeout 600
                                      :transition-leave-timeout 500}
