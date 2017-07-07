@@ -4,6 +4,7 @@
             [foo.example.translation :as translation :refer [tr]]))
 
 
+
 (defn doc-text [result-type dokument naslov formated-data]
   (let [doc-types {:1 (tr [:pdf/bh])
                    :2 (tr [:pdf/yu])
@@ -12,21 +13,23 @@
                    :5 (tr [:pdf/upotreba])}
         doc-list (for [group (sort-by first formated-data)]
                    (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
-                         (mapv #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %)))
-                               (if (or (= (first group) :1) (= (first group) :2))
-                                 (sort-by :JUSopis (second group))
-                                 (sort-by :JUSId (second group))))))
+                         (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
+                         (if (or (= (first group) :1) (= (first group) :2))
+                           (sort-by :JUSopis (second group))
+                           (sort-by :JUSId (second group)))))
         table {:layout "lightHorizontalLines"
                :table  {:headerRows 1
                         :widths     ["*"]
                         :body       nil}}
-        tables (for [rows doc-list]
-                 (assoc-in table [:table :body] rows))
+        ;tables (for [rows doc-list]
+        ;         (assoc-in table [:table :body] rows))
+        ;tables  (mapv #(assoc-in table [:table :body] %) doc-list)
         content (into [
-                       (if result-type {:text result-type :style "vrsta"})
-                       (if dokument {:text dokument :style "naslov"})
+                       (when result-type {:text result-type :style "vrsta"})
+                       (when dokument {:text dokument :style "naslov"})
                        {:text naslov :style "veza"}]
-                      tables)
+                      (map #(assoc-in table [:table :body] %))
+                      doc-list)
         impressum (tr [:pdf/impressum])]
     (clj->js
       {

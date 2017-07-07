@@ -2,7 +2,7 @@
   (:require [taoensso.tempura :as tempura]
             [reagent.core :as r :refer [atom]]))
 
-(def lang (atom :sr))
+(def lang (atom :bs))
 
 (def dictionary
   {:bs
