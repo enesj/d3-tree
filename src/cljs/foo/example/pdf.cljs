@@ -4,7 +4,6 @@
             [foo.example.translation :as translation :refer [tr]]))
 
 
-
 (defn doc-text [result-type dokument naslov formated-data]
   (let [doc-types {:1 (tr [:pdf/bh])
                    :2 (tr [:pdf/yu])

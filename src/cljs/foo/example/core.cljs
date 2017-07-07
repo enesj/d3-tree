@@ -725,9 +725,9 @@
                       :3 (and (= (:Mandatory doc) 0) (= (:Naredba doc) 0))
                       :4 (and (= (:Mandatory doc) 1) (= (:Naredba doc) 0))
                       :5 (and (= (:Mandatory doc) 2) (= (:Naredba doc) 0))}
-        criteria (for [crit-key active-keys]
-                   (when (crit-key map-criteria) {crit-key doc}))]
-    (first (remove nil? criteria))))
+        filter-criteria (comp (map  #(when (% map-criteria) {% doc})) (remove nil?))]
+    (first (into [] filter-criteria active-keys))))
+
 
 
 (defn filter-menu [view-filter export-pdf]
