@@ -11,12 +11,13 @@
                    :3 (tr [:pdf/obavezna])
                    :4 (tr [:pdf/djelimicno])
                    :5 (tr [:pdf/upotreba])}
-        doc-list (for [group (sort-by first formated-data)]
-                   (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
-                         (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
-                         (if (or (= (first group) :1) (= (first group) :2))
-                           (sort-by :JUSopis (second group))
-                           (sort-by :JUSId (second group)))))
+        doc-list (mapv
+                   (fn [group] (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
+                                 (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
+                                 (if (or (= (first group) :1) (= (first group) :2))
+                                   (sort-by :JUSopis (second group))
+                                   (sort-by :JUSId (second group)))))
+                   (sort-by first formated-data))
         table {:layout "lightHorizontalLines"
                :table  {:headerRows 1
                         :widths     ["*"]
