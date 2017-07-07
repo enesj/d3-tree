@@ -4,19 +4,19 @@
             [foo.example.translation :as translation :refer [tr]]))
 
 
-(defn doc-text [result-type dokument naslov formated-data]
+(defn doc-text [result-type dokument naslov format-data group-data-by-type]
   (let [doc-types {:1 (tr [:pdf/bh])
                    :2 (tr [:pdf/yu])
                    :3 (tr [:pdf/obavezna])
                    :4 (tr [:pdf/djelimicno])
                    :5 (tr [:pdf/upotreba])}
-        doc-list (mapv
-                   (fn [group] (into [(vector {:text ((first group) doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
-                                 (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
-                                 (if (or (= (first group) :1) (= (first group) :2))
-                                   (sort-by :JUSopis (second group))
-                                   (sort-by :JUSId (second group)))))
-                   (sort-by first formated-data))
+        doc-list (map
+                   (fn [[first-g second-g]]
+                     (into [(vector {:text (first-g doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
+                       (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
+                       (if (or (= first-g :1) (= first-g :2))
+                         (sort-by :JUSopis second-g)
+                         (sort-by :JUSId second-g)))))
         table {:layout "lightHorizontalLines"
                :table  {:headerRows 1
                         :widths     ["*"]
@@ -24,12 +24,13 @@
         ;tables (for [rows doc-list]
         ;         (assoc-in table [:table :body] rows))
         ;tables  (mapv #(assoc-in table [:table :body] %) doc-list)
-        content (into [
-                       (when result-type {:text result-type :style "vrsta"})
-                       (when dokument {:text dokument :style "naslov"})
-                       {:text naslov :style "veza"}]
-                      (map #(assoc-in table [:table :body] %))
-                      doc-list)
+        content (sort-by first
+                  (into [
+                         (when result-type {:text result-type :style "vrsta"})
+                         (when dokument {:text dokument :style "naslov"})
+                         {:text naslov :style "veza"}]
+                        (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
+                        group-data-by-type))
         impressum (tr [:pdf/impressum])]
     (clj->js
       {
@@ -80,11 +81,11 @@
           (2 3) (tr [:pdf/tip-yu])
           (tr [:pdf/tip-jus]))
         group-data-by-type (group-by #(key (first %)) data)
-        formated-data (mapv #(vector (first %) (mapv (fn [x] (val (first x))) (second %))) group-data-by-type)]
+        format-data (map #(vector (first %) (mapv (fn [x] (val (first x))) (second %))))]
 
     (if (= data-type :history)
-      (doc-text nil nil naslov formated-data)
-      (doc-text doc-type dokument naslov formated-data))))
+      (doc-text nil nil naslov format-data data)
+      (doc-text doc-type dokument naslov format-data group-data-by-type))))
 
 
 (defn export-pdf [data result-type result]
