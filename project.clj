@@ -54,7 +54,7 @@
                  [org.clojure/core.typed "0.3.11"]
                  [prismatic/plumbing "0.5.0"]
                  [prismatic/schema "1.0.5"]
-                 [com.rpl/specter "0.12.0"]
+                 [com.rpl/specter "1.0.2"]
                  [joplin.jdbc "0.3.6"]
                  [joplin.core "0.3.6"]
                  [cljsjs/pdfmake "0.1.26-0"]

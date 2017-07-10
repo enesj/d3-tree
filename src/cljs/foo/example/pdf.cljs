@@ -12,26 +12,29 @@
                    :5 (tr [:pdf/upotreba])}
         doc-list (map
                    (fn [[first-g second-g]]
-                     (into [(vector {:text (first-g doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
-                       (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
-                       (if (or (= first-g :1) (= first-g :2))
-                         (sort-by :JUSopis second-g)
-                         (sort-by :JUSId second-g)))))
+                     ;(sort-by first
+                       (into [(vector {:text (first-g doc-types), :bold true :alignment :center :fontSize 13 :margin [10 10 10 10]})]
+                             (map #(vector (if (= (:Naredba %) 0) (str (:JUSId %) ":" (:JUSgodina %) " " (:JUSopis %)) (:JUSopis %))))
+                             (if (or (= first-g :1) (= first-g :2))
+                               (sort-by :JUSopis second-g)
+                               (sort-by :JUSId second-g)))))
         table {:layout "lightHorizontalLines"
                :table  {:headerRows 1
                         :widths     ["*"]
                         :body       nil}}
         ;tables (for [rows doc-list]
         ;         (assoc-in table [:table :body] rows))
-        ;tables  (mapv #(assoc-in table [:table :body] %) doc-list)
-        content (sort-by first
-                  (into [
-                         (when result-type {:text result-type :style "vrsta"})
-                         (when dokument {:text dokument :style "naslov"})
-                         {:text naslov :style "veza"}]
-                        (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
-                        group-data-by-type))
+        title [
+               (when result-type {:text result-type :style "vrsta"})
+               (when dokument {:text dokument :style "naslov"})
+               {:text naslov :style "veza"}]
+        content
+
+                (into []
+                      (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
+                      (sort-by first group-data-by-type))
         impressum (tr [:pdf/impressum])]
+    ;(println doc-list)
     (clj->js
       {
        :pageSize "A4"
@@ -39,7 +42,7 @@
        :footer   (fn [currentPage pageCount] (when (> currentPage 1) (clj->js {:text [{:text impressum}
                                                                                       {:text (str (tr [:pdf/strana]) currentPage (tr [:pdf/od]) pageCount)  :bold true}]
                                                                                :style "footer"})))
-       :content  content
+       :content  [title content]
        :styles
 
                  {:vrsta  {:fontSize  12

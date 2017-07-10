@@ -89,7 +89,7 @@
 (defn veze-history []
   (swap! search-data update-in [:history] (fn [x] (mapv #(assoc-in % [:veze] 0) x)))
   (let [search-d @search-data
-        indexed (map-indexed #(hash-map :index %1 :id (:id %2)) (take history-size (:history search-d)))]
+        indexed (into [] (comp (map-indexed #(hash-map :index %1 :id (:id %2))) (take history-size) ) (:history search-d))]
     (doseq [item indexed]
       (count-veze-history search-d (:id item) (check-veza (:id item)) (:index item)))))
 
@@ -603,9 +603,9 @@
                               :icon-style     {:width "24px" :height "24px" :color "white"} :tooltip-position "bottom-left"} (ic/content-clear)]])]])
      [rui/table-body {:display-row-checkbox false :pre-scan-rows false :show-row-hover true}
       (doall (map #(let [jusid (:JUSId %)
-                         name (:name %)
-                         id (or jusid name)
-                         check-veza-var (or veza (if (and history (:selection s-data)) (check-veza id)))]
+                          name (:name %)
+                          id (or jusid name)
+                          check-veza-var (or veza (if (and history (:selection s-data)) (check-veza id)))]
                      [rui/table-row {:key id :style {:cursor "pointer" :color (color %)}}
                       [rui/table-row-column
                        (if (= 0 (:Naredba %))
@@ -697,6 +697,7 @@
    [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} (tr [:graph/prikaz-long])
     [:div {:id "app" :style {:max-height "500px" :overflow "auto"}}]]
    [:div {:class-name "col-md-4" :style {:font-size "14px" :display "inline-block"}} (graph-right)]])
+
 
 
 (defn badges [count-p count-c count-h]
@@ -854,6 +855,8 @@
 
 
 
+
+
 (defn home-page [db loading-state]
   (let [search-d @search-data
         current-lang @lang]
@@ -917,6 +920,8 @@
     (r/render
       [home-page (ac-source db ) loading-state]
       (.getElementById js/document "search-app"))))
+
+
 
 (defn init-veza [loading-state]
   (mount-root loading-state)
