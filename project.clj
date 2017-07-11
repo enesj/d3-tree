@@ -27,7 +27,7 @@
                  [im.chit/cronj "1.4.3"]
                  [com.taoensso/timbre "4.10.0"]
                  [com.taoensso/tempura "1.1.2"]
-                 ;[com.taoensso/tower "3.0.2"]
+                 [com.taoensso/tower "3.0.2"]
                  [noir-exception "0.2.5"]
                  [buddy/buddy-auth "0.6.0"]
                  [buddy/buddy-hashers "0.6.0"]

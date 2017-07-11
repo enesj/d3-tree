@@ -416,7 +416,7 @@
                                                                          "bih" (tr [:legend/bh])
                                                                          "yu" (tr [:legend/yu])
                                                                          "jus1" (tr [:legend/obavezna])
-                                                                         "jus2" (tr [:legend/djelilmicno])
+                                                                         "jus2" (tr [:legend/djelimicno])
                                                                          "jus3" (tr [:legend/upotreba])
                                                                          "sel-t" "Naredbe\\standardi koji sadrže rezultat pretrage"
                                                                          (tr [:legend/mouse]))
@@ -765,7 +765,8 @@
   (let [tab-index (atom 0)
         view-filter (atom {:1 true, :2 true, :3 true, :4 true, :5 true})]
     (fn []
-      (let [search @search-data
+      (let [
+            search @search-data
             db @db-tree
             result (get-doc-data (:selection search) db)
             result-veza (get-doc-data (:sel (:veza search)) db)
@@ -913,6 +914,7 @@
              (pretraga (ac-source @db-tree) (tr [:search/title]))
              [search-result])]]])
       [graph]]]))
+
 
 
 (defn mount-root [loading-state]

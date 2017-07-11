@@ -29,10 +29,9 @@
                (when dokument {:text dokument :style "naslov"})
                {:text naslov :style "veza"}]
         content
-
-                (into []
-                      (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
-                      (sort-by first group-data-by-type))
+               (into []
+                     (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
+                     (sort-by first group-data-by-type))
         impressum (tr [:pdf/impressum])]
     ;(println doc-list)
     (clj->js

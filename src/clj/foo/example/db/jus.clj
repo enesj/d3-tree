@@ -45,7 +45,7 @@
 ;(def only-jus
 ;	(only-jus-fn))
 
-(def get-veza
+(defn get-veza []
   (select Veza))
 
 
@@ -80,20 +80,20 @@
 (defn a-data []
   (select JUS (where {:JUSId [in (subselect Veza (fields :child))]})))
 
-(def active-data
+(defn active-data []
   (let [data (into (naredbe) (a-data))]
     [data (select Veza)]))
 
 
 (defn count-veze-old [active-data]
-  (let [[data veza] active-data]
+  (let [[data veza] (active-data)]
     (into {} (map #(hash-map (first %) {:total 0 :locked 0 :childs (second %)})
                    (doall (for [id (map :JUSId data)] [id (map :Child (filterv #(= id (:Parent %)) veza))]))))))
 
 
 
 (defn count-veze [active-data]
-  (let [[data veza] active-data]
+  (let [[data veza] (active-data)]
     ;(into {} (mapv #(hash-map (first %) {:total 0 :locked 0 :childs (second %)})
     (into {}
       (comp
@@ -124,7 +124,7 @@
 
 
 (defn count-veze-all []
-  (let [active-data active-data
+  (let [active-data (active-data)
         first-level-count (reset! count-veze-atom (count-veze active-data))]
     (doall (for [id (pmap :JUSId (first active-data))]
              [id (count-veza id first-level-count)]))
@@ -139,7 +139,7 @@
 
 
 (defn all-acitve-paths []
-  (let [[data veze] active-data]
+  (let [[data veze] (active-data)]
     (group-by #(last (last %))
               (doall
                 (for [child (map #(vector (:JUSId %) (:JUSopis %)) (filter #(and (= 0 (:Locked %)) (= 0 (:Fali %))) data))]
@@ -148,7 +148,7 @@
                          (get-path (first child) veze))])))))
 
 (defn all-paths []
-  (let [[data veze] active-data]
+  (let [[data veze] (active-data)]
     (group-by #(last (last %))
               (doall
                 (for [child (map #(vector (:JUSId %) (:JUSopis %)) data)]
@@ -157,39 +157,43 @@
                          (get-path (first child) veze))])))))
 
 
-(def parents-doc (group-by :Parent get-veza))
-(def childs-doc (group-by :Child get-veza))
 
-(defn all-childs [parent verbose]
-  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) parents-doc))]
+
+
+;(def parents (group-by :Parent get-veza))
+;(def childs (group-by :Child get-veza))
+
+(defn all-childs [parent verbose jus-data veze]
+  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) (group-by :Parent veze)))]
     (loop [all-childs #{} childs #{parent}]
       (let [new-childs (apply clojure.set/union (map (fn [x] (get groups x)) childs))]
         (if (empty? new-childs)
-          [all-childs (if (= verbose "1") (filter #(all-childs (:JUSId %)) (first active-data)) [])]
+          [all-childs (if (= verbose "1") (filter #(all-childs (:JUSId %)) jus-data) [])]
           (recur (clojure.set/union new-childs all-childs) new-childs))))))
 
-(defn all-parents [child verbose]
-  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Parent (second x)))}) childs-doc))]
+(defn all-parents [child verbose jus-data veze]
+  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Parent (second x)))}) (group-by :Child veze)))]
     (loop [all-parents #{} parents #{child}]
       (let [new-parents (apply clojure.set/union (map (fn [x] (get groups x)) parents))]
         (if (empty? new-parents)
-          [all-parents (if (= verbose "1") (filter #(all-parents (:JUSId %)) (first active-data)) [])]
+          [all-parents (if (= verbose "1") (filter #(all-parents (:JUSId %)) jus-data) [])]
           (recur (clojure.set/union new-parents all-parents) new-parents))))))
 
+
 (defn search-data [doc verbose]
-  [(all-parents doc verbose) (all-childs doc verbose)])
+  (let [[jus-data veze]  (active-data)]
+    [(all-parents doc verbose jus-data veze) (all-childs doc verbose jus-data veze)]))
 
 (def all-children-path (comp-paths [ALL :children ALL]))
 
 
 (defn tree-data []
-  (let [veze get-veza
-        jus-data (first active-data)
+  (let [[jus-data veze]  (active-data)
         parents (pmap (fn [x] (merge (clojure.set/rename-keys
                                        (first (filter (fn [y] (= (first x) (:JUSId y))) jus-data))
                                        {:JUSId :name :JUSopis :title})
                                      {:children (pmap #(hash-map :name (:Child %)) (second x))}))
-                      parents-doc)
+                      (group-by :Parent veze))
         parents (conj parents {:name "1000" :title "BiH naredbe harmonizirane sa evropskim direktivama" :shorttitle ""
                                :children [{:name "1" :children nil} {:name "2" :children nil} {:name "3" :children nil} {:name "4" :children nil}
                                           {:name "5" :children nil} {:name "6" :children nil} {:name "7" :children nil}] :x0 0 :y0 0})

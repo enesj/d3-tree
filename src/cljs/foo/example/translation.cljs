@@ -18,7 +18,7 @@
     :legend    {:bh          "BiH Naredbe"
                 :yu          "YU Naredbe\\Pravilnici"
                 :obavezna    "JUS sa obaveznom primjenom"
-                :djelilmicno "JUS sa djelimično obaveznom primjenom"
+                :djelimicno "JUS sa djelimično obaveznom primjenom"
                 :upotreba    "JUS za upotrebu"
                 :rezultat    "Naredbe\\standardi koji sadrže rezultat pretrage"
                 :mouse       "Za objašnjenje pređi mišem preko odgovarajuće boje"
@@ -42,7 +42,7 @@
                 :djelimicno "Djelimično obavezna"
                 :upotreba   "Za upotrebu"
                 :strana     "Broj strana: "
-                :isc        "ICS: "}
+                :ics        "ICS: "}
     :doc-type  {:svi "Svi dokumenti"
                 :bh  "BiH naredbe"
                 :yu  "YU naredbe/pravilnici"
@@ -111,7 +111,7 @@
     :legend    {:bh          "БиХ Наредбе"
                 :yu          "YУ Наредбе\\Правилници"
                 :obavezna    "ЈУС са обавезном примјеном"
-                :djelilmicno "ЈУС са дјелимично обавезном примјеном"
+                :djelimicno "ЈУС са дјелимично обавезном примјеном"
                 :upotreba    "ЈУС за употребу"
                 :rezultat    "Наредбе\\стандарди који садрже резултат претраге"
                 :mouse       "За објашњење пређи мишем преко одговарајуће боје"
@@ -135,7 +135,7 @@
                 :djelimicno "Дјелимично обавезна"
                 :upotreba   "За употребу"
                 :strana     "Број страна: "
-                :isc        "ICS: "}
+                :ics        "ICS: "}
     :doc-type  {:svi "Сви документи"
                 :bh  "БиХ наредбе"
                 :yu  "YУ наредбе/правилници"
@@ -202,7 +202,7 @@
         :legend    {:bh          "BiH Naredbe"
                     :yu          "YU Naredbe\\Pravilnici"
                     :obavezna    "JUS sa obaveznom primjenom"
-                    :djelilmicno "JUS sa djelimično obaveznom primjenom"
+                    :djelimicno "JUS sa djelimično obaveznom primjenom"
                     :upotreba    "JUS za upotrebu"
                     :rezultat    "Naredbe\\standardi koji sadrže rezultat pretrage"
                     :mouse       "Za objašnjenje pređi mišem preko odgovarajuće boje"
@@ -226,7 +226,7 @@
                     :djelimicno "Djelimično obavezna"
                     :upotreba   "Za upotrebu"
                     :strana     "Broj strana: "
-                    :isc        "ICS: "}
+                    :ics        "ICS: "}
         :doc-type  {:svi "Svi dokumenti"
                     :bh  "BiH naredbe"
                     :yu  "YU naredbe/pravilnici"
@@ -293,7 +293,7 @@
         :legend    {:bh          "BiH Naredbe"
                     :yu          "YU Naredbe\\Pravilnici"
                     :obavezna    "JUS sa obaveznom primjenom"
-                    :djelilmicno "JUS sa djelimično obaveznom primjenom"
+                    :djelimicno "JUS sa djelimično obaveznom primjenom"
                     :upotreba    "JUS za upotrebu"
                     :rezultat    "Naredbe\\standardi koji sadrže rezultat pretrage"
                     :mouse       "Za objašnjenje pređi mišem preko odgovarajuće boje"
@@ -317,7 +317,7 @@
                     :djelimicno "Djelimično obavezna"
                     :upotreba   "Za upotrebu"
                     :strana     "Pages: "
-                    :isc        "ICS: "}
+                    :ics        "ICS: "}
         :doc-type  {:svi "All documents"
                     :bh  "BiH naredbe"
                     :yu  "YU naredbe/pravilnici"
