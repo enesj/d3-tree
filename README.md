@@ -30,6 +30,20 @@ PROMJENA KONFIGURACIJE !!!!
 java -jar -Dclosp-config-path=./resources/jus.edn jus-new.jar
 
 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Instalacija na BAS WEB Server (10.0.5.2)
+
+jus.rar u folder C:\webdata\wwwroot\jus
+img - folder na C:\webdata\wwwroot\img
+resources\public\js kopiraj fajlove na C:\webdata\wwwroot\js\
+pdf - folder na C:\webdata\wwwroot\pdf
+resources\public\css - kopiraj fajlove i foldere na C:\webdata\wwwroot\css
+resources\public\fonts - kopiraj fajlove na C:\webdata\wwwroot\fonts
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 ## Features
 * closp-crud integration
 * SQlite database on filesystem as a default

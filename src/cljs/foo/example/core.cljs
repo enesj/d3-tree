@@ -20,8 +20,8 @@
     [devtools.toolbox :as toolbox]))
 
 (enable-console-print!)
-
-(devtools/install!)
+;
+;(devtools/install!)
 
 
 

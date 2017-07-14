@@ -75,7 +75,7 @@
                     :figwheel     {:on-jsload  "reagent-tree.dev/main"}
                     :compiler     {:main            "reagent-tree.dev"
                                    :asset-path      "/js/compiled/out"
-                                   :output-to       "resources/public/js/compiled/app.js"
+                                   :output-to       "resources/public/js/compiled/app-new.js"
                                    :output-dir      "resources/public/js/compiled/out"
                                    :source-map      true
                                    :source-map-timestamp true
@@ -83,7 +83,7 @@
                                    :preloads       [devtools.preload]}}
 
               :adv {:source-paths ["src/cljs" "src/cljc"]
-                    :compiler     {:output-to     "resources/public/js/compiled/app.js"
+                    :compiler     {:output-to     "resources/public/js/compiled/app-new.js"
                                    ; leaving this commented because of: https://github.com/cursiveclojure/cursive/issues/369
                                    ;:jar           true
                                    :externs ["externs/d3_externs.js"]
