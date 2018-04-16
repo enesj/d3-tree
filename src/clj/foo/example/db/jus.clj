@@ -2,13 +2,93 @@
   (:require [korma.core :refer [select select* where insert delete values update set-fields defentity limit order subselect
                                 join fields modifier aggregate exec-raw]]
             [korma.db :refer [h2 transaction]]
+            [spec-provider.provider :as sp]
+            [clojure.test.check :as tc]
+            [clojure.test.check.generators :as gen]
             [cheshire.core :refer [generate-string]]
+            [clojure.test.check.properties :as prop]
             [clojure.java.io :as io])
   (:use
     [com.rpl.specter :rename {select* sell* subselect subsell select sell}]))
     ;[com.rpl.specter.macros :rename {select sel}]))
 
-;(:import (java.util UUID))
+
+(require '[clojure.spec.alpha :as s])
+
+;veza spec
+(s/def ::Child string?)
+(s/def ::Parent string?)
+
+(s/def ::veza (s/keys :req-un [::Child ::Parent]))
+
+;jus spec
+(s/def ::Fali #{0 1})
+(s/def ::Glasnik (s/nilable string?))
+(s/def ::JUSgodina (s/nilable pos-int?))
+(s/def ::Mandatory #{"" 0 1 2})
+(s/def ::Strana (s/nilable pos-int?))
+(s/def ::Naredba #{"" 0 1 2 3})
+(s/def ::Direktiva string?)
+(s/def ::JUSopis string?)
+(s/def ::Locked #{0 1})
+(s/def ::Link-d (s/nilable string?))
+(s/def ::Napomena (s/nilable string?))
+(s/def ::Link-n (s/nilable string?))
+(s/def ::ICS (s/nilable string?))
+(s/def ::JUSId string?)
+
+(s/def
+  ::jus
+  (s/keys
+    :req-un
+    [::Direktiva
+     ::Fali
+     ::Glasnik
+     ::ICS
+     ::JUSId
+     ::JUSgodina
+     ::JUSopis
+     ::Link-d
+     ::Link-n
+     ::Locked
+     ::Mandatory
+     ::Napomena
+     ::Naredba
+     ::Strana]))
+
+
+;tree-data spec
+(s/def ::title string?)
+(s/def ::name string?)
+(s/def ::shorttitle string?)
+(s/def ::type #{"" 0 1 2})
+(s/def ::mandatory #{"" 0 1 2})
+(s/def
+  ::children
+  (s/coll-of
+    (s/keys :req-un [::mandatory ::name ::shorttitle ::title ::type])))
+
+(s/def
+  ::tree-data
+  (s/coll-of
+    (s/keys
+      :req-un
+      [::Direktiva
+       ::Fali
+       ::Glasnik
+       ::ICS
+       ::JUSgodina
+       ::Link-d
+       ::Link-n
+       ::Locked
+       ::Mandatory
+       ::Napomena
+       ::Naredba
+       ::Strana
+       ::children
+       ::name
+       ::title])))
+
 
 (defentity JUS)
 (defentity Veza)
@@ -93,7 +173,7 @@
 
 
 (defn count-veze [active-data]
-  (let [[data veza] (active-data)]
+  (let [[data veza] active-data]
     ;(into {} (mapv #(hash-map (first %) {:total 0 :locked 0 :childs (second %)})
     (into {}
       (comp
@@ -123,6 +203,9 @@
   [0 0 0 0])
 
 
+
+
+
 (defn count-veze-all []
   (let [active-data (active-data)
         first-level-count (reset! count-veze-atom (count-veze active-data))]
@@ -130,43 +213,40 @@
              [id (count-veza id first-level-count)]))
     @count-veze-atom))
 
-(defn get-path [id veze]
-  (loop [id id path []]
-    (let [parent (map :Parent (filter #(= id (:Child %)) veze))]
-      (if (empty? parent)
-        path
-        (recur (first parent) (conj path (first parent)))))))
+;(defn get-path [id veze]
+;  (loop [id id path []]
+;    (let [parent (map :Parent (filter #(= id (:Child %)) veze))]
+;      (if (empty? parent)
+;        path
+;        (recur (first parent) (conj path (first parent)))))))
 
 
-(defn all-acitve-paths []
-  (let [[data veze] (active-data)]
-    (group-by #(last (last %))
-              (doall
-                (for [child (map #(vector (:JUSId %) (:JUSopis %)) (filter #(and (= 0 (:Locked %)) (= 0 (:Fali %))) data))]
-                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
-                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
-                         (get-path (first child) veze))])))))
-
-(defn all-paths []
-  (let [[data veze] (active-data)]
-    (group-by #(last (last %))
-              (doall
-                (for [child (map #(vector (:JUSId %) (:JUSopis %)) data)]
-                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
-                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
-                         (get-path (first child) veze))])))))
-
-
-
-
+;(defn all-acitve-paths []
+;  (let [[data veze] (active-data)]
+;    (group-by #(last (last %))
+;              (doall
+;                (for [child (map #(vector (:JUSId %) (:JUSopis %)) (filter #(and (= 0 (:Locked %)) (= 0 (:Fali %))) data))]
+;                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
+;                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
+;                         (get-path (first child) veze))])))))
+;
+;(defn all-paths []
+;  (let [[data veze] (active-data)]
+;    (group-by #(last (last %))
+;              (doall
+;                (for [child (map #(vector (:JUSId %) (:JUSopis %)) data)]
+;                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
+;                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
+;                         (get-path (first child) veze))])))))
 
 ;(def parents (group-by :Parent get-veza))
 ;(def childs (group-by :Child get-veza))
 
 (defn all-childs [parent verbose jus-data veze]
-  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) (group-by :Parent veze)))]
+  (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) (group-by :Parent veze)))
+        childs-memo (memoize (fn [jus-name] (get groups jus-name)))]
     (loop [all-childs #{} childs #{parent}]
-      (let [new-childs (apply clojure.set/union (map (fn [x] (get groups x)) childs))]
+      (let [new-childs (apply clojure.set/union (map (fn [x] (childs-memo x)) childs))]
         (if (empty? new-childs)
           [all-childs (if (= verbose "1") (filter #(all-childs (:JUSId %)) jus-data) [])]
           (recur (clojure.set/union new-childs all-childs) new-childs))))))
@@ -189,34 +269,37 @@
 
 (defn tree-data []
   (let [[jus-data veze]  (active-data)
-        parents (pmap (fn [x] (merge (clojure.set/rename-keys
-                                       (first (filter (fn [y] (= (first x) (:JUSId y))) jus-data))
-                                       {:JUSId :name :JUSopis :title})
-                                     {:children (pmap #(hash-map :name (:Child %)) (second x))}))
+        get-jus (memoize (fn [jus-name] (first (drop-while  (fn [x] (not= (:JUSId x) jus-name) ) jus-data))))
+        rename-jus  (fn [x] (clojure.set/rename-keys
+                                   (get-jus  x)
+                                   {:JUSId :name :JUSopis :title}))
+        parents (pmap (fn [x] (merge (rename-jus (first x))
+                                     {:children (mapv #(hash-map :name (:Child %)) (second x))}))
                       (group-by :Parent veze))
         parents (conj parents {:name "1000" :title "BiH naredbe harmonizirane sa evropskim direktivama" :shorttitle ""
                                :children [{:name "1" :children nil} {:name "2" :children nil} {:name "3" :children nil} {:name "4" :children nil}
                                           {:name "5" :children nil} {:name "6" :children nil} {:name "7" :children nil}] :x0 0 :y0 0})
         all-childs (into #{} (pmap #(hash-map :name (:Child %) :children nil) veze))
         all-parents (into #{} (pmap #(hash-map :name (:Parent %) :children nil) veze))
-        no-childs (pmap (fn [x] (clojure.set/rename-keys (first (filter (fn [y] (= (:name x) (:JUSId y))) jus-data)) {:JUSId :name :JUSopis :title}))
+        no-childs (pmap #(rename-jus (first %))
                         (clojure.set/difference all-childs all-parents))]
-    (compiled-transform  all-children-path #(let [JUS (reduce  (fn [_ x] (when (= (:JUSId x) (:name %)) (reduced x))) jus-data)]
+    (compiled-transform  all-children-path #(let [JUS (get-jus (:name %))]
                                               (merge % {:type (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
                                                         :shorttitle (if (= (:Naredba JUS) 0) (str (:JUSId JUS) ":" (:JUSgodina JUS)) "")}))
                (into [] (concat parents no-childs)))))
 
 
-(defn ft-search-old [text phrase]
-  (exec-raw
-    (if phrase (str "SELECT * FROM vJUS WHERE vJUS MATCH '\"" text "\"'")
-               (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'")) :results))
 
-
-(defn ft-search [text]
-  (let [text (clojure.string/join " " (map (fn [x] (if (re-find #"\." x) (str "\"" x "\"") x))
-                                           (clojure.string/split text #" ")))]
-    (exec-raw (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'") :results)))
+;(defn ft-search-old [text phrase]
+;  (exec-raw
+;    (if phrase (str "SELECT * FROM vJUS WHERE vJUS MATCH '\"" text "\"'")
+;               (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'")) :results))
+;
+;
+;(defn ft-search [text]
+;  (let [text (clojure.string/join " " (map (fn [x] (if (re-find #"\." x) (str "\"" x "\"") x))
+;                                           (clojure.string/split text #" ")))]
+;    (exec-raw (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'") :results)))
 
 ;(map #(vector (first %) (count (second %))) (all-paths))
 

@@ -3,8 +3,8 @@
     [korma.db :as k]
     [joplin.alias :as a]
     [joplin.repl :as r]
-    [joplin.jdbc.database]
-    [foo.example.db.user :as u]))
+    [joplin.jdbc.database]))
+    ;[foo.example.db.user :as u]))
 
 (def db-uri "jdbc:sqlite:./db/reagent-tree-test.sqlite")
 (def jop-config (a/*load-config* "joplin.edn"))
@@ -21,7 +21,7 @@
 ; Here we register another-fixture to wrap each test in the namespace
 (use-fixtures :each db-setup)
 
-(deftest get-all-users
-  (u/create-user "email" "pw" "id")
-  (let [users (u/get-all-users)]
-    (is (= 2 (count users)))))
+;(deftest get-all-users
+;  (u/create-user "email" "pw" "id")
+;  (let [users (u/get-all-users)]
+;    (is (= 2 (count users)))))

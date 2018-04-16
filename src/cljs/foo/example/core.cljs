@@ -855,14 +855,10 @@
                                                      :style {:display "inline-block" :position "relative" :margin-left "45%" :margin-top "10%"}}))])
 
 
-
-
-
 (defn home-page [db loading-state]
   (let [search-d @search-data
         current-lang @lang]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
-
      [:div
       [rui/app-bar {:title              (tr [:title])
                     :title-style        {:text-align "center"}
@@ -871,6 +867,7 @@
                     ;:icon-style-right    {:transform "rotate(-90deg)"}
                     :showMenuIconButton true
                     :zDepth             3
+                    :on-title-touch-tap #(clear-criteria)
                     :icon-element-right
                                         (r/as-element
                                           [rui/drop-down-menu
@@ -882,17 +879,6 @@
                                            [rui/menu-item {:value :sr :primary-text "Српски"}]
                                            [rui/menu-item {:value :hr :primary-text "Hrvatski"}]
                                            [rui/menu-item {:value :en :primary-text "English"}]])
-
-
-                    ;(ui/icon-button
-                    ;  {:on-click #(swap! search-data assoc-in [:graphics] true)
-                    ;   :tooltip  (tr [:graph/prikaz])
-                    ;   :tooltip-position "top-left"
-                    ;   :icon-style {:color "white" :icon-hover-olor "red"}
-                    ;   :children tree-icon
-                    ;   :disabled (:graphics search-d)})
-
-
                     :style              {:background-color (:darkblue colors) :margin-bottom "20px"}}]
       (if @loading-state
         [loading]

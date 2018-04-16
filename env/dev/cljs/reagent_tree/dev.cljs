@@ -6,4 +6,4 @@
 
 (enable-console-print!)
 
-(defn main [] (core/main))
+(defn -main [] (core/main))
