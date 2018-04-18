@@ -31,7 +31,7 @@
                  [buddy/buddy-auth "2.1.0"]
                  [buddy/buddy-hashers "1.3.0"]
                  [binaryage/devtools "0.9.10"]
-                 [binaryage/dirac "1.2.33"]
+                 ;[binaryage/dirac "1.2.33"]
                  [log4j "1.2.17" :exclusions [javax.mail/mail
                                               javax.jms/jms
                                               com.sun.jdmk/jmxtools
@@ -42,7 +42,7 @@
                  [com.draines/postal "2.0.2"]
                  [jarohen/nomad "0.7.3"]
                  [de.sveri/clojure-commons "0.2.2"]
-                 [clojure-miniprofiler "0.5.0"]
+                 ;[clojure-miniprofiler "0.5.0"]
                  [org.danielsz/system "0.4.1"]
                  [datascript "0.16.4"]
                  [cljs-ajax "0.7.3"]
@@ -53,7 +53,7 @@
                  [spec-provider "0.4.11"]
                  [org.clojure/test.check "0.9.0"]
                  ;[org.clojure/core.typed "0.5.0"]  ; Onemoguciti kada se koristi piggiback
-                 ;[org.clojure/core.typed "0.3.11"]
+                 [org.clojure/core.typed "0.3.11"]
                  [reloaded.repl "0.2.4"]
                  [prismatic/plumbing "0.5.5"]
                  [prismatic/schema "1.1.9"]

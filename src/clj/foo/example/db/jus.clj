@@ -281,7 +281,7 @@
                                           {:name "5" :children nil} {:name "6" :children nil} {:name "7" :children nil}] :x0 0 :y0 0})
         all-childs (into #{} (pmap #(hash-map :name (:Child %) :children nil) veze))
         all-parents (into #{} (pmap #(hash-map :name (:Parent %) :children nil) veze))
-        no-childs (pmap #(rename-jus (first %))
+        no-childs (pmap (fn [y](rename-jus (:name y)))
                         (clojure.set/difference all-childs all-parents))]
     (compiled-transform  all-children-path #(let [JUS (get-jus (:name %))]
                                               (merge % {:type (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)

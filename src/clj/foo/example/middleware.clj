@@ -9,13 +9,13 @@
             [noir.session :as sess]
             [taoensso.tower.ring :refer [wrap-tower]]
             [de.sveri.clojure.commons.middleware.util :refer [wrap-trimmings]]
-            [clojure-miniprofiler :refer [wrap-miniprofiler in-memory-store]]
+            ;[clojure-miniprofiler :refer [wrap-miniprofiler in-memory-store]]
             [ring.middleware.transit :refer [wrap-transit-response]]
             [ring.middleware.reload :refer [wrap-reload]]
             [foo.example.service.auth :refer [auth-backend]]
             [foo.example.service.auth :as auth]))
 
-(defonce in-memory-store-instance (in-memory-store))
+;(defonce in-memory-store-instance (in-memory-store))
 
 (defn log-request [handler]
   (fn [req]
