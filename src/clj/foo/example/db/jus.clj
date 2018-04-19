@@ -10,7 +10,6 @@
             [clojure.java.io :as io])
   (:use
     [com.rpl.specter :rename {select* sell* subselect subsell select sell}]))
-    ;[com.rpl.specter.macros :rename {select sel}]))
 
 
 (require '[clojure.spec.alpha :as s])
@@ -174,7 +173,6 @@
 
 (defn count-veze [active-data]
   (let [[data veza] active-data]
-    ;(into {} (mapv #(hash-map (first %) {:total 0 :locked 0 :childs (second %)})
     (into {}
       (comp
         (map :JUSId)
@@ -254,7 +252,6 @@
         all-parents (into #{} (pmap #(hash-map :name (:Parent %) :children nil) veze))
         no-childs (pmap (fn [y](rename-jus (:name y)))
                         (clojure.set/difference all-childs all-parents))]
-    (println all-parents)
     (compiled-transform  all-children-path #(let [JUS (get-jus (:name %))]
                                               (merge % {:type (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
                                                         :shorttitle (if (= (:Naredba JUS) 0) (str (:JUSId JUS) ":" (:JUSgodina JUS)) "")}))

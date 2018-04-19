@@ -7,7 +7,7 @@
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
 
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.9.521"]
+                 [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.cache "0.7.1"]
                  [org.clojure/core.async "0.4.474"]
                  [ring "1.6.3"]
@@ -131,7 +131,7 @@
 
   :main foo.example.core
 
-  :uberjar-name "reagent-tree.jar"
+  :uberjar-name "jus.jar"
 
   :aliases {"rel-jar"  ["do" "clean," "cljsbuild" "once" "adv," "uberjar"]
             "unit"     ["do" "test" ":unit"]

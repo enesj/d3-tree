@@ -16,13 +16,8 @@
     [cljs.core.async :refer [chan close! timeout]]
     [taoensso.tempura :as tempura]
     [cljsjs.d3]))
-    ;[devtools.core :as devtools]
-    ;[devtools.toolbox :as toolbox]))
 
 (enable-console-print!)
-;
-;(devtools/install!)
-
 
 (defonce db-tree (atom nil))
 (defonce data-flare (clj->js []))
@@ -31,11 +26,6 @@
                         :search-type 0 :graphics false :history []))
 
 (def candidate (atom {:id nil :veze 0 :search-text ""}))
-;
-;(def opts {:dict translation/dictionary})
-;(defn tr [data] (tempura/tr opts [@lang] data))
-
-
 
 
 (def margin {:top 24, :right 20, :bottom 30, :left 30})
@@ -131,6 +121,7 @@
                      (selectAll "textPath")
                      (filter (fn [d i] (if (= (.-name d) doc) (js* "this") nil)))
                      (style "text-decoration" "underline"))))))
+
 
 (defn scroll-title []
   (let [s-data @scroll-data
@@ -264,17 +255,8 @@
         (attr "startOffset" 0)
         (style "font-weight" (fn [d] (if (= (aget d "shorttitle") "") "bold" "normal")))
         (text (fn [d i]
-                ;(if (> (count (.-title d)) (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))))
-                ;  (apply str (concat (take (- title-lenght (int (/ (.-y d) y-chars-ratio)) (if (= (aget  d "shorttitle") "") 0 (/ 100 y-chars-ratio))) (.-title d)) "..."))
                 (.-title d))))
-    ;(each (fn [d i] (doseq [title (for [title-part (partition 2 1 (range 0 500 50))]
-    ;                                (.substring (.-title d) (first title-part) (second title-part)
-    ;                                   (.. js/d3
-    ;                                       (select (js* "this"))
-    ;                                       (append "tspan")
-    ;                                       (text title)
-    ;                                       (attr "x" 0)
-    ;                                       (attr "dy" 15))))]))))
+
 
     (.. node-group
         transition
@@ -546,7 +528,6 @@
                                                    :on-mouse-leave #(reset! hover "")}]
                                  [rui/flat-button {:label          (trans [:ac-button/zapamti]) :secondary true
                                                    :on-click       (fn [e]
-                                                                     ;(js/console.log e (:id ref-criteria))
                                                                      (swap! search-data assoc-in [:history] (update-history (:id ref-criteria))))
                                                    :on-mouse-over  #(reset! hover :2)
                                                    :on-mouse-leave #(reset! hover "")}]
@@ -565,7 +546,6 @@
                                                 :background-color (:darkgrey colors) :color (:lightgrey colors) :border-radius "6px"
                                                 :font-size        "12px"}}
                                   (second (message @hover))]])]))))
-
 
 
 (defn docs-table [docs header label history]
@@ -592,8 +572,6 @@
            [rui/table-header-column {:style {:width "68px" :color "white" :font-weight "bold" :padding-left "5%" :padding-right "5%"}} label])
          [rui/table-header-column {:style {:overflow   "hidden" :text-overflow "ellipsis" :color "white"
                                            :text-align "center" :text-transform "uppercase" :padding-left "5%" :padding-right "5%"}}
-          ;[rui/badge {:badge-content (count docs) :secondary true :style {:position "absolute" :margin-top "-15px" :margin-left "-15px" :padding-left "0%" :padding-right "0%"}
-          ;            :badge-style   {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]
           header]
          (if veza
            [rui/table-header-column {:style {:width "7%"}}
@@ -623,10 +601,6 @@
                                             :icon-style       {:width     "20px" :height "20px" :color (:cyan colors)
                                                                :transform (if (= 1 check-veza-var) "rotate(0deg)" "rotate(180deg)")}}
                            (ic/social-share)]]]
-                        ;[rui/badge {:badge-content (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data))))
-                        ;            :primary       true
-                        ;            :style         {:margin-top "- 30px" :position "relative" :overflow "visible" :float "right"}
-                        ;            :badge-style   {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]]]
                         [rui/table-row-column {:style {:width "3%"}}])
                       (if history
                         [rui/table-row-column {:style {:width "3%" :overflow "visible"}}
@@ -642,12 +616,7 @@
 
 (defn history [history-list header db]
   (let [history-data (fn [x] (get-doc-data x db))]
-    (js/console.log "hh > " (mapv #(history-data (:id %)) history-list) "  :" history-list)
     (docs-table (mapv #(history-data (:id %)) history-list) header "" true)))
-
-;(map #(get-doc-data (:id %) @db-tree)  history-list)
-
-
 
 (defn ac-source [db]
   (let [color (fn [x] (doc-colors (:Naredba x) (:Mandatory x)))]
@@ -736,7 +705,6 @@
 
 
 (defn filter-menu [view-filter export-pdf]
-  ;(println view-filter)
   [:div
    [:div {:style {:width "100%" :height "35px" :padding-left "24px" :padding-top "5px" :padding-bottom "5px" :background-color (:cyan colors)
                   :color (:pdf colors) :margin-top "10px"}} "Filtriraj: "
@@ -827,9 +795,6 @@
                                           result))]
              [rui/tab {:label (trans [:tabs/zapamceni]) :value 2 :disabled (if (empty? history-list) true false)}
               badges
-              (js/console.log
-                "h-l : " history-list
-                "hist : "(history history-list "" db))
               [history history-list "" db]
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter))
