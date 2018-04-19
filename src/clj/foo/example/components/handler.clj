@@ -4,7 +4,7 @@
             [noir.util.middleware :refer [app-handler]]
             [ring.middleware.defaults :refer [site-defaults]]
             [ring.middleware.file-info :refer [wrap-file-info]]
-            [ring.middleware.multipart-params :refer [wrap-multipart-params]]
+            ;[ring.middleware.multipart-params :refer [wrap-multipart-params]]
             [ring.middleware.file :refer [wrap-file]]
             [ring.middleware.resource :refer [wrap-resource]]
             [compojure.route :as route]

@@ -1,8 +1,8 @@
 (ns foo.example.routes.jus
   (:require [compojure.core :refer [defroutes GET POST]]
             [foo.example.db.jus :as jus-db]
-            [ring.util.response :refer [response]]
-            [compojure.route :as route]))
+            [ring.util.response :refer [response]]))
+            ;[compojure.route :as route]))
 
 (defn jus-data [filter like comp]
   (response (jus-db/get-jus-filter filter like comp)))

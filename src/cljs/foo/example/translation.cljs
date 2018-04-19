@@ -283,99 +283,98 @@
                     :tip-bh "BH naredba"
                     :tip-yu "YU naredba/pravilnik"
                     :tip-jus  "JUS standard"}}
-
    :en {:missing   "en missing"
-        :title     "Veze JUS standarda i harmoniziranih BiH naredbi"
-        :ac-label  "Naziv"
-        :ac-hint   "Unesi dio teksta iz naslova"
-        :badges    {:broj    "Broj dokumenata u grupi"
-                    :zapamti "Zapamti"
-                    :veze    "Veze"
-                    :nova    "Nova pretraga"
-                    :otvori  "Otvori"}
-        :legend    {:bh          "BiH naredbe"
-                    :yu          "YU naredbe\\pravilnici"
-                    :obavezna    "JUS sa obaveznom primjenom"
-                    :djelimicno "JUS sa djelimično obaveznom primjenom"
-                    :upotreba    "JUS za upotrebu"
-                    :rezultat    "Naredbe\\standardi koji sadržavaju rezultat pretrage"
-                    :mouse       "Za objašnjenje pređi mišem preko odgovarajuće boje"
-                    :primjer1    "Primjer 1: u grupi se nalazi 25 dokumenata"
-                    :primjer2    "Primjer 2: u grupi se nalaze 3 dokumenta"
-                    :broj        "Broj dokumenata u grupi"
-                    :prikazi     "Prikaži legendu"}
-        :doc-view  {:naziv "Naziv"
-                    :vrsta "Vrsta: "}
-        :yu-view   {:yu-name "YU naredba/pravilnik"
-                    :glasnik "Službeni glasnik: "
-                    :prikazi "Prikaži dokument"}
-        :bh-view   {:bh-name   "BiH naredba"
-                    :glasnik   "Službeni glasnik: "
-                    :direktiva "Evropska direktiva: "
-                    :prikazi   "Prikaži dokument"}
+        :title     "Connections between JUS standards and harmonized B&H directives"
+        :ac-label  "Title"
+        :ac-hint   "Enter search text"
+        :badges    {:broj    "Number of documents in the group"
+                    :zapamti "Save"
+                    :veze    "Connections"
+                    :nova    "New Search"
+                    :otvori  "Open"}
+        :legend    {:bh          "B&H directives"
+                    :yu          "YU directives"
+                    :obavezna    "Obligatory JUS standards"
+                    :djelimicno  "Partially obligatory JUS standards"
+                    :upotreba    "Voluntary JUS standards"
+                    :rezultat    "Directives containing the search text"
+                    :mouse       "Hover the mouse over correspondent color for an explanation"
+                    :primjer1    "Example 1: 25 documents in the group"
+                    :primjer2    "Example 2: 3 documents in the group"
+                    :broj        "Number of documents in the group"
+                    :prikazi     "Show Legend"}
+        :doc-view  {:naziv "Title"
+                    :vrsta "Type: "}
+        :yu-view   {:yu-name "YU directives"
+                    :glasnik "Bulletin: "
+                    :prikazi "Show document"}
+        :bh-view   {:bh-name   "B&H directive"
+                    :glasnik   "Bulletin: "
+                    :direktiva "EU directive: "
+                    :prikazi   "Show document"}
         :jus-view  {:jus-name   "JUS standard"
-                    :godina     "Godina: "
-                    :primjena   "Primjena: "
-                    :obavezna   "Obavezna"
-                    :djelimicno "Djelimično obavezna"
-                    :upotreba   "Za upotrebu"
-                    :strana     "Broj strana: "
+                    :godina     "Year: "
+                    :primjena   "Obligatory type: "
+                    :obavezna   "Obligatory"
+                    :djelimicno "Partially obligatory"
+                    :upotreba   "Voluntary"
+                    :strana     "Pages: "
                     :ics        "ICS: "}
-        :doc-type  {:svi "Svi dokumenti"
-                    :bh  "BiH naredbe"
-                    :yu  "YU naredbe/pravilnici"
-                    :jus "JUS standardi"}
-        :ac-tip    {:prikazi "Prikaži podatke o dokumentu"
-                    :zapamti "Zapamti ovaj dokument"
-                    :veza    "Prikaži dokumente koji vezuju ovaj dokument sa izabranim dokumentom"
-                    :obrisi  "Obriši kriterij za pretragu"}
-        :ac-button {:otvori  "Otvori"
-                    :zapamti "Zapamti"
-                    :veze    "Veze"
-                    :nova    "Nova pretraga"}
-        :tooltip   {:brisi-vezu     "Briši vezu"
-                    :prikazi-vezu   "Prikaži vezu"
-                    :brisi-istoriju "Briši iz zapamćenih"
+        :doc-type  {:svi "All documents"
+                    :bh  "B&H directives"
+                    :yu  "YU directives"
+                    :jus "JUS standards"}
+        :ac-tip    {:prikazi "Show document data"
+                    :zapamti "Save the document"
+                    :veza    "Show documents that connect this and chosen document"
+                    :obrisi  "Clear search criteria"}
+        :ac-button {:otvori  "Open"
+                    :zapamti "Save"
+                    :veze    "Connections"
+                    :nova    "New search"}
+        :tooltip   {:brisi-vezu     "Clear connection"
+                    :prikazi-vezu   "Show "
+                    :brisi-istoriju "Remove form saved"
                     :pdf-listing    "PDF listing"}
-        :search    {:title     "Pretraga podataka o naredbama/pravilnicima/standardima"
-                    :vezuju    "Pretraga dokumenata koji vezuju"
-                    :vezani    "Pretraga vezanih dokumenata"
-                    :zapamceni "Pretraga zapamćenih dokumenata"
-                    :brisi     "Briši pretragu"}
-        :table     {:veze      "Prikaži veze ("
-                    :zaboravi  "Zaboravi"
-                    :empty     "Nema dokumenata za prikaz"
-                    :zapamceni "Zapamćeni dokumenti"}
-        :graph     {:otvori      "Otvori"
-                    :zapamti     "Zapamti"
-                    :zatvori     "Zatvori"
-                    :prikaz-long "Grafički prikaz veza između harmoniziranih naredbi i JUS standarda"
-                    :prikaz      "Grafički prikaz"}
-        :filter    {:bh         "BiH naredbe"
-                    :yu         "YU naredbe"
-                    :obavezna   "JUS standardi - obavezna primjena"
-                    :djelimicno "JUS standardi - djelimično obavezna primjena"
-                    :upotreba   "JUS standardi - za upotrebu"}
-        :tabs      {:vezani    "Vezani dokumenti:"
-                    :vezan-za  "Vezan za dokumente:"
-                    :zapamceni "Zapamćeni dokumenti"}
-        :veze      {:veza-sa  "Veza sa:"
-                    :pretraga "Pretraga zapamćenih dokumenata"}
-        :pdf       {:bh          "BiH naredbe"
-                    :yu          "YU naredbe\\pravilnici"
-                    :obavezna    "JUS sa obaveznom primjenom"
-                    :djelimicno "JUS sa djelimično obaveznom primjenom"
-                    :upotreba    "JUS za upotrebu"
-                    :strana "Strana "
-                    :od " od "
+        :search    {:title     "Search directives/standards data"
+                    :vezuju    "Search connecting documents "
+                    :vezani    "Search connected documents"
+                    :zapamceni "Search saved documents"
+                    :brisi     "Clear search"}
+        :table     {:veze      "Show connections ("
+                    :zaboravi  "Forget"
+                    :empty     "No documents to show"
+                    :zapamceni "Saved documents"}
+        :graph     {:otvori      "Open"
+                    :zapamti     "Save"
+                    :zatvori     "Close"
+                    :prikaz-long "Connections between JUS standards and harmonized B&H directives - Graph View"
+                    :prikaz      "Graph View"}
+        :filter    {:bh         "B&H directives"
+                    :yu         "YU directives"
+                    :obavezna   "JUS standards - Obligatory"
+                    :djelimicno "JUS standards - Partially obligatory"
+                    :upotreba   "JUS standards - Voluntary"}
+        :tabs      {:vezani    "Connected documents:"
+                    :vezan-za  "Connecting documents:"
+                    :zapamceni "Saved documents"}
+        :veze      {:veza-sa  "Connection with:"
+                    :pretraga "Search saved documents"}
+        :pdf       {:bh          "B&H directives"
+                    :yu          "YU directives"
+                    :obavezna    "JUS standards - Obligatory"
+                    :djelimicno  "JUS standards - Partially obligatory"
+                    :upotreba    "JUS standards - Voluntary"
+                    :strana "Page "
+                    :od " from "
                     :impressum "eJUS - Institut za standardizaciju BiH, Vojvode R. Putnika 34, 71123 Istočno Sarajevo, Bosna i Hercegovina, Tel. +387 (0)57 310 560\n"
-                    :vezani "Prikaz vezanih dokumenata ("
-                    :vezan-za "Prikaz dokumenata za koje je vezan ("
-                    :zapamceni "Prikaz zapamćenih dokumenata ("
-                    :tip-bh "BiH naredba"
-                    :tip-yu "YU naredba/pravilnik"
+                    :vezani "Connected documents ("
+                    :vezan-za "Connecting documents ("
+                    :zapamceni "Saved documents ("
+                    :tip-bh "B&H directive"
+                    :tip-yu "YU directive"
                     :tip-jus  "JUS standard"}}})
 
 
 (def opts {:dict dictionary})
-(defn tr [data] (tempura/tr opts [@lang] data))
+(defn trans [data] (tempura/tr opts [@lang] data))

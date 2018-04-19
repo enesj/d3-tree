@@ -1,6 +1,6 @@
 (ns foo.example.db.user
   (:require [korma.core :refer [select where insert delete values update set-fields defentity limit order]]
-            [korma.db :refer [h2]]
+            ;[korma.db :refer [h2]]
             [foo.example.db.entities :refer [user]]))
 
 (defn get-all-users [ & [where-email-like]]

@@ -16,7 +16,7 @@
                  [compojure "1.6.0"]
                  [rum "0.11.2" :exclusions [org.clojure/tools.reader cljsjs/react cljsjs/react-dom]]
                  [reagent "0.7.0" :exclusions [org.clojure/tools.reader cljsjs/react cljsjs/react-dom]]
-                 [cljs-react-material-ui "0.2.45"]
+                 [cljs-react-material-ui "0.2.45"] ; ne diraj verziju
                  [cljsjs/d3 "3.5.16-0"] ; ne diraj verziju
                  [environ "1.1.0"]
                  [leiningen "2.8.1"]
@@ -31,7 +31,7 @@
                  [buddy/buddy-auth "2.1.0"]
                  [buddy/buddy-hashers "1.3.0"]
                  [binaryage/devtools "0.9.10"]
-                 [binaryage/dirac "1.2.33"]
+                 ;[binaryage/dirac "1.2.33"]
                  [log4j "1.2.17" :exclusions [javax.mail/mail
                                               javax.jms/jms
                                               com.sun.jdmk/jmxtools
@@ -42,9 +42,9 @@
                  [com.draines/postal "2.0.2"]
                  [jarohen/nomad "0.7.3"]
                  [de.sveri/clojure-commons "0.2.2"]
-                 [clojure-miniprofiler "0.5.0"]
+                 ;[clojure-miniprofiler "0.5.0"]
                  [org.danielsz/system "0.4.1"]
-                 [datascript "0.16.4"]
+                 ;[datascript "0.16.4"]
                  [cljs-ajax "0.7.3"]
                  [ring-transit "0.1.6"]
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
@@ -53,7 +53,7 @@
                  [spec-provider "0.4.11"]
                  [org.clojure/test.check "0.9.0"]
                  ;[org.clojure/core.typed "0.5.0"]  ; Onemoguciti kada se koristi piggiback
-                 ;[org.clojure/core.typed "0.3.11"]
+                 [org.clojure/core.typed "0.3.11"]
                  [reloaded.repl "0.2.4"]
                  [prismatic/plumbing "0.5.5"]
                  [prismatic/schema "1.1.9"]
@@ -66,7 +66,8 @@
 
   :plugins [[lein-cljsbuild "1.1.7"]
             [lein-midje "3.2.1"]
-            [lein-typed "0.4.2"]]
+            [lein-typed "0.4.2"]
+            [jonase/eastwood "0.2.5"]]
 
   :min-lein-version "2.5.3"
 
@@ -90,7 +91,7 @@
               :adv {:source-paths ["src/cljs" "src/cljc"]
                     :compiler     {:output-to     "resources/public/js/compiled/app-new.js"
                                    ; leaving this commented because of: https://github.com/cursiveclojure/cursive/issues/369
-                                   ;:jar           true
+                                   :parallel-build false
                                    :externs ["externs/d3_externs.js"]
                                    :optimizations :advanced
                                    :pretty-print  false}}}}

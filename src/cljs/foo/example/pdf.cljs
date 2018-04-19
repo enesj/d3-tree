@@ -1,15 +1,15 @@
 (ns foo.example.pdf
   (:require [cljsjs.pdfmake]
             [cljsjs.pdfmakefonts]
-            [foo.example.translation :as translation :refer [tr]]))
+            [foo.example.translation :as translation :refer [trans]]))
 
 
 (defn doc-text [result-type dokument naslov format-data group-data-by-type]
-  (let [doc-types {:1 (tr [:pdf/bh])
-                   :2 (tr [:pdf/yu])
-                   :3 (tr [:pdf/obavezna])
-                   :4 (tr [:pdf/djelimicno])
-                   :5 (tr [:pdf/upotreba])}
+  (let [doc-types {:1 (trans [:pdf/bh])
+                   :2 (trans [:pdf/yu])
+                   :3 (trans [:pdf/obavezna])
+                   :4 (trans [:pdf/djelimicno])
+                   :5 (trans [:pdf/upotreba])}
         doc-list (map
                    (fn [[first-g second-g]]
                      ;(sort-by first
@@ -32,14 +32,14 @@
                (into []
                      (comp format-data doc-list (map #(assoc-in table [:table :body] %)))
                      (sort-by first group-data-by-type))
-        impressum (tr [:pdf/impressum])]
+        impressum (trans [:pdf/impressum])]
     ;(println doc-list)
     (clj->js
       {
        :pageSize "A4"
        :header   (fn [currentPage pageCount] (when (> currentPage 1) (clj->js {:text (str dokument ", " naslov) :style "header"})))
        :footer   (fn [currentPage pageCount] (when (> currentPage 1) (clj->js {:text [{:text impressum}
-                                                                                      {:text (str (tr [:pdf/strana]) currentPage (tr [:pdf/od]) pageCount)  :bold true}]
+                                                                                      {:text (str (trans [:pdf/strana]) currentPage (trans [:pdf/od]) pageCount)  :bold true}]
                                                                                :style "footer"})))
        :content  [title content]
        :styles
@@ -70,18 +70,18 @@
 (defn prepare-pdf [data data-type result]
   (let [naslov
         (case data-type
-          :childs (str (tr [:pdf/vezani]) (count data)  ") : ")
-          :parents (str (tr [:pdf/vezan-za]) (count data)  ") : ")
-          :history (str (tr [:pdf/zapamceni]) (count data)  ") : "))
+          :childs (str (trans [:pdf/vezani]) (count data) ") : ")
+          :parents (str (trans [:pdf/vezan-za]) (count data) ") : ")
+          :history (str (trans [:pdf/zapamceni]) (count data) ") : "))
         dokument
         (case (:Naredba result)
           (1 2 3) (str (:title result))
           (str (:name result) ":" (:JUSgodina result) " " (:title result)))
         doc-type
         (case (:Naredba result)
-          1 (tr [:pdf/tip-bh])
-          (2 3) (tr [:pdf/tip-yu])
-          (tr [:pdf/tip-jus]))
+          1 (trans [:pdf/tip-bh])
+          (2 3) (trans [:pdf/tip-yu])
+          (trans [:pdf/tip-jus]))
         group-data-by-type (group-by #(key (first %)) data)
         format-data (map #(vector (first %) (mapv (fn [x] (val (first x))) (second %))))]
 

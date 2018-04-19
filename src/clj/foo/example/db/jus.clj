@@ -2,11 +2,11 @@
   (:require [korma.core :refer [select select* where insert delete values update set-fields defentity limit order subselect
                                 join fields modifier aggregate exec-raw]]
             [korma.db :refer [h2 transaction]]
-            [spec-provider.provider :as sp]
-            [clojure.test.check :as tc]
-            [clojure.test.check.generators :as gen]
+            ;[spec-provider.provider :as sp]
+            ;[clojure.test.check :as tc]
+            ;[clojure.test.check.generators :as gen]
+            ;[clojure.test.check.properties :as prop]
             [cheshire.core :refer [generate-string]]
-            [clojure.test.check.properties :as prop]
             [clojure.java.io :as io])
   (:use
     [com.rpl.specter :rename {select* sell* subselect subsell select sell}]))
@@ -213,35 +213,6 @@
              [id (count-veza id first-level-count)]))
     @count-veze-atom))
 
-;(defn get-path [id veze]
-;  (loop [id id path []]
-;    (let [parent (map :Parent (filter #(= id (:Child %)) veze))]
-;      (if (empty? parent)
-;        path
-;        (recur (first parent) (conj path (first parent)))))))
-
-
-;(defn all-acitve-paths []
-;  (let [[data veze] (active-data)]
-;    (group-by #(last (last %))
-;              (doall
-;                (for [child (map #(vector (:JUSId %) (:JUSopis %)) (filter #(and (= 0 (:Locked %)) (= 0 (:Fali %))) data))]
-;                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
-;                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
-;                         (get-path (first child) veze))])))))
-;
-;(defn all-paths []
-;  (let [[data veze] (active-data)]
-;    (group-by #(last (last %))
-;              (doall
-;                (for [child (map #(vector (:JUSId %) (:JUSopis %)) data)]
-;                  [(if (> (count (first child)) 3) (first child) (second child)) (count (get-path (first child) veze))
-;                   (mapv #(if (> (count %) 3) % (:JUSopis (first (filter (fn [x] (= % (:JUSId x))) data))))
-;                         (get-path (first child) veze))])))))
-
-;(def parents (group-by :Parent get-veza))
-;(def childs (group-by :Child get-veza))
-
 (defn all-childs [parent verbose jus-data veze]
   (let [groups (reduce merge (map (fn [x] {(first x) (set (map :Child (second x)))}) (group-by :Parent veze)))
         childs-memo (memoize (fn [jus-name] (get groups jus-name)))]
@@ -283,41 +254,8 @@
         all-parents (into #{} (pmap #(hash-map :name (:Parent %) :children nil) veze))
         no-childs (pmap #(rename-jus (first %))
                         (clojure.set/difference all-childs all-parents))]
+    (println all-parents)
     (compiled-transform  all-children-path #(let [JUS (get-jus (:name %))]
                                               (merge % {:type (:Naredba JUS) :mandatory (:Mandatory JUS) :title (:JUSopis JUS)
                                                         :shorttitle (if (= (:Naredba JUS) 0) (str (:JUSId JUS) ":" (:JUSgodina JUS)) "")}))
                (into [] (concat parents no-childs)))))
-
-
-
-;(defn ft-search-old [text phrase]
-;  (exec-raw
-;    (if phrase (str "SELECT * FROM vJUS WHERE vJUS MATCH '\"" text "\"'")
-;               (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'")) :results))
-;
-;
-;(defn ft-search [text]
-;  (let [text (clojure.string/join " " (map (fn [x] (if (re-find #"\." x) (str "\"" x "\"") x))
-;                                           (clojure.string/split text #" ")))]
-;    (exec-raw (str "SELECT * FROM vJUS WHERE vJUS MATCH '" text "'") :results)))
-
-;(map #(vector (first %) (count (second %))) (all-paths))
-
-;(map #(vector (first %) (count (second %))) (all-acitve-paths))
-
-;(defn get-user-by-email [email] (first (select user (where {:email email}) (limit 1))))
-;(defn get-user-by-act-id [id] (first (select user (where {:activationid id}) (limit 1))))
-;(defn get-user-by-uuid [uuid] (first (select user (where {:uuid uuid}) (limit 1))))
-;
-;(defn username-exists? [email] (some? (get-user-by-email email)))
-;
-;(defn create-user [email pw_crypted activationid & [is-active?]]
-;  (insert user (values {:email email :pass pw_crypted :activationid activationid :is_active (or is-active? false)
-;                         :uuid  (str (UUID/randomUUID))})))
-;
-;(defn set-user-active [activationid & [active]]
-;  (update user (set-fields {:is_active (or active true)}) (where {:activationid activationid})))
-;
-;(defn update-user [uuid fields] (update user (set-fields fields) (where {:uuid uuid})))
-;(defn delete-user [uuid] (delete user (where {:uuid uuid})))
-;(defn change-password [email pw] (update user (set-fields {:pass pw}) (where {:email email})))

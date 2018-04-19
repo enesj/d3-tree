@@ -5,7 +5,7 @@
             [noir.session :as sess]
             [noir.validation :as vali]
             [taoensso.timbre :as timb]
-            [clojure-miniprofiler :as cjmp]
+            ;[clojure-miniprofiler :as cjmp]
             [foo.example.layout :as layout]
             [foo.example.db.user :as db]
             [foo.example.service.user :as uservice]
@@ -44,7 +44,7 @@
   (not (vali/errors? :id :pass :confirm :captcha)))
 
 (defn admin-page [params locale tconfig]
-  (let [users (cjmp/trace "all users" (db/get-all-users (get params :filter)))
+  (let [users (db/get-all-users (get params :filter))
         users-cleaned (map #(assoc % :is_active (if (or (= (:is_active %) false) (= (:is_active %) 0)) false true)) users)]
     (layout/render "user/admin.html" (merge {:users       users-cleaned :roles auth/available-roles
                                              :admin_title (t locale tconfig :admin/title)}

@@ -4,7 +4,7 @@
     [cljs.core.async.macros :as m :refer [go]])
   (:require
     [foo.example.pdf :as pdf]
-    [foo.example.translation :as translation :refer [tr lang]]
+    [foo.example.translation :as translation :refer [trans lang]]
     [cljsjs.material-ui]
     [cljs-react-material-ui.core :as ui]
     [rum.core :as rum]
@@ -15,15 +15,13 @@
     [ajax.core :refer [GET POST json-response-format json-request-format url-request-format ajax-request]]
     [cljs.core.async :refer [chan close! timeout]]
     [taoensso.tempura :as tempura]
-    [cljsjs.d3]
-    [devtools.core :as devtools]
-    [devtools.toolbox :as toolbox]))
+    [cljsjs.d3]))
+    ;[devtools.core :as devtools]
+    ;[devtools.toolbox :as toolbox]))
 
 (enable-console-print!)
 ;
 ;(devtools/install!)
-
-
 
 
 (defonce db-tree (atom nil))
@@ -413,21 +411,21 @@
                                                                   "sel-t" "black"
                                                                   (:bh colors))}))
                                          (if (= (:id item) "doc-type") (case @legend-type
-                                                                         "bih" (tr [:legend/bh])
-                                                                         "yu" (tr [:legend/yu])
-                                                                         "jus1" (tr [:legend/obavezna])
-                                                                         "jus2" (tr [:legend/djelimicno])
-                                                                         "jus3" (tr [:legend/upotreba])
+                                                                         "bih" (trans [:legend/bh])
+                                                                         "yu" (trans [:legend/yu])
+                                                                         "jus1" (trans [:legend/obavezna])
+                                                                         "jus2" (trans [:legend/djelimicno])
+                                                                         "jus3" (trans [:legend/upotreba])
                                                                          "sel-t" "Naredbe\\standardi koji sadrže rezultat pretrage"
-                                                                         (tr [:legend/mouse]))
+                                                                         (trans [:legend/mouse]))
                                                                        (if (= (:id item) "badge-text") (case @legend-type
-                                                                                                         "badge-blue-label" (tr [:legend/primjer1])
-                                                                                                         "badge-red-label" (tr [:legend/primjer2])
-                                                                                                         (tr [:legend/broj]))
+                                                                                                         "badge-blue-label" (trans [:legend/primjer1])
+                                                                                                         "badge-red-label" (trans [:legend/primjer2])
+                                                                                                         (trans [:legend/broj]))
                                                                                                        (:text item)))]))]]
           [:svg {:style {:width      "110px" :height "16px" :float "left" :font-size "12px" :background-color (:cyan colors) :padding-top "2px" :margin-top "0px"
                          :box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}} ;}};}})))))
-           [:text {:x "50%" :y 10 :fill "white" :text-anchor "middle" :font-weight "bold" :on-click #(reset! legend true)} (tr [:legend/prikazi])]])))))
+           [:text {:x "50%" :y 10 :fill "white" :text-anchor "middle" :font-weight "bold" :on-click #(reset! legend true)} (trans [:legend/prikazi])]])))))
 
 
 (defn label-text
@@ -448,33 +446,33 @@
 (defn yu-naredba-view [data]
   (let [width "33"]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color (:yu colors) :border-radius "10px"}}
-     (label-text-wide (tr [:doc-view/naziv]) data)
-     (label-text (tr [:doc-view/vrsta]) (tr [:yu-view/yu-name]) width nil)
-     (label-text (tr [:yu-view/glasnik]) (:Glasnik data) width nil)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (tr [:yu-view/prikazi])]]))
+     (label-text-wide (trans [:doc-view/naziv]) data)
+     (label-text (trans [:doc-view/vrsta]) (trans [:yu-view/yu-name]) width nil)
+     (label-text (trans [:yu-view/glasnik]) (:Glasnik data) width nil)
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (trans [:yu-view/prikazi])]]))
 
 (defn bh-naredba-view [data]
   (let [width "25"]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color (:bh colors) :border-radius "10px"}}
      ;[:div {:style {:font-weight "bold" :margin-bottom "8px" :margin-top "8px" }} (:title data)]
-     (label-text-wide (tr [:doc-view/naziv]) data)
-     (label-text (tr [:doc-view/vrsta]) (tr [:bh-view/bh-name]) width nil)
-     (label-text (tr [:bh-view/glasnik]) (:Glasnik data) width nil)
-     (label-text (tr [:bh-view/direktiva]) [:a {:href (:Link-d data) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}}
-                                            (:Direktiva data)]
-                                           width nil)
-     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (tr [:bh-view/prikazi])]]))
+     (label-text-wide (trans [:doc-view/naziv]) data)
+     (label-text (trans [:doc-view/vrsta]) (trans [:bh-view/bh-name]) width nil)
+     (label-text (trans [:bh-view/glasnik]) (:Glasnik data) width nil)
+     (label-text (trans [:bh-view/direktiva]) [:a {:href (:Link-d data) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}}
+                                               (:Direktiva data)]
+                 width nil)
+     [:a {:href (str "pdf/" (:Link-n data)) :target "_blank" :style {:font-style "italic" :font-size "15px" :color "white"}} (trans [:bh-view/prikazi])]]))
 
 (defn jus-view [data]
   (let [width "14" wide "20"
         color (doc-colors (:Naredba data) (:Mandatory data))]
     [:div {:style {:padding-left "2px" :margin-top "10px" :background-color color :border-radius "10px"}}
-     (label-text-wide (tr [:doc-view/naziv]) data)
+     (label-text-wide (trans [:doc-view/naziv]) data)
      (label-text "" (str (:name data) ":" (:JUSgodina data)) width (:title colors))
-     (label-text (tr [:doc-view/vrsta]) (tr [:jus-view/jus-name]) width nil)
-     (label-text (tr [:jus-view/godina]) (:JUSgodina data) width nil)
-     (label-text (tr [:jus-view/primjena]) (case (:Mandatory data) 0 (tr [:jus-view/obavezna]) 1 (tr [:jus-view/djelimicno]) 2 (tr [:jus-view/upotreba])) wide nil)
-     (label-text (tr [:jus-view/strana]) (:Strana data) width nil)
+     (label-text (trans [:doc-view/vrsta]) (trans [:jus-view/jus-name]) width nil)
+     (label-text (trans [:jus-view/godina]) (:JUSgodina data) width nil)
+     (label-text (trans [:jus-view/primjena]) (case (:Mandatory data) 0 (trans [:jus-view/obavezna]) 1 (trans [:jus-view/djelimicno]) 2 (trans [:jus-view/upotreba])) wide nil)
+     (label-text (trans [:jus-view/strana]) (:Strana data) width nil)
      (label-text "ICS: " (:ICS data) width nil)]))
 
 
@@ -489,10 +487,10 @@
                      :on-change (fn [event index value]
                                   (reset! candidate {:id nil :veze 0 :search-text ""})
                                   (select-type-change value))}
-   [rui/menu-item {:value 0 :primary-text (tr [:doc-type/svi]) :style {:border-left "10px solid rgba(255,235,59,1)"}}]
-   [rui/menu-item {:value 1 :primary-text (tr [:doc-type/bh]) :style {:border-left "10px solid rgba(33,150,243,1)"}}]
-   [rui/menu-item {:value 2 :primary-text (tr [:doc-type/yu]) :style {:border-left "10px solid rgba(255,0,0,1)"}}]
-   [rui/menu-item {:value 3 :primary-text (tr [:doc-type/jus]) :style {:border-left "10px solid rgba(190,190,190,1)"}}]])
+   [rui/menu-item {:value 0 :primary-text (trans [:doc-type/svi]) :style {:border-left "10px solid rgba(255,235,59,1)"}}]
+   [rui/menu-item {:value 1 :primary-text (trans [:doc-type/bh]) :style {:border-left "10px solid rgba(33,150,243,1)"}}]
+   [rui/menu-item {:value 2 :primary-text (trans [:doc-type/yu]) :style {:border-left "10px solid rgba(255,0,0,1)"}}]
+   [rui/menu-item {:value 3 :primary-text (trans [:doc-type/jus]) :style {:border-left "10px solid rgba(190,190,190,1)"}}]])
 
 
 
@@ -507,10 +505,10 @@
 
 (defn ac-search [source]
   (let [hover (atom "")
-        message {:1 ["12px" (tr [:ac-tip/prikazi])]
-                 :2 ["98px" (tr [:ac-tip/zapamti])]
-                 :3 ["206px" (tr [:ac-tip/veza])]
-                 :4 [(if (:selection @search-data) "283px" "193px") (tr [:ac-tip/obrisi])]}]
+        message {:1 ["12px" (trans [:ac-tip/prikazi])]
+                 :2 ["98px" (trans [:ac-tip/zapamti])]
+                 :3 ["206px" (trans [:ac-tip/veza])]
+                 :4 [(if (:selection @search-data) "283px" "193px") (trans [:ac-tip/obrisi])]}]
     (fn [source]
       (let [search-d @search-data
             ref-criteria @candidate
@@ -520,7 +518,7 @@
             source-new (vec (sort-by (juxt #(case (:type %) 0 3, 1 1, 2 2, 3 3, 4) :text) source-new))]
         [:div
          [rui/auto-complete {:id                  "text"
-                             :floating-label-text (tr [:ac-label])
+                             :floating-label-text (trans [:ac-label])
                              :openOnFocus         true
                              :anchor-origin       (if (:selection search-d) {:vertical "top", :horizontal "left"} {:vertical "bottom", :horizontal "left"})
                              :target-origin       (if (:selection search-d) {:vertical "bottom", :horizontal "left"} {:vertical "top", :horizontal "left"})
@@ -535,28 +533,31 @@
                                                     (reset! candidate {:id (:id (source-new index)) :veze 0 :search-text ""})
                                                     (count-veze (:id (source-new index)) (check-veza (:id (source-new index))))
                                                     (swap! candidate assoc-in [:search-text] (.-text chosen)))
-                             :hint-text           (tr [:ac-hint])
+                             :hint-text           (trans [:ac-hint])
                              :list-style          {:max-height "250px" :width "300%"}}]
          (select-doc-type)
          (if (:id ref-criteria) [:div
-                                 [rui/flat-button {:label          (tr [:ac-button/otvori]) :primary true
+                                 [rui/flat-button {:label          (trans [:ac-button/otvori]) :primary true
                                                    :on-click       (fn [e]
                                                                      (swap! candidate assoc-in [:search-text] "")
                                                                      (reset! candidate {:id nil :veze 0 :search-text ""})
                                                                      (sel-data (:id ref-criteria)))
                                                    :on-mouse-over  #(reset! hover :1)
                                                    :on-mouse-leave #(reset! hover "")}]
-                                 [rui/flat-button {:label          (tr [:ac-button/zapamti]) :secondary true
-                                                   :on-click       (fn [e] (swap! search-data assoc-in [:history] (update-history (:id ref-criteria))))
+                                 [rui/flat-button {:label          (trans [:ac-button/zapamti]) :secondary true
+                                                   :on-click       (fn [e]
+                                                                     ;(js/console.log e (:id ref-criteria))
+                                                                     (swap! search-data assoc-in [:history] (update-history (:id ref-criteria))))
                                                    :on-mouse-over  #(reset! hover :2)
                                                    :on-mouse-leave #(reset! hover "")}]
                                  (if (:selection search-d)
-                                   [rui/flat-button {:label          (tr [:ac-button/veze]) :secondary true
-                                                     :on-click       (fn [e] (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}) (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
+                                   [rui/flat-button {:label          (trans [:ac-button/veze]) :secondary true
+                                                     :on-click       (fn [e] (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""})
+                                                                       (veza-data (:id ref-criteria) (check-veza (:id ref-criteria))))
                                                      :on-mouse-over  #(reset! hover :3)
                                                      :on-mouse-leave #(reset! hover "")}
                                     [rui/badge {:badge-content (:veze ref-criteria) :primary true :style {:margin-left "40px" :position "absolute"} :badge-style {:box-shadow "rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px"}}]])
-                                 [rui/flat-button {:label          (tr [:ac-button/nova])
+                                 [rui/flat-button {:label          (trans [:ac-button/nova])
                                                    :on-click       (fn [e] (reset! candidate {:id nil :veze 0 :search-text ""})  (reset! hover ""))
                                                    :on-mouse-over  #(reset! hover :4)
                                                    :on-mouse-leave #(reset! hover "")}]
@@ -596,7 +597,7 @@
           header]
          (if veza
            [rui/table-header-column {:style {:width "7%"}}
-            [rui/icon-button {:tooltip        (tr [:tooltip/brisi-vezu])
+            [rui/icon-button {:tooltip        (trans [:tooltip/brisi-vezu])
                               :on-click       #(do (swap! search-data assoc-in [:veza] {}) (swap! candidate assoc-in [:search-text] "") (reset! candidate {:id nil :veze 0 :search-text ""}))
                               :tooltip-styles {:margin-top "-35px" :width "80px" :right "40px"}
                               :style          {:vertical-align "top" :float "right" :margin-top "0px"}
@@ -614,7 +615,7 @@
                       (if (and history check-veza-var (:selection s-data))
                         [rui/table-row-column {:style {:width "3%" :overflow "visible"}}
                          [:div
-                          [rui/icon-button {:tooltip          (str (tr [:table/veze]) (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data)))) ")")
+                          [rui/icon-button {:tooltip          (str (trans [:table/veze]) (:veze (first (filter (fn [x] (= id (:id x))) (:history s-data)))) ")")
                                             :tooltip-position "top-left"
                                             :tooltip-styles   {:margin-top "12px" :width "100px" :right "10px"}
                                             :on-click         (fn [x] (veza-data id check-veza-var))
@@ -629,7 +630,7 @@
                         [rui/table-row-column {:style {:width "3%"}}])
                       (if history
                         [rui/table-row-column {:style {:width "3%" :overflow "visible"}}
-                         [rui/icon-button {:tooltip          (tr [:table/zaboravi])
+                         [rui/icon-button {:tooltip          (trans [:table/zaboravi])
                                            :tooltip-position "top-left"
                                            :tooltip-styles   {:margin-top "12px" :width "60px" :right "0px"}
                                            :on-click         (fn [x] (remove-from-history name))
@@ -637,13 +638,15 @@
                                            :icon-style       {:width "20px" :height "20px" :color (:cyan colors)}} (ic/content-clear)]]
                         [rui/table-row-column {:style {:width "3%"}}])])
                   docs))
-      [rui/table-row [rui/table-row-column (when (= 0 (count docs)) (tr [:table/empty]))]]]]))
+      [rui/table-row [rui/table-row-column (when (= 0 (count docs)) (trans [:table/empty]))]]]]))
 
-(defn history [history-list header]
-  (let [history-data (fn [x] (get-doc-data x @db-tree))]
-    (docs-table (map #(history-data (:id %)) history-list) header "" true)))
+(defn history [history-list header db]
+  (let [history-data (fn [x] (get-doc-data x db))]
+    (js/console.log "hh > " (mapv #(history-data (:id %)) history-list) "  :" history-list)
+    (docs-table (mapv #(history-data (:id %)) history-list) header "" true)))
 
 ;(map #(get-doc-data (:id %) @db-tree)  history-list)
+
 
 
 (defn ac-source [db]
@@ -672,7 +675,7 @@
       title]
      [:div {:style {:padding "3px 0px 0px 0px" :margin-top "10px" :margin-bottom "10px" :border-style "ridge" :border-radius "10px" :border-color (:cyan colors)}}
       [:div [ac-search db]]]
-     (if-not (or (= (count history-list) 0) (:selection search-d)) (history history-list (tr [:table/zapamceni])))]))
+     (if-not (or (= (count history-list) 0) (:selection search-d)) (history history-list (trans [:table/zapamceni]) db))]))
 
 (defn graph-right []
   (let [graph-selection @search-data
@@ -683,18 +686,19 @@
         naziv (if (= type 0) (str choice " " title) title)]
     [:div {:style {:margin-top "15%" :color (doc-colors type mandatory)}}
      [:div naziv]
-     [rui/flat-button {:label (tr [:graph/otvori]) :primary true :disabled (if choice false true) :on-click (fn [e] (sel-data choice))}]
-     [rui/flat-button {:label (tr [:graph/zapamti]) :secondary true :disabled (if choice false true) :on-click (fn [e] (swap! search-data assoc-in [:history] (update-history choice)))}]]))
+     [rui/flat-button {:label (trans [:graph/otvori]) :primary true :disabled (if choice false true) :on-click (fn [e] (sel-data choice))}]
+     [rui/flat-button {:label (trans [:graph/zapamti]) :secondary true :disabled (if choice false true)
+                       :on-click (fn [e] (swap! search-data assoc-in [:history] (update-history choice)))}]]))
 
 (defn graph []
   [rui/paper {:class-name "col-md-12" :z-depth 4 :style {:margin-top "20px" :display (if-not (:graphics @search-data) "none")}} ;}}
-   [rui/icon-button {:tooltip          (tr [:graph/zatvori])
+   [rui/icon-button {:tooltip          (trans [:graph/zatvori])
                      :tooltip-position "bottom-left"
                      :on-click         (fn [] (swap! search-data assoc-in [:graph-selection] nil) (swap! search-data assoc-in [:graphics] false))
                      :style            {:vertical-align "top" :float "right"}
                      :icon-style       {:color (:cyan colors)}}
                     (ic/content-clear)]
-   [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} (tr [:graph/prikaz-long])
+   [:div {:class-name "col-md-8" :style {:font-size "20px" :margin-top "12px" :display "inline-block"}} (trans [:graph/prikaz-long])
     [:div {:id "app" :style {:max-height "500px" :overflow "auto"}}]]
    [:div {:class-name "col-md-4" :style {:font-size "14px" :display "inline-block"}} (graph-right)]])
 
@@ -736,7 +740,7 @@
   [:div
    [:div {:style {:width "100%" :height "35px" :padding-left "24px" :padding-top "5px" :padding-bottom "5px" :background-color (:cyan colors)
                   :color (:pdf colors) :margin-top "10px"}} "Filtriraj: "
-    [rui/icon-button {:tooltip    (tr [:tooltip/pdf-listing])
+    [rui/icon-button {:tooltip    (trans [:tooltip/pdf-listing])
                       :on-click   export-pdf
                       :style      {:vertical-align "top" :float "right" :margin-top "-12px" :color "black"}
                       :icon-style {:width "24px" :height "24px" :color (:pdf colors) :tooltip-position "bottom-left"}}
@@ -744,19 +748,19 @@
    [:div {:style {:font-size       "14px" :font-family "Roboto, sans-serif" :font-weight "bold" :height "48px" :padding-left "24px" :padding-top "5px"
                   :display         "flex" :align-items "left"
                   :justify-content "left" :color "rgb(33, 150, 243)"}}
-    [:div [rui/checkbox {:label    (tr [:filter/bh]) :label-style {:width "inherit" :color (:bh colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (trans [:filter/bh]) :label-style {:width "inherit" :color (:bh colors)} :style {:margin-left "24px"}
                          :checked  (:1 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:1] is-checked))}]]
-    [:div [rui/checkbox {:label    (tr [:filter/yu]) :label-style {:width "inherit" :color (:yu colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (trans [:filter/yu]) :label-style {:width "inherit" :color (:yu colors)} :style {:margin-left "24px"}
                          :checked  (:2 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:2] is-checked))}]]
-    [:div [rui/checkbox {:label    (tr [:filter/obavezna]) :label-style {:width "inherit" :color (:jus1 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (trans [:filter/obavezna]) :label-style {:width "inherit" :color (:jus1 colors)} :style {:margin-left "24px"}
                          :checked  (:3 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:3] is-checked))}]]
-    [:div [rui/checkbox {:label    (tr [:filter/djelimicno]) :label-style {:width "inherit" :color (:jus2 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (trans [:filter/djelimicno]) :label-style {:width "inherit" :color (:jus2 colors)} :style {:margin-left "24px"}
                          :checked  (:4 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:4] is-checked))}]]
-    [:div [rui/checkbox {:label    (tr [:filter/upotreba]) :label-style {:width "inherit" :color (:jus3 colors)} :style {:margin-left "24px"}
+    [:div [rui/checkbox {:label    (trans [:filter/upotreba]) :label-style {:width "inherit" :color (:jus3 colors)} :style {:margin-left "24px"}
                          :checked  (:5 @view-filter)
                          :on-check (fn [_ is-checked] (swap! view-filter assoc-in [:5] is-checked))}]]]])
 
@@ -782,7 +786,7 @@
         (when (and (= @tab-index 0) (= count-c 0)) (reset! tab-index 1))
         (when (and (= @tab-index 1) (= count-p 0)) (reset! tab-index 0))
         [:div {:class "foo" :style {:padding-bottom "0px" :padding-top "0px" :font-size "16px" :font-family "Roboto, sans-serif"} :key "sr"}
-         [rui/icon-button {:tooltip    (tr [:search/brisi])
+         [rui/icon-button {:tooltip    (trans [:search/brisi])
                            :on-click   #(clear-criteria)
                            :style      {:vertical-align "top" :float "right" :margin-top "-10px" :height "24px"}
                            :icon-style {:width "24px" :height "24px" :color "white"} :tooltip-position "bottom-left"} (ic/content-clear)]
@@ -797,9 +801,9 @@
 
             (when-not (:graphics search)
               (case @tab-index
-                0 (if (> count-c 0) [pretraga (ac-source childs) (tr [:search/vezani])])
-                1 (if (> count-p 0) [pretraga (ac-source parents) (tr [:search/vezuju])])
-                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) (tr [:search/zapamceni])))
+                0 (if (> count-c 0) [pretraga (ac-source childs) (trans [:search/vezani])])
+                1 (if (> count-p 0) [pretraga (ac-source parents) (trans [:search/vezuju])])
+                2 (if (> count-h 0) (pretraga (ac-source (mapv #(get-doc-data % db) (take history-size (map :id (:history search))))) (trans [:search/zapamceni])))
                 [:div ""]))
             [rui/tabs {:style     {:margin-top "20px"} :initialSelectedIndex (if (empty? childs) 1 0)
                        :value     @tab-index
@@ -807,33 +811,36 @@
                                     (if (= 2 (.-index (.-props x))) (veze-history))
                                     (reset! candidate {:id nil :veze 0 :search-text ""})
                                     (reset! tab-index (.-index (.-props x))))}
-             [rui/tab {:label (tr [:tabs/vezani]) :value 0 :disabled (if (empty? childs) true false)}
+             [rui/tab {:label (trans [:tabs/vezani]) :value 0 :disabled (if (empty? childs) true false)}
               badges
               (docs-table childs "" "" false)
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter)) childs)
                                           :childs
                                           result))]
-             [rui/tab {:label (tr [:tabs/vezan-za]) :value 1 :disabled (if (empty? parents) true false)}
+             [rui/tab {:label (trans [:tabs/vezan-za]) :value 1 :disabled (if (empty? parents) true false)}
               badges
               (docs-table parents "" "" false)
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter)) parents)
                                           :parents
                                           result))]
-             [rui/tab {:label (tr [:tabs/zapamceni]) :value 2 :disabled (if (empty? history-list) true false)}
+             [rui/tab {:label (trans [:tabs/zapamceni]) :value 2 :disabled (if (empty? history-list) true false)}
               badges
-              (history history-list "")
+              (js/console.log
+                "h-l : " history-list
+                "hist : "(history history-list "" db))
+              [history history-list "" db]
               (filter-menu view-filter #(pdf/export-pdf
                                           (mapv (fn [x] (criteria-pdf x view-filter))
-                                                (map (fn [y] (get-doc-data (:id y) @db-tree))  history-list))
+                                                (map (fn [y] (get-doc-data (:id y) db))  history-list))
                                           :history
                                           result))]]]
            (do (reset! tab-index 0)
                [:div
                 (docs-table veza-path (if (= (:Naredba result-veza) 0) (str (str (:name result-veza) ":" (:JUSgodina result-veza)) " " (:title result-veza))
-                                                                       (:title result-veza)) (tr [:veze/veza-sa]) false)
-                (pretraga (ac-source veza-path) (tr [:search/zapamceni]))]))]))))
+                                                                       (:title result-veza)) (trans [:veze/veza-sa]) false)
+                (pretraga (ac-source veza-path) (trans [:search/zapamceni]))]))]))))
 
 
 
@@ -860,7 +867,7 @@
         current-lang @lang]
     [rui/mui-theme-provider {:mui-theme (ui/get-mui-theme {:palette {:text-color (:blue colors)}})}
      [:div
-      [rui/app-bar {:title              (tr [:title])
+      [rui/app-bar {:title              (trans [:title])
                     :title-style        {:text-align "center"}
                     :icon-element-left  logo
                     :icon-style-left    {:width "100px"}
@@ -886,7 +893,7 @@
          [:div {:class-name "col-md-12" :style {:width "10%" :position "absolute" :top "95px" :left "45%" :z-index 1100}}
           [legend-h]]
          [rui/toggle
-          {:label     (tr [:graph/prikaz])
+          {:label     (trans [:graph/prikaz])
            :toggled (if (:graphics search-d) (:graphics search-d) false)
            :on-toggle (fn [_ checked] (swap! search-data assoc-in [:graphics] checked))
            :label-position :right
@@ -897,7 +904,7 @@
                                      :transition-enter-timeout 600
                                      :transition-leave-timeout 500}
            (if-not (:selection search-d)
-             (pretraga (ac-source @db-tree) (tr [:search/title]))
+             (pretraga (ac-source @db-tree) (trans [:search/title]))
              [search-result])]]])
       [graph]]]))
 
