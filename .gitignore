@@ -25,3 +25,4 @@ dev-resources/
 ~$ctionary.docx
 resources/public/img/tree.png
 *.docx
+db/reagent-tree.sqlite
