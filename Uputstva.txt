@@ -1,0 +1,35 @@
+
+
+
+Run `lein figwheel` to start figwheel and compile the clojurescript.
+Run `lein rel-jar` to generate a runnable jar file.
+
+
+1. lein repl
+(use 'figwheel-sidecar.repl-api)
+(start-figwheel!)
+(cljs-repl)
+
+SHIFT-INSERT ---> PASTE !!!!!
+
+KOMPILACIJA BEZ FIGWHEEL-a !!!!
+
+lein with-profile -dev,+uberjar cljsbuild once adv
+
+PROMJENA KONFIGURACIJE !!!!
+
+java -jar -Dclosp-config-path=./resources/jus.edn jus-new.jar
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Instalacija na BAS WEB Server (10.0.5.2)
+
+jus.rar u folder C:\webdata\wwwroot\jus
+img - folder na C:\webdata\wwwroot\img
+resources\public\js kopiraj fajlove na C:\webdata\wwwroot\js\
+pdf - folder na C:\webdata\wwwroot\pdf
+resources\public\css - kopiraj fajlove i foldere na C:\webdata\wwwroot\css
+resources\public\fonts - kopiraj fajlove na C:\webdata\wwwroot\fonts
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
