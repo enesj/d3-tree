@@ -21,7 +21,10 @@ Also, you can save (remember) documents of your interest for later investigation
 
 You can switch on toggle *Graph View* to show graphic presentation of all connections on the bottom of the screen.
 
-![screenshoot] (/eJUs.png)
+
+
+
+![](eJUs.png)
 
 
 
