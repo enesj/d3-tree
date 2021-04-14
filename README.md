@@ -37,5 +37,5 @@ Template https://github.com/sveri/closp has been used for server (backend) part.
 Database is Sqlite, frontend application is made with Reagent (https://github.com/reagent-project/reagent) and D3.js
 
 
-Copyright © 2017 **Institut for standardization BiH** http://www.bas.gov.ba
+Copyright © 2017 **Institut for standardization BiH** http://www.isbih.gov.ba
 
