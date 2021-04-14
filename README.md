@@ -1,6 +1,6 @@
 # eJUS
 
-web: http://www.bas.gov.ba/jus
+web: http://www.isbih.gov.ba/jus
 
 
 
